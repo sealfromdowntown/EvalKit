@@ -59,6 +59,622 @@
           "PUNGGOL"
         ]
       ]
+    },
+    "gen-avg-ang-mo-kio-5-room-2020": {
+      "sqlHash": "db4388b16fbb0777",
+      "columns": [
+        "AVG(resale_price)"
+      ],
+      "rows": [
+        [
+          654862.6234567901
+        ]
+      ]
+    },
+    "gen-avg-bedok-3-room-2019": {
+      "sqlHash": "caf14d4e564dff54",
+      "columns": [
+        "AVG(resale_price)"
+      ],
+      "rows": [
+        [
+          283983.62890625
+        ]
+      ]
+    },
+    "gen-avg-bukit-batok-4-room-2023": {
+      "sqlHash": "3a751d379da5c968",
+      "columns": [
+        "AVG(resale_price)"
+      ],
+      "rows": [
+        [
+          587163.8709677419
+        ]
+      ]
+    },
+    "gen-avg-jurong-west-3-room-2024": {
+      "sqlHash": "c20b3a60eb88e7b6",
+      "columns": [
+        "AVG(resale_price)"
+      ],
+      "rows": [
+        [
+          378441
+        ]
+      ]
+    },
+    "gen-avg-punggol-executive-2023": {
+      "sqlHash": "a3a87e5af686e7ab",
+      "columns": [
+        "AVG(resale_price)"
+      ],
+      "rows": [
+        [
+          737354.1818181818
+        ]
+      ]
+    },
+    "gen-avg-serangoon-5-room-2017": {
+      "sqlHash": "658a4f4feb29e88c",
+      "columns": [
+        "AVG(resale_price)"
+      ],
+      "rows": [
+        [
+          567259.5223880596
+        ]
+      ]
+    },
+    "gen-avg-woodlands-3-room-2022": {
+      "sqlHash": "0f07f4d97b3a93de",
+      "columns": [
+        "AVG(resale_price)"
+      ],
+      "rows": [
+        [
+          360883.91769547324
+        ]
+      ]
+    },
+    "gen-avg-woodlands-executive-2018": {
+      "sqlHash": "042907ebf640ce08",
+      "columns": [
+        "AVG(resale_price)"
+      ],
+      "rows": [
+        [
+          587604.3218390804
+        ]
+      ]
+    },
+    "gen-avg-yishun-3-room-2019": {
+      "sqlHash": "a393980b71c25880",
+      "columns": [
+        "AVG(resale_price)"
+      ],
+      "rows": [
+        [
+          272488.7248908297
+        ]
+      ]
+    },
+    "gen-avg-yishun-4-room-2024": {
+      "sqlHash": "5790fa4b5086f4a3",
+      "columns": [
+        "AVG(resale_price)"
+      ],
+      "rows": [
+        [
+          538154.4496644295
+        ]
+      ]
+    },
+    "gen-count-bedok-2017": {
+      "sqlHash": "7b4be3449ccdb148",
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          1148
+        ]
+      ]
+    },
+    "gen-count-choa-chu-kang-2018": {
+      "sqlHash": "9b2951796fea4471",
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          933
+        ]
+      ]
+    },
+    "gen-count-clementi-2018": {
+      "sqlHash": "74d9dd109061fd27",
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          486
+        ]
+      ]
+    },
+    "gen-count-clementi-2025": {
+      "sqlHash": "09bc2bb3044dc20c",
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          551
+        ]
+      ]
+    },
+    "gen-count-flat-3-room-2020": {
+      "sqlHash": "064f04a5d953834b",
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          5384
+        ]
+      ]
+    },
+    "gen-count-flat-3-room-2021": {
+      "sqlHash": "06dd0157c47709de",
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          6266
+        ]
+      ]
+    },
+    "gen-count-flat-3-room-2025": {
+      "sqlHash": "4a514ab3e7bf3b88",
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          6149
+        ]
+      ]
+    },
+    "gen-count-flat-4-room-2019": {
+      "sqlHash": "8ddc9bbb0805316d",
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          9228
+        ]
+      ]
+    },
+    "gen-count-flat-5-room-2017": {
+      "sqlHash": "a001f14ca805d7ae",
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          5002
+        ]
+      ]
+    },
+    "gen-count-flat-executive-2019": {
+      "sqlHash": "3cd8f89cb38d3080",
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          1669
+        ]
+      ]
+    },
+    "gen-count-hougang-2025": {
+      "sqlHash": "ff07b34add5e7f76",
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          1313
+        ]
+      ]
+    },
+    "gen-count-jurong-east-2021": {
+      "sqlHash": "5361dcdd49c541c8",
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          565
+        ]
+      ]
+    },
+    "gen-count-pasir-ris-2021": {
+      "sqlHash": "e768ccacac7ea3fe",
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          951
+        ]
+      ]
+    },
+    "gen-count-punggol-2024": {
+      "sqlHash": "d6882aa515f47ebc",
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          2027
+        ]
+      ]
+    },
+    "gen-count-queenstown-2025": {
+      "sqlHash": "af5a418924b12817",
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          605
+        ]
+      ]
+    },
+    "gen-count-tampines-2022": {
+      "sqlHash": "f2cff07c41bfc444",
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          1704
+        ]
+      ]
+    },
+    "gen-max-hougang-3-room-2017": {
+      "sqlHash": "484676b33de06385",
+      "columns": [
+        "MAX(resale_price)"
+      ],
+      "rows": [
+        [
+          362000
+        ]
+      ]
+    },
+    "gen-max-hougang-5-room-2024": {
+      "sqlHash": "1e28156140ba3225",
+      "columns": [
+        "MAX(resale_price)"
+      ],
+      "rows": [
+        [
+          1150000
+        ]
+      ]
+    },
+    "gen-max-jurong-west-4-room-2023": {
+      "sqlHash": "85c894f9533684b1",
+      "columns": [
+        "MAX(resale_price)"
+      ],
+      "rows": [
+        [
+          702000
+        ]
+      ]
+    },
+    "gen-max-jurong-west-4-room-2024": {
+      "sqlHash": "dc98f0b17560a791",
+      "columns": [
+        "MAX(resale_price)"
+      ],
+      "rows": [
+        [
+          742000
+        ]
+      ]
+    },
+    "gen-max-kallang-whampoa-4-room-2017": {
+      "sqlHash": "482d0adeb73791d4",
+      "columns": [
+        "MAX(resale_price)"
+      ],
+      "rows": [
+        [
+          850000
+        ]
+      ]
+    },
+    "gen-max-serangoon-4-room-2023": {
+      "sqlHash": "a54b309d253fa5c8",
+      "columns": [
+        "MAX(resale_price)"
+      ],
+      "rows": [
+        [
+          850000
+        ]
+      ]
+    },
+    "gen-max-serangoon-executive-2020": {
+      "sqlHash": "53607417b576c8e0",
+      "columns": [
+        "MAX(resale_price)"
+      ],
+      "rows": [
+        [
+          960000
+        ]
+      ]
+    },
+    "gen-max-woodlands-4-room-2024": {
+      "sqlHash": "711d41f715203d22",
+      "columns": [
+        "MAX(resale_price)"
+      ],
+      "rows": [
+        [
+          745000
+        ]
+      ]
+    },
+    "gen-median-bukit-panjang-5-room-2017": {
+      "sqlHash": "ec6db34eeeb00070",
+      "columns": [
+        "AVG(resale_price)"
+      ],
+      "rows": [
+        [
+          468000
+        ]
+      ]
+    },
+    "gen-median-choa-chu-kang-4-room-2017": {
+      "sqlHash": "2409968a17e8519d",
+      "columns": [
+        "AVG(resale_price)"
+      ],
+      "rows": [
+        [
+          345000
+        ]
+      ]
+    },
+    "gen-median-choa-chu-kang-5-room-2025": {
+      "sqlHash": "af9a80c0beded592",
+      "columns": [
+        "AVG(resale_price)"
+      ],
+      "rows": [
+        [
+          668944
+        ]
+      ]
+    },
+    "gen-median-geylang-4-room-2025": {
+      "sqlHash": "e6489b1e1e9205c1",
+      "columns": [
+        "AVG(resale_price)"
+      ],
+      "rows": [
+        [
+          700000
+        ]
+      ]
+    },
+    "gen-median-hougang-executive-2025": {
+      "sqlHash": "644177b6f638a8e7",
+      "columns": [
+        "AVG(resale_price)"
+      ],
+      "rows": [
+        [
+          986500
+        ]
+      ]
+    },
+    "gen-median-jurong-east-5-room-2025": {
+      "sqlHash": "8908dd9890232a9f",
+      "columns": [
+        "AVG(resale_price)"
+      ],
+      "rows": [
+        [
+          695000
+        ]
+      ]
+    },
+    "gen-median-kallang-whampoa-5-room-2024": {
+      "sqlHash": "855edcdd387209b8",
+      "columns": [
+        "AVG(resale_price)"
+      ],
+      "rows": [
+        [
+          920000
+        ]
+      ]
+    },
+    "gen-median-pasir-ris-executive-2024": {
+      "sqlHash": "61894328940ecf17",
+      "columns": [
+        "AVG(resale_price)"
+      ],
+      "rows": [
+        [
+          859444
+        ]
+      ]
+    },
+    "gen-median-punggol-4-room-2021": {
+      "sqlHash": "688d5ac4dd9d40b2",
+      "columns": [
+        "AVG(resale_price)"
+      ],
+      "rows": [
+        [
+          495944
+        ]
+      ]
+    },
+    "gen-median-sengkang-3-room-2019": {
+      "sqlHash": "a830b5cb9239ef00",
+      "columns": [
+        "AVG(resale_price)"
+      ],
+      "rows": [
+        [
+          340000
+        ]
+      ]
+    },
+    "gen-sqm-ang-mo-kio-3-room-2018": {
+      "sqlHash": "6e2344fd55cf8135",
+      "columns": [
+        "AVG(resale_price / floor_area_sqm)"
+      ],
+      "rows": [
+        [
+          4148.611505868067
+        ]
+      ]
+    },
+    "gen-sqm-ang-mo-kio-5-room-2019": {
+      "sqlHash": "1d3d595b80e2190f",
+      "columns": [
+        "AVG(resale_price / floor_area_sqm)"
+      ],
+      "rows": [
+        [
+          5597.899361093503
+        ]
+      ]
+    },
+    "gen-sqm-central-area-3-room-2019": {
+      "sqlHash": "ac485be21e1e49e9",
+      "columns": [
+        "AVG(resale_price / floor_area_sqm)"
+      ],
+      "rows": [
+        [
+          6420.934722985021
+        ]
+      ]
+    },
+    "gen-sqm-hougang-executive-2017": {
+      "sqlHash": "7a89b1fcab060c9d",
+      "columns": [
+        "AVG(resale_price / floor_area_sqm)"
+      ],
+      "rows": [
+        [
+          4564.875713817534
+        ]
+      ]
+    },
+    "gen-sqm-marine-parade-4-room-2020": {
+      "sqlHash": "c63451fff0e09aa9",
+      "columns": [
+        "AVG(resale_price / floor_area_sqm)"
+      ],
+      "rows": [
+        [
+          5532.886657101865
+        ]
+      ]
+    },
+    "gen-sqm-punggol-5-room-2017": {
+      "sqlHash": "2cf6e2c049c274be",
+      "columns": [
+        "AVG(resale_price / floor_area_sqm)"
+      ],
+      "rows": [
+        [
+          4211.719334568123
+        ]
+      ]
+    },
+    "gen-sqm-serangoon-3-room-2021": {
+      "sqlHash": "6c0b920cdaa1ebeb",
+      "columns": [
+        "AVG(resale_price / floor_area_sqm)"
+      ],
+      "rows": [
+        [
+          5329.679297429522
+        ]
+      ]
+    },
+    "gen-sqm-tampines-3-room-2024": {
+      "sqlHash": "71e75645c05b7baa",
+      "columns": [
+        "AVG(resale_price / floor_area_sqm)"
+      ],
+      "rows": [
+        [
+          6767.399448015368
+        ]
+      ]
+    },
+    "gen-top-town-2017": {
+      "sqlHash": "9433569c6cf3b9e8",
+      "columns": [
+        "town"
+      ],
+      "rows": [
+        [
+          "JURONG WEST"
+        ]
+      ]
+    },
+    "gen-top-town-2019": {
+      "sqlHash": "4c6a5b3c830a1569",
+      "columns": [
+        "town"
+      ],
+      "rows": [
+        [
+          "SENGKANG"
+        ]
+      ]
+    },
+    "gen-top-town-2021": {
+      "sqlHash": "62445ef5c86efb59",
+      "columns": [
+        "town"
+      ],
+      "rows": [
+        [
+          "SENGKANG"
+        ]
+      ]
+    },
+    "gen-top-town-2024": {
+      "sqlHash": "0ad725053e77bd17",
+      "columns": [
+        "town"
+      ],
+      "rows": [
+        [
+          "SENGKANG"
+        ]
+      ]
     }
   }
 }
