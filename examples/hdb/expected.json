@@ -1,0 +1,64 @@
+{
+  "dataset": {
+    "rowCount": 242259,
+    "firstMonth": "2017-01",
+    "lastMonth": "2026-10"
+  },
+  "cases": {
+    "count-tampines-2024": {
+      "sqlHash": "caed04a0952afdfa",
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          1961
+        ]
+      ]
+    },
+    "avg-4room-bedok-2023": {
+      "sqlHash": "dcbad4495529218b",
+      "columns": [
+        "AVG(resale_price)"
+      ],
+      "rows": [
+        [
+          572050.3680709534
+        ]
+      ]
+    },
+    "max-resale-price-overall": {
+      "sqlHash": "6a456a81e119729e",
+      "columns": [
+        "MAX(resale_price)"
+      ],
+      "rows": [
+        [
+          1728000
+        ]
+      ]
+    },
+    "median-5room-punggol-2024": {
+      "sqlHash": "bcdc7f85fc93449c",
+      "columns": [
+        "AVG(resale_price)"
+      ],
+      "rows": [
+        [
+          720000
+        ]
+      ]
+    },
+    "top-town-by-transactions-2023": {
+      "sqlHash": "458fddb17dff64c0",
+      "columns": [
+        "town"
+      ],
+      "rows": [
+        [
+          "PUNGGOL"
+        ]
+      ]
+    }
+  }
+}
