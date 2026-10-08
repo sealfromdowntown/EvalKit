@@ -1,0 +1,43 @@
+- id: count-tampines-2024
+  question: "How many resale transactions were there in Tampines in 2024?"
+  reference_sql: |
+    SELECT COUNT(*) FROM resale
+    WHERE town = 'TAMPINES' AND month LIKE '2024%'
+  tags: [single-table, count]
+
+- id: avg-4room-bedok-2023
+  question: "What was the average resale price of 4-room flats in Bedok in 2023?"
+  reference_sql: |
+    SELECT AVG(resale_price) FROM resale
+    WHERE town = 'BEDOK' AND flat_type = '4 ROOM' AND month LIKE '2023%'
+  tags: [single-table, average]
+
+- id: max-resale-price-overall
+  question: "What is the highest resale price in the dataset?"
+  reference_sql: |
+    SELECT MAX(resale_price) FROM resale
+  tags: [single-table, max]
+
+- id: median-5room-punggol-2024
+  question: "What was the median resale price of 5-room flats in Punggol in 2024?"
+  reference_sql: |
+    SELECT AVG(resale_price) FROM (
+      SELECT resale_price FROM resale
+      WHERE town = 'PUNGGOL' AND flat_type = '5 ROOM' AND month LIKE '2024%'
+      ORDER BY resale_price
+      LIMIT 2 - (SELECT COUNT(*) FROM resale
+                 WHERE town = 'PUNGGOL' AND flat_type = '5 ROOM' AND month LIKE '2024%') % 2
+      OFFSET (SELECT (COUNT(*) - 1) / 2 FROM resale
+              WHERE town = 'PUNGGOL' AND flat_type = '5 ROOM' AND month LIKE '2024%')
+    )
+  tags: [single-table, median]
+
+- id: top-town-by-transactions-2023
+  question: "Which town had the most resale transactions in 2023?"
+  reference_sql: |
+    SELECT town FROM resale
+    WHERE month LIKE '2023%'
+    GROUP BY town
+    ORDER BY COUNT(*) DESC
+    LIMIT 1
+  tags: [single-table, group-by]
