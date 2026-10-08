@@ -1,0 +1,6 @@
+node_modules/
+.env
+*.db
+*.db-journal
+examples/hdb/data/
+dist/
