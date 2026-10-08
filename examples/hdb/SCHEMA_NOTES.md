@@ -1,15 +1,16 @@
-# HDB schema notes (2017-onwards file)
+## How cases are generated
 
-- 242,259 rows, months 2017-01 to 2026-10. The last month is partial,
-  so "in 2026" is a partial year and "last year" is ambiguous.
-- Towns and flat_type are UPPERCASE ('TAMPINES', '4 ROOM').
-- flat_model is mixed case ('Model A', '2-room', '3Gen'), unlike the other text columns.
-- 'Multi Generation' (flat_model) vs 'MULTI-GENERATION' (flat_type): hyphen vs space.
-- Town 'KALLANG/WHAMPOA' contains a slash. 'CENTRAL AREA' has a space.
-- storey_range is a text bucket in 17 steps ('01 TO 03' ... '49 TO 51'), zero-padded.
-  "Above the 20th floor" is ambiguous because '19 TO 21' straddles floor 20.
-- remaining_lease is text ('61 years 04 months'; '1 month' is singular).
-  Zero NULLs in this file, but older files may differ.
-- Small groups: MULTI-GENERATION has 91 rows and 1 ROOM has 89. A town x flat_type x
-  year combination can easily be empty, so templates must check that
-  expected results are non-empty (or include empty results as a deliberate case).
+- `npm run hdb:generate` fills question templates (count, average, median, max,
+  price per sqm, count by flat type, top town) using a fixed seed (20260101),
+  so output is identical on every run.
+- Only complete calendar years are used (2026 is partial), and only 3 ROOM,
+  4 ROOM, 5 ROOM and EXECUTIVE flats (other types are too small).
+- A candidate case is kept only if at least 30 rows support the answer (50 for
+  count questions, 1000 for the top-town question) and the top-town answer is not a tie.
+- Questions use natural casing ('Ang Mo Kio', '4-room'); the SQL filters on stored
+  values ('ANG MO KIO', '4 ROOM'). Models are not told the stored casing in the v1 prompt.
+- About 20% of generated cases are assigned to the held-out `test` split by hashing
+  the case id. `evalkit run` skips them unless `--split test` or `--split all` is used.
+- Medians use the sort/OFFSET pattern because SQLite has no median function.
+- Changing the templates, quotas or seed reshuffles the output, so rerun
+  `compute-expected` afterwards.
