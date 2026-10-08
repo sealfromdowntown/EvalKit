@@ -11,7 +11,8 @@
     "test": "vitest run",
     "typecheck": "tsc --noEmit",
     "sanity": "tsx --env-file=.env scripts/sanity.ts",
-    "hdb:setup": "tsx examples/hdb/setup.ts"
+    "hdb:setup": "tsx examples/hdb/setup.ts",
+    "try:model": "tsx --env-file=.env scripts/try-model.ts"
   },
   "engines": {
     "node": ">=20.6"
