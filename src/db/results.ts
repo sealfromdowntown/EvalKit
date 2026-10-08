@@ -19,6 +19,31 @@ export function openResultsDb(path: string): Database.Database {
       cost_usd         REAL,
       created_at       TEXT NOT NULL
     );
+
+    CREATE TABLE IF NOT EXISTS runs (
+      run_id          TEXT PRIMARY KEY,
+      started_at      TEXT NOT NULL,
+      split           TEXT NOT NULL,
+      candidate_count INTEGER NOT NULL,
+      case_count      INTEGER NOT NULL
+    );
+
+    CREATE TABLE IF NOT EXISTS scores (
+      run_id         TEXT NOT NULL,
+      candidate      TEXT NOT NULL,
+      case_id        TEXT NOT NULL,
+      passed         INTEGER NOT NULL,
+      failure        TEXT,
+      detail         TEXT,
+      model_sql      TEXT,
+      actual_preview TEXT,
+      cached         INTEGER,
+      latency_ms     INTEGER,
+      tokens_in      INTEGER,
+      tokens_out     INTEGER,
+      cost_usd       REAL,
+      PRIMARY KEY (run_id, candidate, case_id)
+    );
   `);
   return db;
 }

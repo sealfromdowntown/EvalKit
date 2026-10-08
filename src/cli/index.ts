@@ -1,6 +1,7 @@
 import { Command } from "commander";
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { loadCases } from "../cases/load";
+import { registerRun } from "./run";
 import {
   computeExpected,
   hashSql,
@@ -77,7 +78,8 @@ program
     console.log(`Dataset: ${d.rowCount} rows, ${d.firstMonth} to ${d.lastMonth}`);
     if (problems > 0) process.exitCode = 1;
   });
-
+  
+registerRun(program);
 program.parseAsync(process.argv).catch((e: unknown) => {
   console.error(e instanceof Error ? e.message : e);
   process.exit(1);

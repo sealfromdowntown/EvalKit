@@ -1,8 +1,16 @@
 candidates:
   - name: main-v1
     provider: openai
-    model: gpt-6-luna  # the model you used in the sanity check
+    model: gpt-6-luna
     prompt: prompts/v1.txt
+    params:
+      max_completion_tokens: 2000
+    price_per_1m_tokens: { input: 0.05, output: 0.25 }
+
+  - name: main-v2
+    provider: openai
+    model: gpt-6-luna
+    prompt: prompts/v2.txt
     params:
       max_completion_tokens: 2000
     price_per_1m_tokens: { input: 0.05, output: 0.25 }
