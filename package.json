@@ -12,7 +12,8 @@
     "typecheck": "tsc --noEmit",
     "sanity": "tsx --env-file=.env scripts/sanity.ts",
     "hdb:setup": "tsx examples/hdb/setup.ts",
-    "try:model": "tsx --env-file=.env scripts/try-model.ts"
+    "try:model": "tsx --env-file=.env scripts/try-model.ts",
+    "hdb:generate": "tsx examples/hdb/generate.ts"
   },
   "engines": {
     "node": ">=20.6"
