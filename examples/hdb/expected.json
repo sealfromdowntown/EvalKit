@@ -675,6 +675,142 @@
           "SENGKANG"
         ]
       ]
+    },
+    "hard-top-price-gainer-town-2022-2023": {
+      "sqlHash": "a78b76feb17d2d45",
+      "columns": [
+        "town"
+      ],
+      "rows": [
+        [
+          "BUKIT TIMAH"
+        ]
+      ]
+    },
+    "hard-share-5room-punggol-2024": {
+      "sqlHash": "30e9cba9c91207d3",
+      "columns": [
+        "100.0 * SUM(CASE WHEN flat_type = '5 ROOM' THEN 1 ELSE 0 END) / COUNT(*)"
+      ],
+      "rows": [
+        [
+          31.86975826344351
+        ]
+      ]
+    },
+    "hard-distinct-streets-above-1m-2024": {
+      "sqlHash": "806aa17d62727c1b",
+      "columns": [
+        "COUNT(DISTINCT street_name)"
+      ],
+      "rows": [
+        [
+          146
+        ]
+      ]
+    },
+    "hard-towns-4room-avg-under-500k-2021": {
+      "sqlHash": "64a58bc21325bad1",
+      "columns": [
+        "town"
+      ],
+      "rows": [
+        [
+          "ANG MO KIO"
+        ],
+        [
+          "BEDOK"
+        ],
+        [
+          "BUKIT BATOK"
+        ],
+        [
+          "BUKIT PANJANG"
+        ],
+        [
+          "CHOA CHU KANG"
+        ],
+        [
+          "HOUGANG"
+        ],
+        [
+          "JURONG EAST"
+        ],
+        [
+          "JURONG WEST"
+        ],
+        [
+          "MARINE PARADE"
+        ],
+        [
+          "PASIR RIS"
+        ],
+        [
+          "PUNGGOL"
+        ],
+        [
+          "SEMBAWANG"
+        ],
+        [
+          "SENGKANG"
+        ],
+        [
+          "SERANGOON"
+        ],
+        [
+          "TAMPINES"
+        ],
+        [
+          "WOODLANDS"
+        ],
+        [
+          "YISHUN"
+        ]
+      ]
+    },
+    "hard-count-premium-apartment-sengkang-2023-above-600k": {
+      "sqlHash": "537ed8e4e21ed352",
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          296
+        ]
+      ]
+    },
+    "hard-avg-sqm-bishan-3-4-room-2022": {
+      "sqlHash": "c8408301ec229836",
+      "columns": [
+        "AVG(resale_price / floor_area_sqm)"
+      ],
+      "rows": [
+        [
+          6429.933842677201
+        ]
+      ]
+    },
+    "hard-count-big-flats-tampines-bedok-2023": {
+      "sqlHash": "577359108218e288",
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          1326
+        ]
+      ]
+    },
+    "hard-count-woodlands-4room-10th-floor-2022": {
+      "sqlHash": "37010ff6fcf3dee6",
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          256
+        ]
+      ]
     }
   }
 }

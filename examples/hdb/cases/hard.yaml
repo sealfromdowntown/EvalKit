@@ -1,0 +1,81 @@
+- id: hard-top-price-gainer-town-2022-2023
+  question: "Comparing each town's average resale price (all flat types) in calendar year 2022 with its average in 2023, which town had the largest increase in dollars? Return only the town name."
+  reference_sql: |
+    WITH y22 AS (
+      SELECT town, AVG(resale_price) AS p FROM resale
+      WHERE month LIKE '2022-%' GROUP BY town
+    ),
+    y23 AS (
+      SELECT town, AVG(resale_price) AS p FROM resale
+      WHERE month LIKE '2023-%' GROUP BY town
+    )
+    SELECT y23.town FROM y22 JOIN y23 USING (town)
+    ORDER BY y23.p - y22.p DESC
+    LIMIT 1
+  tags: [single-table, hard, multi-step, comparison]
+
+- id: hard-share-5room-punggol-2024
+  question: "In 2024, what percentage of resale transactions in Punggol were for 5-room flats? Return a number between 0 and 100."
+  reference_sql: |
+    SELECT 100.0 * SUM(CASE WHEN flat_type = '5 ROOM' THEN 1 ELSE 0 END) / COUNT(*)
+    FROM resale
+    WHERE town = 'PUNGGOL' AND month LIKE '2024-%'
+  tags: [single-table, hard, multi-step, share]
+
+- id: hard-distinct-streets-above-1m-2024
+  question: "In 2024, how many distinct street names had at least one resale transaction priced strictly above $1,000,000? Return a single number."
+  reference_sql: |
+    SELECT COUNT(DISTINCT street_name) FROM resale
+    WHERE resale_price > 1000000 AND month LIKE '2024-%'
+  tags: [single-table, hard, multi-step, distinct-count]
+
+- id: hard-towns-4room-avg-under-500k-2021
+  question: "In 2021, which towns had an average 4-room resale price below $500,000? Return the town names, one per row, in alphabetical order."
+  reference_sql: |
+    SELECT town FROM resale
+    WHERE flat_type = '4 ROOM' AND month LIKE '2021-%'
+    GROUP BY town
+    HAVING AVG(resale_price) < 500000
+    ORDER BY town
+  tags: [single-table, hard, multi-step, having]
+  compare:
+    ordered: true
+
+- id: hard-count-premium-apartment-sengkang-2023-above-600k
+  question: "How many 'Premium Apartment' flats were sold in Sengkang in 2023 for strictly more than $600,000? Return a single number."
+  reference_sql: |
+    SELECT COUNT(*) FROM resale
+    WHERE flat_model = 'Premium Apartment'
+      AND town = 'SENGKANG'
+      AND month LIKE '2023-%'
+      AND resale_price > 600000
+  tags: [single-table, hard, multi-filter, value-format]
+
+- id: hard-avg-sqm-bishan-3-4-room-2022
+  question: "For 3-room and 4-room flats in Bishan sold in 2022, what is the average of resale price divided by floor area (dollars per square metre), taking the average over individual flats? Return a single number."
+  reference_sql: |
+    SELECT AVG(resale_price / floor_area_sqm) FROM resale
+    WHERE town = 'BISHAN'
+      AND flat_type IN ('3 ROOM', '4 ROOM')
+      AND month LIKE '2022-%'
+  tags: [single-table, hard, multi-filter, derived-metric]
+
+- id: hard-count-big-flats-tampines-bedok-2023
+  question: "How many flats with a floor area of at least 100 square metres were sold in Tampines or Bedok in 2023, excluding 3-room flats? Return a single number."
+  reference_sql: |
+    SELECT COUNT(*) FROM resale
+    WHERE town IN ('TAMPINES', 'BEDOK')
+      AND flat_type <> '3 ROOM'
+      AND floor_area_sqm >= 100
+      AND month LIKE '2023-%'
+  tags: [single-table, hard, multi-filter]
+
+- id: hard-count-woodlands-4room-10th-floor-2022
+  question: "How many 4-room flats in Woodlands were sold in 2022 on the 10th floor or higher? Count a flat as 10th floor or higher if the lowest floor in its storey range is 10 or above. Return a single number."
+  reference_sql: |
+    SELECT COUNT(*) FROM resale
+    WHERE town = 'WOODLANDS'
+      AND flat_type = '4 ROOM'
+      AND month LIKE '2022-%'
+      AND CAST(substr(storey_range, 1, 2) AS INTEGER) >= 10
+  tags: [single-table, hard, multi-filter, storey]
