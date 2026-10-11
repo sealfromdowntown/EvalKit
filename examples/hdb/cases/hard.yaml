@@ -79,3 +79,116 @@
       AND month LIKE '2022-%'
       AND CAST(substr(storey_range, 1, 2) AS INTEGER) >= 10
   tags: [single-table, hard, multi-filter, storey]
+
+- id: hard-count-multi-generation-all
+  question: "How many multi-generation flats were sold in total across the whole dataset? Return a single number."
+  reference_sql: |
+    SELECT COUNT(*) FROM resale
+    WHERE flat_type = 'MULTI-GENERATION'
+  tags: [single-table, hard, value-format]
+
+- id: hard-count-1-room-all
+  question: "How many 1-room flats were sold in total across the whole dataset? Return a single number."
+  reference_sql: |
+    SELECT COUNT(*) FROM resale
+    WHERE flat_type = '1 ROOM'
+  tags: [single-table, hard, value-format]
+
+- id: hard-avg-five-room-sengkang-2022
+  question: "What was the average resale price of five-room flats in Sengkang in 2022? Return a single number."
+  reference_sql: |
+    SELECT AVG(resale_price) FROM resale
+    WHERE town = 'SENGKANG' AND flat_type = '5 ROOM' AND month LIKE '2022-%'
+  tags: [single-table, hard, value-format, wording]
+
+- id: hard-count-storey-1-3-tampines-2023
+  question: "How many flats on floors 1 to 3 (the lowest storey band) were sold in Tampines in 2023? Return a single number."
+  reference_sql: |
+    SELECT COUNT(*) FROM resale
+    WHERE town = 'TAMPINES' AND storey_range = '01 TO 03' AND month LIKE '2023-%'
+  tags: [single-table, hard, value-format, storey]
+
+- id: hard-count-punggol-q1-2024
+  question: "How many resale transactions were there in Punggol in the first quarter of 2024 (January to March inclusive)? Return a single number."
+  reference_sql: |
+    SELECT COUNT(*) FROM resale
+    WHERE town = 'PUNGGOL' AND month BETWEEN '2024-01' AND '2024-03'
+  tags: [single-table, hard, value-format, date-range]
+
+- id: hard-count-central-area-3-room-2020-2022
+  question: "How many 3-room flats were sold in Central Area from 2020 to 2022, inclusive of both years? Return a single number."
+  reference_sql: |
+    SELECT COUNT(*) FROM resale
+    WHERE town = 'CENTRAL AREA' AND flat_type = '3 ROOM'
+      AND month BETWEEN '2020-01' AND '2022-12'
+  tags: [single-table, hard, value-format, date-range]
+
+- id: hard-avg-model-a-tampines-2019
+  question: "What was the average resale price of flats whose flat model is exactly 'Model A' (not 'Model A2' or 'Model A-Maisonette') in Tampines in 2019? Return a single number."
+  reference_sql: |
+    SELECT AVG(resale_price) FROM resale
+    WHERE town = 'TAMPINES' AND flat_model = 'Model A' AND month LIKE '2019-%'
+  tags: [single-table, hard, value-format, flat-model]
+
+- id: hard-count-new-generation-ang-mo-kio-2018
+  question: "How many 'New Generation' flats were sold in Ang Mo Kio in 2018? Return a single number."
+  reference_sql: |
+    SELECT COUNT(*) FROM resale
+    WHERE town = 'ANG MO KIO' AND flat_model = 'New Generation' AND month LIKE '2018-%'
+  tags: [single-table, hard, value-format, flat-model]
+
+- id: hard-count-dbss-2017-2025
+  question: "How many DBSS flats were sold from 2017 to 2025, inclusive of both years? Return a single number."
+  reference_sql: |
+    SELECT COUNT(*) FROM resale
+    WHERE flat_model = 'DBSS' AND month BETWEEN '2017-01' AND '2025-12'
+  tags: [single-table, hard, value-format, flat-model, date-range]
+
+- id: hard-avg-4rm-toa-payoh-2023
+  question: "What was the average resale price of 4rm flats in Toa Payoh in 2023? Return a single number."
+  reference_sql: |
+    SELECT AVG(resale_price) FROM resale
+    WHERE town = 'TOA PAYOH' AND flat_type = '4 ROOM' AND month LIKE '2023-%'
+  tags: [single-table, hard, value-format, wording]
+
+- id: hard-format-premium-apartment-sengkang-2023
+  question: "How many resale transactions in Sengkang in 2023 were flats with the model Premium Apartment? Return a single number."
+  reference_sql: |
+    SELECT COUNT(*)
+    FROM resale
+    WHERE town = 'SENGKANG'
+      AND flat_model = 'Premium Apartment'
+      AND month LIKE '2023-%'
+  tags: [hard, value-format, flat-model]
+
+- id: hard-format-4-room-tampines-2023
+  question: "How many 4-room resale flats were sold in Tampines in 2023? Return a single number."
+  reference_sql: |
+    SELECT COUNT(*)
+    FROM resale
+    WHERE flat_type = '4 ROOM'
+      AND town = 'TAMPINES'
+      AND month LIKE '2023-%'
+  tags: [hard, value-format, flat-type]
+
+- id: hard-format-premium-apartment-4-room-sengkang-2023
+  question: "How many 4-room Premium Apartment flats were sold in Sengkang in 2023? Return a single number."
+  reference_sql: |
+    SELECT COUNT(*)
+    FROM resale
+    WHERE flat_type = '4 ROOM'
+      AND flat_model = 'Premium Apartment'
+      AND town = 'SENGKANG'
+      AND month LIKE '2023-%'
+  tags: [hard, value-format, mixed-formats]
+
+- id: hard-flat-model-premium-sengkang-2023
+  question: "How many 4 ROOM flats in Sengkang in 2023 had the flat model Premium Apartment? Return a single number."
+  reference_sql: |
+    SELECT COUNT(*)
+    FROM resale
+    WHERE town = 'SENGKANG'
+      AND flat_type = '4 ROOM'
+      AND flat_model = 'Premium Apartment'
+      AND month LIKE '2023-%'
+  tags: [hard, value-format, flat-model]

@@ -811,6 +811,160 @@
           256
         ]
       ]
+    },
+    "hard-count-multi-generation-all": {
+      "sqlHash": "56a05d4a21a331ec",
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          91
+        ]
+      ]
+    },
+    "hard-count-1-room-all": {
+      "sqlHash": "0edc6f1a82bd0fbc",
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          89
+        ]
+      ]
+    },
+    "hard-avg-five-room-sengkang-2022": {
+      "sqlHash": "63955ee4de366f03",
+      "columns": [
+        "AVG(resale_price)"
+      ],
+      "rows": [
+        [
+          603440.2850061958
+        ]
+      ]
+    },
+    "hard-count-storey-1-3-tampines-2023": {
+      "sqlHash": "21a1f2683c37d61c",
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          363
+        ]
+      ]
+    },
+    "hard-count-punggol-q1-2024": {
+      "sqlHash": "c871b05825f4973b",
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          503
+        ]
+      ]
+    },
+    "hard-count-central-area-3-room-2020-2022": {
+      "sqlHash": "fe6954ea57ca9258",
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          244
+        ]
+      ]
+    },
+    "hard-avg-model-a-tampines-2019": {
+      "sqlHash": "66970d03d56f93dc",
+      "columns": [
+        "AVG(resale_price)"
+      ],
+      "rows": [
+        [
+          412916.2272727273
+        ]
+      ]
+    },
+    "hard-count-new-generation-ang-mo-kio-2018": {
+      "sqlHash": "b1b57aa2b6bb110f",
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          693
+        ]
+      ]
+    },
+    "hard-count-dbss-2017-2025": {
+      "sqlHash": "550826dd66a6fc89",
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          3559
+        ]
+      ]
+    },
+    "hard-avg-4rm-toa-payoh-2023": {
+      "sqlHash": "c82121bb655148e6",
+      "columns": [
+        "AVG(resale_price)"
+      ],
+      "rows": [
+        [
+          737096.1044
+        ]
+      ]
+    },
+    "hard-format-premium-apartment-sengkang-2023": {
+      "sqlHash": "f65a93b942b0fe00",
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          614
+        ]
+      ]
+    },
+    "hard-format-4-room-tampines-2023": {
+      "sqlHash": "607ddf92a1bce409",
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          674
+        ]
+      ]
+    },
+    "hard-format-premium-apartment-4-room-sengkang-2023": {
+      "sqlHash": "51b84066230a388f",
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          363
+        ]
+      ]
+    },
+    "hard-flat-model-premium-sengkang-2023": {
+      "sqlHash": "f190875426cc2a82",
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          363
+        ]
+      ]
     }
   }
 }

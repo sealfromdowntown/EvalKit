@@ -14,3 +14,11 @@ candidates:
     params:
       max_completion_tokens: 2000
     price_per_1m_tokens: { input: 0.05, output: 0.25 }
+
+  - name: main-v3
+    provider: openai
+    model: gpt-6-luna
+    prompt: prompts/v3.txt
+    params:
+      max_completion_tokens: 2000
+    price_per_1m_tokens: { input: 0.05, output: 0.25 }
