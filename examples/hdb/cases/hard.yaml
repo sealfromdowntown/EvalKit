@@ -192,3 +192,226 @@
       AND flat_model = 'Premium Apartment'
       AND month LIKE '2023-%'
   tags: [hard, value-format, flat-model]
+
+- id: hard-top-town-3room-2024
+  question: "Which town had the most 3 ROOM resale transactions in 2024? If towns are tied, choose the alphabetically first town. Return one town."
+  reference_sql: |
+    SELECT town
+    FROM resale
+    WHERE flat_type = '3 ROOM'
+      AND month LIKE '2024-%'
+    GROUP BY town
+    ORDER BY COUNT(*) DESC, town ASC
+    LIMIT 1
+  tags: [hard, grouping, ranking]
+
+- id: hard-count-towns-500-5room-2024
+  question: "How many towns had at least 500 resale transactions for 5 ROOM flats in 2024? Return a single number."
+  reference_sql: |
+    SELECT COUNT(*)
+    FROM (
+      SELECT town
+      FROM resale
+      WHERE flat_type = '5 ROOM'
+        AND month LIKE '2024-%'
+      GROUP BY town
+      HAVING COUNT(*) >= 500
+    )
+  tags: [hard, grouping, having]
+
+- id: hard-count-town-type-groups-avg700k-2024
+  question: "How many town and flat type combinations had an average resale price of at least $700,000 in 2024? Treat each combination separately. Return a single number."
+  reference_sql: |
+    SELECT COUNT(*)
+    FROM (
+      SELECT town, flat_type
+      FROM resale
+      WHERE month LIKE '2024-%'
+      GROUP BY town, flat_type
+      HAVING AVG(resale_price) >= 700000
+    )
+  tags: [hard, grouping, having, multi-column]
+
+- id: hard-town-largest-price-range-2024
+  question: "In which town was the difference between the highest and lowest resale price largest in 2024? If tied, choose the alphabetically first town. Return one town."
+  reference_sql: |
+    SELECT town
+    FROM resale
+    WHERE month LIKE '2024-%'
+    GROUP BY town
+    ORDER BY MAX(resale_price) - MIN(resale_price) DESC, town ASC
+    LIMIT 1
+  tags: [hard, grouping, derived-metric]
+
+- id: hard-most-common-model-yishun-2024
+  question: "Which flat model had the most resale transactions in Yishun in 2024? If tied, choose the alphabetically first model. Return one model."
+  reference_sql: |
+    SELECT flat_model
+    FROM resale
+    WHERE town = 'YISHUN'
+      AND month LIKE '2024-%'
+    GROUP BY flat_model
+    ORDER BY COUNT(*) DESC, flat_model ASC
+    LIMIT 1
+  tags: [hard, grouping, flat-model, ranking]
+
+- id: hard-count-models-200-tampines-2024
+  question: "How many distinct flat models each had at least 200 resale transactions in Tampines in 2024? Return a single number."
+  reference_sql: |
+    SELECT COUNT(*)
+    FROM (
+      SELECT flat_model
+      FROM resale
+      WHERE town = 'TAMPINES'
+        AND month LIKE '2024-%'
+      GROUP BY flat_model
+      HAVING COUNT(*) >= 200
+    )
+  tags: [hard, grouping, having, flat-model]
+
+- id: hard-count-tampines-q4-2024
+  question: "How many resale transactions were there in Tampines in the fourth quarter of 2024, from October through December inclusive? Return a single number."
+  reference_sql: |
+    SELECT COUNT(*)
+    FROM resale
+    WHERE town = 'TAMPINES'
+      AND month BETWEEN '2024-10' AND '2024-12'
+  tags: [hard, date-range, boundary]
+
+- id: hard-busiest-month-yishun-2025
+  question: "Which month had the most resale transactions in Yishun in 2025? If tied, choose the earliest month. Return the month in YYYY-MM format."
+  reference_sql: |
+    SELECT month
+    FROM resale
+    WHERE town = 'YISHUN'
+      AND month LIKE '2025-%'
+    GROUP BY month
+    ORDER BY COUNT(*) DESC, month ASC
+    LIMIT 1
+  tags: [hard, date-range, grouping, ranking]
+
+- id: hard-bedok-4room-average-change-2019-2024
+  question: "How much higher or lower was the average resale price of 4 ROOM flats in Bedok in 2024 than in 2019? Return the 2024 average minus the 2019 average, rounded to two decimal places."
+  reference_sql: |
+    SELECT ROUND(
+      (SELECT AVG(resale_price)
+       FROM resale
+       WHERE town = 'BEDOK'
+         AND flat_type = '4 ROOM'
+         AND month LIKE '2024-%')
+      -
+      (SELECT AVG(resale_price)
+       FROM resale
+       WHERE town = 'BEDOK'
+         AND flat_type = '4 ROOM'
+         AND month LIKE '2019-%'),
+      2
+    )
+  tags: [hard, date-range, comparison, scalar-subquery]
+
+- id: hard-busiest-year-tampines-5room-2019-2024
+  question: "Between 2019 and 2024 inclusive, which calendar year had the most 5 ROOM resale transactions in Tampines? If tied, choose the earliest year. Return the year."
+  reference_sql: |
+    SELECT substr(month, 1, 4) AS year
+    FROM resale
+    WHERE town = 'TAMPINES'
+      AND flat_type = '5 ROOM'
+      AND month BETWEEN '2019-01' AND '2024-12'
+    GROUP BY year
+    ORDER BY COUNT(*) DESC, year ASC
+    LIMIT 1
+  tags: [hard, date-range, grouping, ranking]
+
+- id: hard-count-punggol-4room-floor19-2024
+  question: "How many 4 ROOM flats in Punggol in 2024 were in a storey range whose lowest floor was 19 or higher? Return a single number."
+  reference_sql: |
+    SELECT COUNT(*)
+    FROM resale
+    WHERE town = 'PUNGGOL'
+      AND flat_type = '4 ROOM'
+      AND month LIKE '2024-%'
+      AND CAST(substr(storey_range, 1, 2) AS INTEGER) >= 19
+  tags: [hard, storey, numeric-parsing, multi-filter]
+
+- id: hard-count-woodlands-3room-floor-under10-2023
+  question: "How many 3 ROOM flats in Woodlands in 2023 were in a storey range whose highest floor was below 10? Return a single number."
+  reference_sql: |
+    SELECT COUNT(*)
+    FROM resale
+    WHERE town = 'WOODLANDS'
+      AND flat_type = '3 ROOM'
+      AND month LIKE '2023-%'
+      AND CAST(substr(storey_range, 7, 2) AS INTEGER) < 10
+  tags: [hard, storey, numeric-parsing, multi-filter]
+
+- id: hard-average-punggol-5room-midstorey-2024
+  question: "What was the average resale price of 5 ROOM flats in Punggol in 2024 that were in either the 10 TO 12 or 13 TO 15 storey range? Return a single number."
+  reference_sql: |
+    SELECT AVG(resale_price)
+    FROM resale
+    WHERE town = 'PUNGGOL'
+      AND flat_type = '5 ROOM'
+      AND month LIKE '2024-%'
+      AND storey_range IN ('10 TO 12', '13 TO 15')
+  tags: [hard, storey, multi-filter, aggregation]
+
+- id: hard-count-highest-storey-bands-2024
+  question: "How many distinct storey range bands with a lowest floor of 31 or higher had at least one transaction in 2024? Return a single number."
+  reference_sql: |
+    SELECT COUNT(DISTINCT storey_range)
+    FROM resale
+    WHERE month LIKE '2024-%'
+      AND CAST(substr(storey_range, 1, 2) AS INTEGER) >= 31
+  tags: [hard, storey, distinct, numeric-parsing]
+
+- id: hard-count-bedok-4room-highprice-lowstorey-2024
+  question: "How many 4 ROOM flats in Bedok in 2024 sold for at least $500,000 and were in the 01 TO 03 storey range? Return a single number."
+  reference_sql: |
+    SELECT COUNT(*)
+    FROM resale
+    WHERE town = 'BEDOK'
+      AND flat_type = '4 ROOM'
+      AND month LIKE '2024-%'
+      AND resale_price >= 500000
+      AND storey_range = '01 TO 03'
+  tags: [hard, multi-filter, storey, threshold]
+
+- id: hard-top-flat-type-share-over750k-tampines-2024
+  question: "Among flat types with at least 500 resale transactions in Tampines in 2024, which had the highest percentage of transactions priced at $750,000 or more? If tied, choose the alphabetically first flat type. Return the flat type."
+  reference_sql: |
+    SELECT flat_type
+    FROM resale
+    WHERE town = 'TAMPINES'
+      AND month LIKE '2024-%'
+    GROUP BY flat_type
+    HAVING COUNT(*) >= 500
+    ORDER BY
+      100.0 * SUM(CASE WHEN resale_price >= 750000 THEN 1 ELSE 0 END) / COUNT(*) DESC,
+      flat_type ASC
+    LIMIT 1
+  tags: [hard, conditional-aggregation, percentage, ranking]
+
+- id: hard-count-central-area-4room-large-area-2024
+  question: "How many 4 ROOM flats in Central Area in 2024 had a floor area of at least 100 square metres? Return a single number."
+  reference_sql: |
+    SELECT COUNT(*)
+    FROM resale
+    WHERE town = 'CENTRAL AREA'
+      AND flat_type = '4 ROOM'
+      AND month LIKE '2024-%'
+      AND floor_area_sqm >= 100
+  tags: [hard, multi-filter, numeric-threshold]
+
+- id: hard-count-towns-high-avg-sqm-4room-2024
+  question: "How many towns had an average price per square metre above $6,500 for 4 ROOM flats in 2024? Calculate price per square metre per transaction before averaging. Return a single number."
+  reference_sql: |
+    SELECT COUNT(*)
+    FROM (
+      SELECT town
+      FROM resale
+      WHERE flat_type = '4 ROOM'
+        AND month LIKE '2024-%'
+      GROUP BY town
+      HAVING AVG(resale_price * 1.0 / floor_area_sqm) > 6500
+    )
+  tags: [hard, grouping, having, derived-metric]

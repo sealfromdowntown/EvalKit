@@ -965,6 +965,204 @@
           363
         ]
       ]
+    },
+    "hard-top-town-3room-2024": {
+      "sqlHash": "2a836309eca8a553",
+      "columns": [
+        "town"
+      ],
+      "rows": [
+        [
+          "ANG MO KIO"
+        ]
+      ]
+    },
+    "hard-count-towns-500-5room-2024": {
+      "sqlHash": "6665986269606b25",
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          5
+        ]
+      ]
+    },
+    "hard-count-town-type-groups-avg700k-2024": {
+      "sqlHash": "348706d8e7ab4602",
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          53
+        ]
+      ]
+    },
+    "hard-town-largest-price-range-2024": {
+      "sqlHash": "abdac1af816315c4",
+      "columns": [
+        "town"
+      ],
+      "rows": [
+        [
+          "BUKIT MERAH"
+        ]
+      ]
+    },
+    "hard-most-common-model-yishun-2024": {
+      "sqlHash": "bfd0e75edd74bb22",
+      "columns": [
+        "flat_model"
+      ],
+      "rows": [
+        [
+          "Model A"
+        ]
+      ]
+    },
+    "hard-count-models-200-tampines-2024": {
+      "sqlHash": "a7b88e665a49abe3",
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          2
+        ]
+      ]
+    },
+    "hard-count-tampines-q4-2024": {
+      "sqlHash": "5fd5cf4e20b85087",
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          458
+        ]
+      ]
+    },
+    "hard-busiest-month-yishun-2025": {
+      "sqlHash": "e10aea2ce608870b",
+      "columns": [
+        "month"
+      ],
+      "rows": [
+        [
+          "2025-07"
+        ]
+      ]
+    },
+    "hard-bedok-4room-average-change-2019-2024": {
+      "sqlHash": "21adbe5c21031585",
+      "columns": [
+        "ROUND(\n  (SELECT AVG(resale_price)\n   FROM resale\n   WHERE town = 'BEDOK'\n     AND flat_type = '4 ROOM'\n     AND month LIKE '2024-%')\n  -\n  (SELECT AVG(resale_price)\n   FROM resale\n   WHERE town = 'BEDOK'\n     AND flat_type = '4 ROOM'\n     AND month LIKE '2019-%'),\n  2\n)"
+      ],
+      "rows": [
+        [
+          169586.43
+        ]
+      ]
+    },
+    "hard-busiest-year-tampines-5room-2019-2024": {
+      "sqlHash": "39a318dacd8d2e86",
+      "columns": [
+        "year"
+      ],
+      "rows": [
+        [
+          "2021"
+        ]
+      ]
+    },
+    "hard-count-punggol-4room-floor19-2024": {
+      "sqlHash": "e71d2a22405a73ed",
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          15
+        ]
+      ]
+    },
+    "hard-count-woodlands-3room-floor-under10-2023": {
+      "sqlHash": "45d765280761d5dd",
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          186
+        ]
+      ]
+    },
+    "hard-average-punggol-5room-midstorey-2024": {
+      "sqlHash": "f04d9269b48c3e16",
+      "columns": [
+        "AVG(resale_price)"
+      ],
+      "rows": [
+        [
+          734006.5607476636
+        ]
+      ]
+    },
+    "hard-count-highest-storey-bands-2024": {
+      "sqlHash": "8f23b99974b40daa",
+      "columns": [
+        "COUNT(DISTINCT storey_range)"
+      ],
+      "rows": [
+        [
+          7
+        ]
+      ]
+    },
+    "hard-count-bedok-4room-highprice-lowstorey-2024": {
+      "sqlHash": "71fba690bb2edf3f",
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          50
+        ]
+      ]
+    },
+    "hard-top-flat-type-share-over750k-tampines-2024": {
+      "sqlHash": "1df99b8d762bdd7e",
+      "columns": [
+        "flat_type"
+      ],
+      "rows": [
+        [
+          "5 ROOM"
+        ]
+      ]
+    },
+    "hard-count-central-area-4room-large-area-2024": {
+      "sqlHash": "f523288af3e79928",
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          6
+        ]
+      ]
+    },
+    "hard-count-towns-high-avg-sqm-4room-2024": {
+      "sqlHash": "487430e09a26131c",
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          15
+        ]
+      ]
     }
   }
 }
