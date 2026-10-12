@@ -23,18 +23,26 @@ candidates:
       max_completion_tokens: 2000
     price_per_1m_tokens: { input: 0.05, output: 0.25 }
 
-  - name: model-b-v2-prompt
+  - name: model-b-v3-prompt
     provider: openai
-    model: GPT-4o Mini
-    prompt: prompts/v2.txt
+    model: gpt-4o-mini
+    prompt: prompts/v3.txt
     params:
       max_completion_tokens: 2000
     price_per_1m_tokens: { input: 0.15, output: 0.60 }
 
-  - name: model-c-v2-prompt
+  - name: model-c-v3-prompt
     provider: openai
-    model: GPT-4.1 nano
-    prompt: prompts/v2.txt
+    model: gpt-4.1-nano
+    prompt: prompts/v3.txt
     params:
       max_completion_tokens: 2000
     price_per_1m_tokens: { input: 0.10, output: 0.40 }
+
+  - name: model-d-v3-prompt
+    provider: openai
+    model: gpt-5.4-nano
+    prompt: prompts/v3.txt
+    params:
+      max_completion_tokens: 2000
+    price_per_1m_tokens: { input: 0.20, output: 1.20 }
