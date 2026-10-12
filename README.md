@@ -55,6 +55,8 @@ The command prints a run ID. Compare two candidates from that same run by replac
 npm run dev -- compare main-v2 main-v3 --run 2026-10-11T10-25-40-350Z-5368a5
 ```
 
+Replace the example run ID with the `Run id:` value printed by your own run.
+
 Model calls with matching cached inputs do not call the API again. Changes to a prompt, model, parameters, or question create a different cache entry and may incur API costs.
 
 ## Case splits
@@ -63,19 +65,19 @@ Generated cases receive a stable split based on their case ID: roughly 80% are a
 
 Use `dev` while inspecting failures and refining prompts. Keep `test` separate until the prompt is settled. In the current suite, the 12 test cases are generated cases; they are not a random sample redrawn each time a run starts.
 
-## Initial prompt comparison
+## Current prompt comparison
 
-The current comparison uses the same model (`gpt-6-luna`) with three prompts. On the 71 development cases in the recorded run:
+The current comparison uses the same model (`gpt-6-luna`) with three prompts. On the 89 development cases in the latest recorded run:
 
 | Candidate | Passed | Accuracy |
 |---|---:|---:|
-| `main-v1` | 61/71 | 85.9% |
-| `main-v2` | 62/71 | 87.3% |
-| `main-v3` | 71/71 | 100.0% |
+| `main-v1` | 75/89 | 84.3% |
+| `main-v2` | 80/89 | 89.9% |
+| `main-v3` | 89/89 | 100.0% |
 
-The paired comparison of v3 against v2 reported nine cases fixed, no cases broken, and a 95% bootstrap interval of +5.6 to +21.1 percentage points. Several of the fixed cases test closely related text-value capitalization patterns, so this result is evidence that v3 helps on those observed development cases; it is not proof of a general improvement across unrelated text-to-SQL tasks.
+The paired comparison of v3 against v2 reported nine cases fixed, no cases broken, and a 95% bootstrap interval of +4.5 to +16.9 percentage points. Several of the fixed cases test closely related value-format and capitalization patterns, so this result is evidence that v3 helps on those observed development cases; it is not proof of a general improvement across unrelated text-to-SQL tasks.
 
-On the separate 12-case test split, both v2 and v3 scored 12/12. This shows no regression on those cases, but because every case tied, it does not show that v3 is better or that the prompts are equivalent.
+In an earlier run of the separate 12-case test split, both v2 and v3 scored 12/12. Those cases were not changed during the recent development-case additions. This shows no regression on those observed cases, but because every case tied, it does not show that v3 is better or that the prompts are equivalent. Rerun the test split after settling the prompt and report that result separately.
 
 ## Scoring notes and limitations
 
