@@ -2,10 +2,51 @@ import type { Command } from "commander";
 import { join } from "node:path";
 import { exportRun } from "./export";
 import { runConfiguredSuite, type RunOpts } from "./run";
+import { execFileSync } from "node:child_process";
 
 interface RefreshDashboardOpts extends Omit<RunOpts, "split"> {
   dashboardDir: string;
 }
+
+function gitOutput(...args: string[]): string {
+  return execFileSync("git", args, { encoding: "utf8" }).trim();
+}
+
+function gitRun(...args: string[]): void {
+  execFileSync("git", args, { stdio: "inherit" });
+}
+
+function publishDashboardData(): void {
+  const branch = gitOutput("branch", "--show-current");
+  if (branch !== "main") {
+    throw new Error(`Publish from main, not "${branch}".`);
+  }
+
+  if (gitOutput("diff", "--cached", "--name-only")) {
+    throw new Error("You have staged changes. Commit or unstage them before refreshing.");
+  }
+
+  gitRun("add", "--", "dashboard/data/dev.json", "dashboard/data/test.json");
+
+  const changedFiles = gitOutput(
+    "diff",
+    "--cached",
+    "--name-only",
+    "--",
+    "dashboard/data/dev.json",
+    "dashboard/data/test.json",
+  );
+
+  if (!changedFiles) {
+    console.log("Dashboard data is unchanged; nothing to publish.");
+    return;
+  }
+
+  gitRun("commit", "-m", "chore: refresh dashboard data");
+  gitRun("push", "origin", "main");
+  console.log("Pushed dashboard data. GitHub Actions will deploy the dashboard.");
+}
+
 
 export function registerRefreshDashboard(program: Command): void {
   program
@@ -26,5 +67,6 @@ export function registerRefreshDashboard(program: Command): void {
       }
 
       console.log(`\nDashboard data refreshed in ${opts.dashboardDir}`);
+      publishDashboardData();
     });
 }
