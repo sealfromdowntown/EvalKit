@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>EvalKit — HDB Text-to-SQL Evaluation</title>
+  <style>
+    :root {
+      --paper: #f7f5f0;
+      --surface: #fffefa;
+      --ink: #202b3b;
+      --muted: #737b85;
+      --line: #e5e1d9;
+      --red: #c84345;
+      --red-soft: #f9e8e5;
+      --green: #417c68;
+      --green-soft: #e8f2ec;
+      --shadow: 0 8px 26px #2733420b;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font: 14px/1.5 Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    }
+    button { font: inherit; }
+
+    .app { min-height: 100vh; display: grid; grid-template-columns: 224px 1fr; }
+    aside {
+      position: relative;
+      overflow: hidden;
+      padding: 25px 16px;
+      background: #fffefa;
+      border-right: 1px solid var(--line);
+    }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 750; font-size: 18px; }
+    .brand-mark {
+      width: 30px; height: 30px; border-radius: 9px; background: var(--red);
+      color: white; display: grid; place-items: center; font-size: 16px;
+    }
+    .nav-label { margin: 42px 10px 10px; color: var(--muted); font-size: 10px; font-weight: 700; letter-spacing: .12em; }
+    nav a {
+      display: block; margin: 4px 0; padding: 10px 12px; border-radius: 8px;
+      color: #596575; text-decoration: none;
+    }
+    nav a.active { color: #a92f33; background: var(--red-soft); font-weight: 650; }
+    .side-note {
+      position: absolute; left: 20px; right: 20px; bottom: 22px;
+      color: #7f817e; font-size: 10px; letter-spacing: .12em; text-transform: uppercase;
+    }
+    .building { width: 100%; height: 175px; margin-bottom: 10px; opacity: .7; }
+
+    main { min-width: 0; padding: 30px clamp(20px, 4vw, 56px) 48px; }
+    .topline { display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+    .eyebrow { color: var(--muted); font-size: 12px; }
+    .status { padding: 6px 10px; background: var(--green-soft); color: var(--green); border-radius: 20px; font-size: 11px; font-weight: 700; }
+    h1 { margin: 24px 0 5px; font-family: Georgia, "Times New Roman", serif; font-size: clamp(26px, 3vw, 36px); letter-spacing: -.03em; }
+    .subtitle { margin: 0; color: var(--muted); }
+    .run-meta { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 8px; }
+    .pill { border: 1px solid var(--line); border-radius: 20px; background: var(--surface); padding: 6px 10px; color: #596575; font-size: 11px; }
+    .pill strong { color: var(--ink); }
+
+    .tabs { display: flex; gap: 8px; margin: 26px 0 18px; }
+    .tab {
+      border: 1px solid var(--line); border-radius: 8px; padding: 9px 14px;
+      background: var(--surface); color: #596575; cursor: pointer; font-weight: 650;
+    }
+    .tab[aria-selected="true"] { color: white; background: var(--red); border-color: var(--red); }
+    .tab small { margin-left: 5px; font-weight: 450; opacity: .8; }
+
+    .cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+    .card, .panel { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; box-shadow: var(--shadow); }
+    .card { padding: 17px 18px; }
+    .card-label { color: var(--muted); font-size: 12px; }
+    .card-value { margin-top: 7px; font-size: 23px; font-weight: 750; letter-spacing: -.03em; }
+    .card-detail { margin-top: 2px; color: var(--muted); font-size: 11px; }
+
+    .content-grid { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(260px, .8fr); gap: 16px; margin-top: 16px; }
+    .panel { padding: 18px; min-width: 0; }
+    .panel-heading { display: flex; justify-content: space-between; gap: 10px; align-items: start; margin-bottom: 16px; }
+    h2 { margin: 0; font-size: 15px; }
+    .panel-hint { color: var(--muted); font-size: 11px; }
+
+    table { width: 100%; border-collapse: collapse; text-align: left; }
+    th { padding: 8px 7px; color: var(--muted); font-size: 10px; font-weight: 650; text-transform: uppercase; letter-spacing: .06em; }
+    td { padding: 11px 7px; border-top: 1px solid #eeeae4; vertical-align: middle; }
+    .model-name { font-weight: 650; }
+    .model-id { color: var(--muted); font-size: 10px; }
+    .score { white-space: nowrap; font-weight: 700; }
+    .bar-cell { min-width: 100px; }
+    .bar-track { height: 8px; overflow: hidden; border-radius: 8px; background: #eeeae4; }
+    .bar { height: 100%; border-radius: inherit; background: var(--red); }
+    .pass { color: var(--green); }
+    .cost { color: #596575; white-space: nowrap; font-variant-numeric: tabular-nums; }
+
+    .fail-list { display: grid; gap: 14px; }
+    .fail-row { display: grid; grid-template-columns: 94px 1fr 27px; gap: 8px; align-items: center; font-size: 11px; }
+    .fail-track { height: 8px; background: #eeeae4; border-radius: 8px; overflow: hidden; }
+    .fail-bar { height: 100%; background: #d98a7e; border-radius: inherit; }
+    .fail-count { text-align: right; color: var(--muted); font-variant-numeric: tabular-nums; }
+    .note { margin-top: 15px; padding: 11px 12px; border-left: 3px solid #d9ae6f; background: #fbf5e9; color: #6d5b3e; font-size: 11px; }
+
+    .footer { margin-top: 18px; color: var(--muted); font-size: 11px; }
+    .network { width: 42px; height: 42px; flex: 0 0 42px; }
+    .heading-row { display: flex; align-items: center; gap: 13px; }
+
+    @media (max-width: 900px) {
+      .app { grid-template-columns: 68px 1fr; }
+      aside { padding: 20px 10px; }
+      .brand { justify-content: center; }
+      .brand-name, .nav-label, nav .nav-text, .side-note { display: none; }
+      nav { margin-top: 38px; }
+      nav a { text-align: center; padding: 11px 5px; font-size: 0; }
+      nav a::first-letter { font-size: 16px; }
+      .building { display: none; }
+      .content-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 620px) {
+      .app { display: block; }
+      aside { position: static; display: flex; align-items: center; justify-content: space-between; border-right: 0; border-bottom: 1px solid var(--line); padding: 12px 16px; }
+      .brand { justify-content: start; }
+      nav { display: flex; gap: 4px; margin: 0; }
+      nav a { font-size: 11px; padding: 8px; }
+      nav a::first-letter { font-size: inherit; }
+      main { padding: 22px 15px 34px; }
+      .cards { grid-template-columns: 1fr; }
+      .panel { padding: 13px; overflow-x: auto; }
+      table { min-width: 570px; }
+      .topline { align-items: start; }
+    }
+  </style>
+</head>
+<body>
+<div class="app">
+  <aside>
+    <div class="brand"><span class="brand-mark">E</span><span class="brand-name">EvalKit</span></div>
+    <div class="nav-label">WORKSPACE</div>
+    <nav aria-label="Main navigation">
+      <a class="active" href="#overview">▦ <span class="nav-text">Overview</span></a>
+      <a href="#runs">◷ <span class="nav-text">Runs</span></a>
+      <a href="#cases">▤ <span class="nav-text">Cases</span></a>
+    </nav>
+
+    <div class="side-note">
+      <svg class="building" viewBox="0 0 180 175" role="img" aria-label="Line drawing of HDB apartment blocks">
+        <g fill="none" stroke="#788177" stroke-width="1.3">
+          <path d="M28 160V37l62-22v145M90 160V55l60-19v124"/>
+          <path d="M39 43v8m15-13v8m15-13v8m15-13v8M39 62v8m15-13v8m15-13v8m15-13v8M39 81v8m15-13v8m15-13v8m15-13v8M39 100v8m15-13v8m15-13v8m15-13v8M39 119v8m15-13v8m15-13v8m15-13v8M39 138v8m15-13v8m15-13v8m15-13v8"/>
+          <path d="M101 61v8m15-13v8m15-13v8m12-12v8M101 81v8m15-13v8m15-13v8m12-12v8M101 101v8m15-13v8m15-13v8m12-12v8M101 121v8m15-13v8m15-13v8m12-12v8M101 141v8m15-13v8m15-13v8m12-12v8"/>
+          <path d="M18 160h145"/>
+        </g>
+      </svg>
+      SINGAPORE HDB<br>TEXT-TO-SQL EVALUATION
+    </div>
+  </aside>
+
+  <main id="overview">
+    <div class="topline">
+      <span class="eyebrow">EvalKit / Evaluation runs / HDB resale</span>
+      <span class="status">● Completed · 13 Oct 2026</span>
+    </div>
+
+    <div class="heading-row">
+      <div>
+        <h1>HDB Text-to-SQL Evaluation</h1>
+        <p class="subtitle">Comparing prompt and model performance on Singapore resale questions.</p>
+      </div>
+      <svg class="network" viewBox="0 0 48 48" aria-label="Connected model nodes" role="img">
+        <g fill="none" stroke="#c84345" stroke-width="1.5">
+          <path d="M10 12 24 24 38 10M10 12l2 25 12-13 12 12 2-26M12 37l26-1"/>
+        </g>
+        <g fill="#fffefa" stroke="#c84345" stroke-width="2">
+          <circle cx="10" cy="12" r="4"/><circle cx="38" cy="10" r="4"/>
+          <circle cx="24" cy="24" r="5"/><circle cx="12" cy="37" r="4"/><circle cx="36" cy="36" r="4"/>
+        </g>
+      </svg>
+    </div>
+
+    <div class="run-meta" id="runMeta"></div>
+    <div class="tabs" role="tablist" aria-label="Evaluation split">
+      <button class="tab" id="devTab" role="tab" aria-selected="true">DEV <small>89 cases</small></button>
+      <button class="tab" id="testTab" role="tab" aria-selected="false">TEST <small>12 cases</small></button>
+    </div>
+
+    <section class="cards" id="summaryCards" aria-live="polite"></section>
+
+    <div class="content-grid">
+      <section class="panel" id="runs">
+        <div class="panel-heading">
+          <div><h2>Candidate performance</h2><div class="panel-hint" id="tableHint"></div></div>
+          <span class="pill">Same benchmark</span>
+        </div>
+        <table>
+          <thead><tr><th>Candidate / model</th><th>Prompt</th><th>Passed</th><th>Accuracy</th><th>Avg latency</th><th>Cost</th></tr></thead>
+          <tbody id="candidateRows"></tbody>
+        </table>
+      </section>
+
+      <section class="panel">
+        <div class="panel-heading">
+          <div><h2>Failure categories</h2><div class="panel-hint">Across candidates in this split</div></div>
+        </div>
+        <div class="fail-list" id="failureRows"></div>
+        <div class="note" id="splitNote"></div>
+      </section>
+    </div>
+
+    <p class="footer" id="cases">
+      Benchmark: Singapore HDB resale transactions. Test results are a small held-out check (12 cases), not proof of general model quality.
+      Dataset: <a href="https://data.gov.sg/datasets/d_8b84c4ee58e3cfc0ece0d773c8ca6abc/view">data.gov.sg / HDB</a>.
+    </p>
+  </main>
+</div>
+
+<script>
+  const experiments = {
+    dev: {
+      split: "dev", cases: 89, runId: "2026-10-13T10-44-08-728Z-65d40b",
+      candidates: [
+        { name: "main-v1", model: "gpt-6-luna", prompt: "v1", passed: 75, total: 89, latency: 2975, cost: null, failures: { wrong_result: 14 } },
+        { name: "main-v2", model: "gpt-6-luna", prompt: "v2", passed: 80, total: 89, latency: 2514, cost: 0.00328, failures: { wrong_result: 9 } },
+        { name: "main-v3", model: "gpt-6-luna", prompt: "v3", passed: 89, total: 89, latency: 2227, cost: 0.00365, failures: {} },
+        { name: "model-b-v3-prompt", model: "gpt-4o-mini", prompt: "v3", passed: 13, total: 89, latency: 1226, cost: 0.00573, failures: { wrong_result: 70, shape_mismatch: 5, sql_error: 1 } },
+        { name: "model-c-v3-prompt", model: "gpt-4.1-nano", prompt: "v3", passed: 19, total: 89, latency: 921, cost: 0.00374, failures: { wrong_result: 58, shape_mismatch: 5, sql_error: 7 } },
+        { name: "model-d-v3-prompt", model: "gpt-5.4-nano", prompt: "v3", passed: 67, total: 89, latency: 1045, cost: 0.01053, failures: { wrong_result: 17, shape_mismatch: 3, sql_error: 2 } }
+      ]
+    },
+    test: {
+      split: "test", cases: 12, runId: "2026-10-13T10-44-18-963Z-8540ae",
+      candidates: [
+        { name: "main-v1", model: "gpt-6-luna", prompt: "v1", passed: 10, total: 12, latency: 2295, cost: 0.00042, failures: { wrong_result: 2 } },
+        { name: "main-v2", model: "gpt-6-luna", prompt: "v2", passed: 12, total: 12, latency: 1998, cost: 0.00041, failures: {} },
+        { name: "main-v3", model: "gpt-6-luna", prompt: "v3", passed: 12, total: 12, latency: 2017, cost: 0.00043, failures: {} },
+        { name: "model-b-v3-prompt", model: "gpt-4o-mini", prompt: "v3", passed: 0, total: 12, latency: 1652, cost: 0.00070, failures: { wrong_result: 11, shape_mismatch: 1 } },
+        { name: "model-c-v3-prompt", model: "gpt-4.1-nano", prompt: "v3", passed: 2, total: 12, latency: 914, cost: 0.00043, failures: { wrong_result: 9, shape_mismatch: 1 } },
+        { name: "model-d-v3-prompt", model: "gpt-5.4-nano", prompt: "v3", passed: 9, total: 12, latency: 997, cost: 0.00118, failures: { wrong_result: 3 } }
+      ]
+    }
+  };
+
+  const money = value => value == null ? "n/a" : "$" + value.toFixed(5);
+  const accuracy = c => (100 * c.passed / c.total);
+  let activeSplit = "dev";
+
+  function render() {
+    const run = experiments[activeSplit];
+    const best = Math.max(...run.candidates.map(accuracy));
+    const leaders = run.candidates.filter(c => accuracy(c) === best).map(c => c.name);
+    const totalFailures = run.candidates.reduce((sum, c) => sum + c.total - c.passed, 0);
+    const totalApiErrors = 0;
+
+    document.querySelector("#runMeta").innerHTML =
+      `<span class="pill"><strong>${run.cases}</strong> cases · ${run.split.toUpperCase()} split</span>` +
+      `<span class="pill">Run <strong>${run.runId}</strong></span>` +
+      `<span class="pill">6 candidates · ${totalApiErrors} API errors</span>`;
+
+    document.querySelector("#summaryCards").innerHTML = `
+      <article class="card"><div class="card-label">Top score · ${run.split}</div>
+        <div class="card-value">${best.toFixed(1)}%</div>
+        <div class="card-detail">${leaders.join(" · ")} (${run.cases} cases)</div></article>
+      <article class="card"><div class="card-label">Candidate calls</div>
+        <div class="card-value">${run.cases * run.candidates.length}</div>
+        <div class="card-detail">All six candidates completed without API errors</div></article>
+      <article class="card"><div class="card-label">Failed evaluations</div>
+        <div class="card-value">${totalFailures}</div>
+        <div class="card-detail">Mostly wrong-result failures in this benchmark</div></article>`;
+
+    document.querySelector("#tableHint").textContent =
+      `${run.cases} ${run.split} cases · prompt and model shown per candidate`;
+
+    document.querySelector("#candidateRows").innerHTML = run.candidates.map(c => `
+      <tr>
+        <td><div class="model-name">${c.name}</div><div class="model-id">${c.model}</div></td>
+        <td>Prompt ${c.prompt}</td>
+        <td class="score">${c.passed}/${c.total}</td>
+        <td class="bar-cell"><div class="bar-track" aria-label="${accuracy(c).toFixed(1)}% accuracy">
+          <div class="bar" style="width:${accuracy(c)}%"></div></div>
+          <span class="panel-hint">${accuracy(c).toFixed(1)}%</span></td>
+        <td>${c.latency.toLocaleString()} ms</td>
+        <td class="cost">${money(c.cost)}</td>
+      </tr>`).join("");
+
+    const categories = ["wrong_result", "shape_mismatch", "sql_error"];
+    const counts = Object.fromEntries(categories.map(k => [
+      k, run.candidates.reduce((sum, c) => sum + (c.failures[k] || 0), 0)
+    ]));
+    const max = Math.max(1, ...Object.values(counts));
+    document.querySelector("#failureRows").innerHTML = categories.map(k => `
+      <div class="fail-row">
+        <span>${k.replaceAll("_", " ")}</span>
+        <div class="fail-track"><div class="fail-bar" style="width:${100 * counts[k] / max}%"></div></div>
+        <span class="fail-count">${counts[k]}</span>
+      </div>`).join("");
+
+    document.querySelector("#splitNote").textContent = activeSplit === "test"
+      ? "Held-out check: only 12 cases. main-v2 and main-v3 tie at 12/12; this sample does not distinguish them."
+      : "Development results are used while iterating on prompts. Treat these scores as tuning results.";
+  }
+
+  function selectSplit(split) {
+    activeSplit = split;
+    document.querySelector("#devTab").setAttribute("aria-selected", String(split === "dev"));
+    document.querySelector("#testTab").setAttribute("aria-selected", String(split === "test"));
+    render();
+  }
+  document.querySelector("#devTab").addEventListener("click", () => selectSplit("dev"));
+  document.querySelector("#testTab").addEventListener("click", () => selectSplit("test"));
+  render();
+</script>
+</body>
+</html>
