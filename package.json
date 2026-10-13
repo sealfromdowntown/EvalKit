@@ -1,6 +1,6 @@
 {
   "name": "evalkit",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Evaluate LLM prompts and models with statistically rigorous comparisons",
   "type": "module",
   "bin": {
@@ -16,7 +16,7 @@
     "hdb:generate": "tsx examples/hdb/generate.ts"
   },
   "engines": {
-    "node": ">=20.6"
+    "node": ">=22.12"
   },
   "repository": {
     "type": "git",

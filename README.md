@@ -18,7 +18,7 @@ This repository demonstrates EvalKit on Singapore HDB resale data. A case contai
 
 ## Requirements and setup
 
-- Node.js 20.6 or newer and npm.
+- Node.js 22.12 or newer and npm.
 - An OpenAI API key for uncached model calls.
 - The HDB CSV expected by the setup script at `examples/hdb/data/resale_2017_onwards.csv`.
 
@@ -37,7 +37,9 @@ npm run dev -- compute-expected
 npm run dev -- validate
 ```
 
-The setup script reads the CSV from the path above and creates `examples/hdb/hdb.db`. The CSV is not included in the repository; a fresh checkout needs that file before setup can run. Data acquisition and source attribution instructions still need to be added here.
+The setup script reads the CSV from the path above and creates `examples/hdb/hdb.db`. The CSV is not included in the repository; download it from the [HDB Resale flat prices dataset on data.gov.sg](https://data.gov.sg/datasets/d_8b84c4ee58e3cfc0ece0d773c8ca6abc/view) and place it at the path above before setup. 
+
+Dataset attribution: Contains information from [Resale flat prices based on registration date from Jan-2017 onwards](https://data.gov.sg/datasets/d_8b84c4ee58e3cfc0ece0d773c8ca6abc/view), provided by the Housing & Development Board and accessed 12 October 2026 via data.gov.sg. The dataset is made available under the [Singapore Open Data Licence v1.0](https://data.gov.sg/open-data-licence).
 
 ## Run and compare candidates
 
