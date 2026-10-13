@@ -1,0 +1,84 @@
+{
+  "split": "dev",
+  "cases": 89,
+  "runId": "2026-10-13T11-57-26-117Z-a99dc7",
+  "startedAt": "2026-10-13T11:57:26.118Z",
+  "candidates": [
+    {
+      "name": "main-v1",
+      "model": "gpt-6-luna",
+      "prompt": "C:\\Users\\junho\\projects\\EvalKit\\examples\\hdb\\prompts\\v1.txt",
+      "passed": 75,
+      "total": 89,
+      "latency": 2975,
+      "cost": null,
+      "failures": {
+        "wrong_result": 14
+      }
+    },
+    {
+      "name": "main-v2",
+      "model": "gpt-6-luna",
+      "prompt": "C:\\Users\\junho\\projects\\EvalKit\\examples\\hdb\\prompts\\v2.txt",
+      "passed": 80,
+      "total": 89,
+      "latency": 2514,
+      "cost": 0.003284699999999999,
+      "failures": {
+        "wrong_result": 9
+      }
+    },
+    {
+      "name": "main-v3",
+      "model": "gpt-6-luna",
+      "prompt": "C:\\Users\\junho\\projects\\EvalKit\\examples\\hdb\\prompts\\v3.txt",
+      "passed": 89,
+      "total": 89,
+      "latency": 2227,
+      "cost": 0.00365015,
+      "failures": {}
+    },
+    {
+      "name": "model-b-v3-prompt",
+      "model": "gpt-4o-mini",
+      "prompt": "C:\\Users\\junho\\projects\\EvalKit\\examples\\hdb\\prompts\\v3.txt",
+      "passed": 13,
+      "total": 89,
+      "latency": 1226,
+      "cost": 0.005731199999999998,
+      "failures": {
+        "wrong_result": 70,
+        "shape_mismatch": 5,
+        "sql_error": 1
+      }
+    },
+    {
+      "name": "model-c-v3-prompt",
+      "model": "gpt-4.1-nano",
+      "prompt": "C:\\Users\\junho\\projects\\EvalKit\\examples\\hdb\\prompts\\v3.txt",
+      "passed": 19,
+      "total": 89,
+      "latency": 921,
+      "cost": 0.003740000000000001,
+      "failures": {
+        "wrong_result": 58,
+        "sql_error": 7,
+        "shape_mismatch": 5
+      }
+    },
+    {
+      "name": "model-d-v3-prompt",
+      "model": "gpt-5.4-nano",
+      "prompt": "C:\\Users\\junho\\projects\\EvalKit\\examples\\hdb\\prompts\\v3.txt",
+      "passed": 67,
+      "total": 89,
+      "latency": 1045,
+      "cost": 0.010535,
+      "failures": {
+        "wrong_result": 17,
+        "sql_error": 2,
+        "shape_mismatch": 3
+      }
+    }
+  ]
+}

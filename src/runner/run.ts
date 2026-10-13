@@ -1,4 +1,4 @@
-import { randomUUID } from "node:crypto";
+import { createHash, randomUUID } from "node:crypto";
 import type Database from "better-sqlite3";
 import type { Case } from "../cases/schema";
 import { hashSql, type ExpectedFile } from "../cases/expected";
@@ -72,6 +72,33 @@ export async function runSuite(
   db.prepare(
     "INSERT INTO runs (run_id, started_at, split, candidate_count, case_count) VALUES (?, ?, ?, ?, ?)",
   ).run(runId, new Date().toISOString(), split, candidates.length, cases.length);
+
+  const insertRunCandidate = db.prepare(`
+    INSERT INTO run_candidates
+      (run_id, candidate, provider, model, prompt_path, prompt_hash, settings_json, price_json)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+  `);
+
+  for (const candidate of candidates) {
+    const promptHash = createHash("sha256")
+      .update(candidate.promptText)
+      .digest("hex");
+
+    insertRunCandidate.run(
+      runId,
+      candidate.name,
+      candidate.provider,
+      candidate.model,
+      candidate.promptPath,
+      promptHash,
+      JSON.stringify({
+        maxCompletionTokens: candidate.maxCompletionTokens,
+        temperature: candidate.temperature ?? null,
+      }),
+      candidate.pricePer1M ? JSON.stringify(candidate.pricePer1M) : null,
+    );
+  }
+  
 
   const insertScore = db.prepare(
     `INSERT INTO scores

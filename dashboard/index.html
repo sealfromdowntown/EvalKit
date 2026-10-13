@@ -215,30 +215,7 @@
 </div>
 
 <script>
-  const experiments = {
-    dev: {
-      split: "dev", cases: 89, runId: "2026-10-13T10-44-08-728Z-65d40b",
-      candidates: [
-        { name: "main-v1", model: "gpt-6-luna", prompt: "v1", passed: 75, total: 89, latency: 2975, cost: null, failures: { wrong_result: 14 } },
-        { name: "main-v2", model: "gpt-6-luna", prompt: "v2", passed: 80, total: 89, latency: 2514, cost: 0.00328, failures: { wrong_result: 9 } },
-        { name: "main-v3", model: "gpt-6-luna", prompt: "v3", passed: 89, total: 89, latency: 2227, cost: 0.00365, failures: {} },
-        { name: "model-b-v3-prompt", model: "gpt-4o-mini", prompt: "v3", passed: 13, total: 89, latency: 1226, cost: 0.00573, failures: { wrong_result: 70, shape_mismatch: 5, sql_error: 1 } },
-        { name: "model-c-v3-prompt", model: "gpt-4.1-nano", prompt: "v3", passed: 19, total: 89, latency: 921, cost: 0.00374, failures: { wrong_result: 58, shape_mismatch: 5, sql_error: 7 } },
-        { name: "model-d-v3-prompt", model: "gpt-5.4-nano", prompt: "v3", passed: 67, total: 89, latency: 1045, cost: 0.01053, failures: { wrong_result: 17, shape_mismatch: 3, sql_error: 2 } }
-      ]
-    },
-    test: {
-      split: "test", cases: 12, runId: "2026-10-13T10-44-18-963Z-8540ae",
-      candidates: [
-        { name: "main-v1", model: "gpt-6-luna", prompt: "v1", passed: 10, total: 12, latency: 2295, cost: 0.00042, failures: { wrong_result: 2 } },
-        { name: "main-v2", model: "gpt-6-luna", prompt: "v2", passed: 12, total: 12, latency: 1998, cost: 0.00041, failures: {} },
-        { name: "main-v3", model: "gpt-6-luna", prompt: "v3", passed: 12, total: 12, latency: 2017, cost: 0.00043, failures: {} },
-        { name: "model-b-v3-prompt", model: "gpt-4o-mini", prompt: "v3", passed: 0, total: 12, latency: 1652, cost: 0.00070, failures: { wrong_result: 11, shape_mismatch: 1 } },
-        { name: "model-c-v3-prompt", model: "gpt-4.1-nano", prompt: "v3", passed: 2, total: 12, latency: 914, cost: 0.00043, failures: { wrong_result: 9, shape_mismatch: 1 } },
-        { name: "model-d-v3-prompt", model: "gpt-5.4-nano", prompt: "v3", passed: 9, total: 12, latency: 997, cost: 0.00118, failures: { wrong_result: 3 } }
-      ]
-    }
-  };
+  let experiments = {};
 
   const money = value => value == null ? "n/a" : "$" + value.toFixed(5);
   const accuracy = c => (100 * c.passed / c.total);
@@ -307,7 +284,23 @@
   }
   document.querySelector("#devTab").addEventListener("click", () => selectSplit("dev"));
   document.querySelector("#testTab").addEventListener("click", () => selectSplit("test"));
-  render();
+  Promise.all([
+  fetch("./data/dev.json").then((response) => {
+    if (!response.ok) throw new Error("Could not load dev results");
+    return response.json();
+  }),
+  fetch("./data/test.json").then((response) => {
+    if (!response.ok) throw new Error("Could not load test results");
+    return response.json();
+  }),
+])
+  .then(([dev, test]) => {
+    experiments = { dev, test };
+    render();
+  })
+  .catch((error) => {
+    document.querySelector("#summaryCards").textContent = error.message;
+  });
 </script>
 </body>
 </html>

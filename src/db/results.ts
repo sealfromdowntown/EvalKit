@@ -3,6 +3,7 @@ import Database from "better-sqlite3";
 export function openResultsDb(path: string): Database.Database {
   const db = new Database(path);
   db.pragma("journal_mode = WAL");
+
   db.exec(`
     CREATE TABLE IF NOT EXISTS calls (
       cache_key        TEXT PRIMARY KEY,
@@ -44,6 +45,53 @@ export function openResultsDb(path: string): Database.Database {
       cost_usd       REAL,
       PRIMARY KEY (run_id, candidate, case_id)
     );
+
+    CREATE TABLE IF NOT EXISTS run_candidates (
+      run_id        TEXT NOT NULL,
+      candidate     TEXT NOT NULL,
+      provider      TEXT NOT NULL,
+      model         TEXT NOT NULL,
+      prompt_path   TEXT NOT NULL,
+      prompt_hash   TEXT NOT NULL,
+      settings_json TEXT NOT NULL,
+      price_json    TEXT,
+      PRIMARY KEY (run_id, candidate)
+    );
   `);
+
+  const runCandidateForeignKeys = db.pragma(
+    "foreign_key_list(run_candidates)",
+  ) as unknown[];
+
+  if (runCandidateForeignKeys.length > 0) {
+    db.transaction(() => {
+      db.exec(`
+        CREATE TABLE run_candidates_rebuilt (
+          run_id        TEXT NOT NULL,
+          candidate     TEXT NOT NULL,
+          provider      TEXT NOT NULL,
+          model         TEXT NOT NULL,
+          prompt_path   TEXT NOT NULL,
+          prompt_hash   TEXT NOT NULL,
+          settings_json TEXT NOT NULL,
+          price_json    TEXT,
+          PRIMARY KEY (run_id, candidate)
+        );
+
+        INSERT INTO run_candidates_rebuilt (
+          run_id, candidate, provider, model, prompt_path,
+          prompt_hash, settings_json, price_json
+        )
+        SELECT
+          run_id, candidate, provider, model, prompt_path,
+          prompt_hash, settings_json, price_json
+        FROM run_candidates;
+
+        DROP TABLE run_candidates;
+        ALTER TABLE run_candidates_rebuilt RENAME TO run_candidates;
+      `);
+    })();
+  }
+
   return db;
 }
