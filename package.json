@@ -8,6 +8,7 @@
   },
   "scripts": {
     "dev": "tsx --env-file=.env src/cli/index.ts",
+    "dashboard:refresh": "tsx --env-file=.env src/cli/index.ts refresh-dashboard",
     "test": "vitest run",
     "typecheck": "tsc --noEmit",
     "sanity": "tsx --env-file=.env scripts/sanity.ts",

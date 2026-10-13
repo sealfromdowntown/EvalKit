@@ -8,7 +8,7 @@ import { OpenAIClient } from "../llm/openai";
 import { runSuite } from "../runner/run";
 import { summarize } from "../runner/summary";
 
-interface RunOpts {
+export interface RunOpts {
   config: string;
   cases: string;
   expected: string;
@@ -17,6 +17,72 @@ interface RunOpts {
   split: string;
   concurrency: string;
   showFailures?: boolean;
+}
+
+export async function runConfiguredSuite(opts: RunOpts): Promise<string> {
+  if (!["dev", "test", "all"].includes(opts.split)) {
+    throw new Error(`--split must be dev, test or all (got "${opts.split}")`);
+  }
+  const candidates = loadConfig(opts.config);
+  const all = loadCases(opts.cases);
+  const cases = opts.split === "all" ? all : all.filter((c) => c.split === opts.split);
+  if (cases.length === 0) throw new Error(`No cases in split "${opts.split}"`);
+  if (!existsSync(opts.expected)) throw new Error("No expected results. Run: compute-expected");
+  const expected = JSON.parse(readFileSync(opts.expected, "utf8")) as ExpectedFile;
+
+  const total = candidates.length * cases.length;
+  console.log(
+    `Running ${candidates.length} candidate(s) x ${cases.length} case(s) = ${total} calls (cached calls are free)`,
+  );
+
+  const db = openResultsDb(opts.results);
+  try {
+    const { runId, scores } = await runSuite({
+      db,
+      client: new OpenAIClient(),
+      candidates,
+      cases,
+      expected,
+      hdbDbPath: opts.db,
+      split: opts.split,
+      concurrency: Number.parseInt(opts.concurrency, 10) || 4,
+      onProgress: (done, t) => process.stdout.write(`\r  ${done}/${t}`),
+    });
+    process.stdout.write("\n\n");
+
+    const summaries = summarize(scores);
+    console.table(
+      summaries.map((s) => ({
+        candidate: s.candidate,
+        passed: `${s.passed}/${s.total}`,
+        accuracy: `${(s.accuracy * 100).toFixed(1)}%`,
+        api_errors: s.apiErrors,
+        avg_latency_ms: s.avgLatencyMs ?? "n/a",
+        tokens_in: s.tokensIn,
+        tokens_out: s.tokensOut,
+        cost_usd: s.costUsd === null ? "n/a" : s.costUsd.toFixed(5),
+      })),
+    );
+
+    for (const s of summaries) {
+      const parts = Object.entries(s.failures).map(([k, v]) => `${k}: ${v}`);
+      console.log(`${s.candidate} failures: ${parts.length ? parts.join(", ") : "none"}`);
+    }
+
+    if (opts.showFailures) {
+      console.log("");
+      for (const s of scores.filter((x) => !x.passed)) {
+        console.log(`[${s.candidate}] ${s.caseId} (${s.failure})`);
+        console.log(`  sql:    ${s.modelSql ?? "-"}`);
+        console.log(`  detail: ${s.detail}`);
+      }
+    }
+
+    console.log(`\nRun id: ${runId}`);
+    return runId;
+  } finally {
+    db.close();
+  }
 }
 
 export function registerRun(program: Command): void {
@@ -32,64 +98,6 @@ export function registerRun(program: Command): void {
     .option("--concurrency <n>", "parallel model calls", "4")
     .option("--show-failures", "list each failed case")
     .action(async (opts: RunOpts) => {
-      if (!["dev", "test", "all"].includes(opts.split)) {
-        throw new Error(`--split must be dev, test or all (got "${opts.split}")`);
-      }
-      const candidates = loadConfig(opts.config);
-      const all = loadCases(opts.cases);
-      const cases = opts.split === "all" ? all : all.filter((c) => c.split === opts.split);
-      if (cases.length === 0) throw new Error(`No cases in split "${opts.split}"`);
-      if (!existsSync(opts.expected)) throw new Error("No expected results. Run: compute-expected");
-      const expected = JSON.parse(readFileSync(opts.expected, "utf8")) as ExpectedFile;
-
-      const total = candidates.length * cases.length;
-      console.log(
-        `Running ${candidates.length} candidate(s) x ${cases.length} case(s) = ${total} calls (cached calls are free)`,
-      );
-
-      const db = openResultsDb(opts.results);
-      const { runId, scores } = await runSuite({
-        db,
-        client: new OpenAIClient(),
-        candidates,
-        cases,
-        expected,
-        hdbDbPath: opts.db,
-        split: opts.split,
-        concurrency: Number.parseInt(opts.concurrency, 10) || 4,
-        onProgress: (done, t) => process.stdout.write(`\r  ${done}/${t}`),
-      });
-      process.stdout.write("\n\n");
-
-      const summaries = summarize(scores);
-      console.table(
-        summaries.map((s) => ({
-          candidate: s.candidate,
-          passed: `${s.passed}/${s.total}`,
-          accuracy: `${(s.accuracy * 100).toFixed(1)}%`,
-          api_errors: s.apiErrors,
-          avg_latency_ms: s.avgLatencyMs ?? "n/a",
-          tokens_in: s.tokensIn,
-          tokens_out: s.tokensOut,
-          cost_usd: s.costUsd === null ? "n/a" : s.costUsd.toFixed(5),
-        })),
-      );
-
-      for (const s of summaries) {
-        const parts = Object.entries(s.failures).map(([k, v]) => `${k}: ${v}`);
-        console.log(`${s.candidate} failures: ${parts.length ? parts.join(", ") : "none"}`);
-      }
-
-      if (opts.showFailures) {
-        console.log("");
-        for (const s of scores.filter((x) => !x.passed)) {
-          console.log(`[${s.candidate}] ${s.caseId} (${s.failure})`);
-          console.log(`  sql:    ${s.modelSql ?? "-"}`);
-          console.log(`  detail: ${s.detail}`);
-        }
-      }
-
-      console.log(`\nRun id: ${runId}`);
-      db.close();
+      await runConfiguredSuite(opts);
     });
 }

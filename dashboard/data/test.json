@@ -1,13 +1,13 @@
 {
   "split": "test",
   "cases": 12,
-  "runId": "2026-10-13T11-57-35-990Z-58f1a4",
-  "startedAt": "2026-10-13T11:57:35.991Z",
+  "runId": "2026-10-13T12-07-35-480Z-c87fd8",
+  "startedAt": "2026-10-13T12:07:35.480Z",
   "candidates": [
     {
       "name": "main-v1",
       "model": "gpt-6-luna",
-      "prompt": "C:\\Users\\junho\\projects\\EvalKit\\examples\\hdb\\prompts\\v1.txt",
+      "prompt": "examples/hdb/prompts/v1.txt",
       "passed": 10,
       "total": 12,
       "latency": 2295,
@@ -19,7 +19,7 @@
     {
       "name": "main-v2",
       "model": "gpt-6-luna",
-      "prompt": "C:\\Users\\junho\\projects\\EvalKit\\examples\\hdb\\prompts\\v2.txt",
+      "prompt": "examples/hdb/prompts/v2.txt",
       "passed": 12,
       "total": 12,
       "latency": 1998,
@@ -29,7 +29,7 @@
     {
       "name": "main-v3",
       "model": "gpt-6-luna",
-      "prompt": "C:\\Users\\junho\\projects\\EvalKit\\examples\\hdb\\prompts\\v3.txt",
+      "prompt": "examples/hdb/prompts/v3.txt",
       "passed": 12,
       "total": 12,
       "latency": 2017,
@@ -39,7 +39,7 @@
     {
       "name": "model-b-v3-prompt",
       "model": "gpt-4o-mini",
-      "prompt": "C:\\Users\\junho\\projects\\EvalKit\\examples\\hdb\\prompts\\v3.txt",
+      "prompt": "examples/hdb/prompts/v3.txt",
       "passed": 0,
       "total": 12,
       "latency": 1652,
@@ -52,7 +52,7 @@
     {
       "name": "model-c-v3-prompt",
       "model": "gpt-4.1-nano",
-      "prompt": "C:\\Users\\junho\\projects\\EvalKit\\examples\\hdb\\prompts\\v3.txt",
+      "prompt": "examples/hdb/prompts/v3.txt",
       "passed": 2,
       "total": 12,
       "latency": 914,
@@ -65,7 +65,7 @@
     {
       "name": "model-d-v3-prompt",
       "model": "gpt-5.4-nano",
-      "prompt": "C:\\Users\\junho\\projects\\EvalKit\\examples\\hdb\\prompts\\v3.txt",
+      "prompt": "examples/hdb/prompts/v3.txt",
       "passed": 9,
       "total": 12,
       "latency": 997,

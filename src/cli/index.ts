@@ -3,6 +3,7 @@ import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { loadCases } from "../cases/load";
 import { registerRun } from "./run";
 import { registerExport } from "./export";
+import { registerRefreshDashboard } from "./refresh-dashboard";
 import { registerCompare } from "./compare";
 import {
   computeExpected,
@@ -84,6 +85,7 @@ program
 registerRun(program);
 registerCompare(program);
 registerExport(program);
+registerRefreshDashboard(program);
 program.parseAsync(process.argv).catch((e: unknown) => {
   console.error(e instanceof Error ? e.message : e);
   process.exit(1);
