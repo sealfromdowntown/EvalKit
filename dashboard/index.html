@@ -159,7 +159,7 @@
   <main id="overview">
     <div class="topline">
       <span class="eyebrow">EvalKit / Evaluation runs / HDB resale</span>
-      <span class="status">● Completed · 13 Oct 2026</span>
+      <span class="status" id="runStatus"></span>
     </div>
 
     <div class="heading-row">
@@ -226,12 +226,17 @@
     const best = Math.max(...run.candidates.map(accuracy));
     const leaders = run.candidates.filter(c => accuracy(c) === best).map(c => c.name);
     const totalFailures = run.candidates.reduce((sum, c) => sum + c.total - c.passed, 0);
-    const totalApiErrors = 0;
+    const completedAt = new Date(run.startedAt).toLocaleDateString("en-SG", {
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+    });
 
     document.querySelector("#runMeta").innerHTML =
       `<span class="pill"><strong>${run.cases}</strong> cases · ${run.split.toUpperCase()} split</span>` +
       `<span class="pill">Run <strong>${run.runId}</strong></span>` +
-      `<span class="pill">6 candidates · ${totalApiErrors} API errors</span>`;
+      `<span class="pill">${run.candidates.length} candidates</span>`;
+    document.querySelector("#runStatus").textContent = `● Completed · ${completedAt}`;
 
     document.querySelector("#summaryCards").innerHTML = `
       <article class="card"><div class="card-label">Top score · ${run.split}</div>
@@ -239,10 +244,10 @@
         <div class="card-detail">${leaders.join(" · ")} (${run.cases} cases)</div></article>
       <article class="card"><div class="card-label">Candidate calls</div>
         <div class="card-value">${run.cases * run.candidates.length}</div>
-        <div class="card-detail">All six candidates completed without API errors</div></article>
+        <div class="card-detail">${run.candidates.length} candidates × ${run.cases} cases</div></article>
       <article class="card"><div class="card-label">Failed evaluations</div>
         <div class="card-value">${totalFailures}</div>
-        <div class="card-detail">Mostly wrong-result failures in this benchmark</div></article>`;
+        <div class="card-detail">Failures counted across all candidates</div></article>`;
 
     document.querySelector("#tableHint").textContent =
       `${run.cases} ${run.split} cases · prompt and model shown per candidate`;
@@ -272,7 +277,7 @@
       </div>`).join("");
 
     document.querySelector("#splitNote").textContent = activeSplit === "test"
-      ? "Held-out check: only 12 cases. main-v2 and main-v3 tie at 12/12; this sample does not distinguish them."
+      ? `Held-out check: ${run.cases} cases. Treat these results as evidence from this sample, not a guarantee of general model quality.`
       : "Development results are used while iterating on prompts. Treat these scores as tuning results.";
   }
 
