@@ -1,0 +1,455 @@
+# Hand-written held-out cases. Keep these separate from generated.yaml and do not use them to tune prompts.
+- id: test-count-ang-mo-kio-2-room-2021
+  question: How many 2-room resale flats were sold in Ang Mo Kio during 2021?
+  reference_sql: SELECT COUNT(*) FROM resale WHERE town = 'ANG MO KIO' AND flat_type = '2 ROOM' AND month BETWEEN '2021-01' AND '2021-12'
+  tags: [count, town, flat-type, date-range]
+  split: test
+- id: test-count-bukit-merah-5-room-2024
+  question: How many 5-room resale transactions took place in Bukit Merah during 2024?
+  reference_sql: SELECT COUNT(*) FROM resale WHERE town = 'BUKIT MERAH' AND flat_type = '5 ROOM' AND month BETWEEN '2024-01' AND '2024-12'
+  tags: [count, town, flat-type, date-range]
+  split: test
+- id: test-count-clementi-executive-2019
+  question: How many Executive flats were resold in Clementi in 2019?
+  reference_sql: SELECT COUNT(*) FROM resale WHERE town = 'CLEMENTI' AND flat_type = 'EXECUTIVE' AND month LIKE '2019-%'
+  tags: [count, town, flat-type, value-format]
+  split: test
+- id: test-count-geylang-1-room-2018
+  question: How many 1-room flats were resold in Geylang in 2018?
+  reference_sql: SELECT COUNT(*) FROM resale WHERE town = 'GEYLANG' AND flat_type = '1 ROOM' AND month LIKE '2018-%'
+  tags: [count, town, flat-type, value-format]
+  split: test
+- id: test-count-jurong-east-3-room-2022
+  question: How many resale transactions for 3-room flats were recorded in Jurong East in 2022?
+  reference_sql: SELECT COUNT(*) FROM resale WHERE town = 'JURONG EAST' AND flat_type = '3 ROOM' AND month LIKE '2022-%'
+  tags: [count, town, flat-type, date-range]
+  split: test
+- id: test-count-marine-parade-4-room-2020
+  question: Count the 4-room resale transactions in Marine Parade from January through December 2020.
+  reference_sql: SELECT COUNT(*) FROM resale WHERE town = 'MARINE PARADE' AND flat_type = '4 ROOM' AND month BETWEEN '2020-01' AND '2020-12'
+  tags: [count, town, flat-type, inclusive-range]
+  split: test
+- id: test-count-queenstown-executive-2023
+  question: How many Executive resale flats were sold in Queenstown in 2023?
+  reference_sql: SELECT COUNT(*) FROM resale WHERE town = 'QUEENSTOWN' AND flat_type = 'EXECUTIVE' AND month LIKE '2023-%'
+  tags: [count, town, flat-type]
+  split: test
+- id: test-count-serangoon-2-room-2021
+  question: What is the number of 2-room resale transactions in Serangoon in 2021?
+  reference_sql: SELECT COUNT(*) FROM resale WHERE town = 'SERANGOON' AND flat_type = '2 ROOM' AND month LIKE '2021-%'
+  tags: [count, town, flat-type]
+  split: test
+- id: test-count-toa-payoh-5-room-2017
+  question: How many 5-room resale flats were sold in Toa Payoh in 2017?
+  reference_sql: SELECT COUNT(*) FROM resale WHERE town = 'TOA PAYOH' AND flat_type = '5 ROOM' AND month LIKE '2017-%'
+  tags: [count, town, flat-type]
+  split: test
+- id: test-count-yishun-multi-generation
+  question: How many Multi Generation model flats appear in the resale dataset?
+  reference_sql: SELECT COUNT(*) FROM resale WHERE flat_model = 'Multi Generation'
+  tags: [count, flat-model, exact-value]
+  split: test
+- id: test-average-bishan-3-room-2021
+  question: What was the average resale price of 3-room flats in Bishan in 2021?
+  reference_sql: SELECT AVG(resale_price) FROM resale WHERE town = 'BISHAN' AND flat_type = '3 ROOM' AND month LIKE '2021-%'
+  tags: [average, town, flat-type, year]
+  split: test
+- id: test-average-bukit-panjang-4-room-2018
+  question: Find the mean resale price for 4-room flats in Bukit Panjang in 2018.
+  reference_sql: SELECT AVG(resale_price) FROM resale WHERE town = 'BUKIT PANJANG' AND flat_type = '4 ROOM' AND month LIKE '2018-%'
+  tags: [average, town, flat-type, wording]
+  split: test
+- id: test-average-hougang-executive-2020
+  question: What was the mean resale price of Executive flats in Hougang during 2020?
+  reference_sql: SELECT AVG(resale_price) FROM resale WHERE town = 'HOUGANG' AND flat_type = 'EXECUTIVE' AND month BETWEEN '2020-01' AND '2020-12'
+  tags: [average, town, flat-type, date-range]
+  split: test
+- id: test-average-pasir-ris-2-room-2024
+  question: What was the average sale price for 2-room flats in Pasir Ris in 2024?
+  reference_sql: SELECT AVG(resale_price) FROM resale WHERE town = 'PASIR RIS' AND flat_type = '2 ROOM' AND month LIKE '2024-%'
+  tags: [average, town, flat-type, year]
+  split: test
+- id: test-average-woodlands-5-room-2019
+  question: Calculate the average resale price of 5-room flats sold in Woodlands in 2019.
+  reference_sql: SELECT AVG(resale_price) FROM resale WHERE town = 'WOODLANDS' AND flat_type = '5 ROOM' AND month LIKE '2019-%'
+  tags: [average, town, flat-type, year]
+  split: test
+- id: test-maximum-tampines-2-room-2022
+  question: What was the highest resale price for 2-room flats in Tampines in 2022?
+  reference_sql: SELECT MAX(resale_price) FROM resale WHERE town = 'TAMPINES' AND flat_type = '2 ROOM' AND month LIKE '2022-%'
+  tags: [maximum, town, flat-type, year]
+  split: test
+- id: test-minimum-bukit-batok-3-room-2020
+  question: What was the lowest resale price for 3-room flats in Bukit Batok in 2020?
+  reference_sql: SELECT MIN(resale_price) FROM resale WHERE town = 'BUKIT BATOK' AND flat_type = '3 ROOM' AND month LIKE '2020-%'
+  tags: [minimum, town, flat-type, year]
+  split: test
+- id: test-total-punggol-4-room-2023
+  question: What was the combined resale value of 4-room flats sold in Punggol during 2023?
+  reference_sql: SELECT SUM(resale_price) FROM resale WHERE town = 'PUNGGOL' AND flat_type = '4 ROOM' AND month LIKE '2023-%'
+  tags: [sum, town, flat-type, year]
+  split: test
+- id: test-median-bukit-merah-3-room-2022
+  question: What was the median resale price of 3-room flats in Bukit Merah in 2022?
+  reference_sql: SELECT AVG(resale_price) FROM (SELECT resale_price FROM resale WHERE town = 'BUKIT MERAH' AND flat_type = '3 ROOM' AND month LIKE '2022-%' ORDER BY resale_price LIMIT 2 - (SELECT COUNT(*) FROM resale WHERE town = 'BUKIT MERAH' AND flat_type = '3 ROOM' AND month LIKE '2022-%') % 2 OFFSET (SELECT (COUNT(*) - 1) / 2 FROM resale WHERE town = 'BUKIT MERAH' AND flat_type = '3 ROOM' AND month LIKE '2022-%'))
+  tags: [median, town, flat-type]
+  split: test
+- id: test-count-bedok-first-half-2023
+  question: How many resale transactions occurred in Bedok from January through June 2023?
+  reference_sql: SELECT COUNT(*) FROM resale WHERE town = 'BEDOK' AND month BETWEEN '2023-01' AND '2023-06'
+  tags: [count, town, half-year, inclusive-range]
+  split: test
+- id: test-count-hougang-second-half-2022
+  question: Count resale transactions in Hougang from July to December 2022 inclusive.
+  reference_sql: SELECT COUNT(*) FROM resale WHERE town = 'HOUGANG' AND month BETWEEN '2022-07' AND '2022-12'
+  tags: [count, town, half-year, inclusive-range]
+  split: test
+- id: test-count-central-area-2020-through-2022
+  question: How many resale transactions took place in Central Area from 2020 through 2022, including both endpoint years?
+  reference_sql: SELECT COUNT(*) FROM resale WHERE town = 'CENTRAL AREA' AND month BETWEEN '2020-01' AND '2022-12'
+  tags: [count, town, multi-year, inclusive-range]
+  split: test
+- id: test-count-tampines-q1-2024
+  question: How many resale transactions were recorded in Tampines in the first quarter of 2024?
+  reference_sql: SELECT COUNT(*) FROM resale WHERE town = 'TAMPINES' AND month BETWEEN '2024-01' AND '2024-03'
+  tags: [count, town, quarter, date-range]
+  split: test
+- id: test-count-yishun-q3-2023
+  question: Count transactions in Yishun during the third quarter of 2023, from July to September.
+  reference_sql: SELECT COUNT(*) FROM resale WHERE town = 'YISHUN' AND month BETWEEN '2023-07' AND '2023-09'
+  tags: [count, town, quarter, date-range]
+  split: test
+- id: test-count-4-room-2025
+  question: How many resale transactions for 4-room flats occurred in 2025 across all towns?
+  reference_sql: SELECT COUNT(*) FROM resale WHERE flat_type = '4 ROOM' AND month BETWEEN '2025-01' AND '2025-12'
+  tags: [count, flat-type, year]
+  split: test
+- id: test-count-pre-2020-executive
+  question: How many Executive resale flats were sold before 2020?
+  reference_sql: SELECT COUNT(*) FROM resale WHERE flat_type = 'EXECUTIVE' AND month < '2020-01'
+  tags: [count, flat-type, open-date-range]
+  split: test
+- id: test-count-after-2022-3-room
+  question: How many 3-room resale transactions occurred from 2022 onward?
+  reference_sql: SELECT COUNT(*) FROM resale WHERE flat_type = '3 ROOM' AND month >= '2022-01'
+  tags: [count, flat-type, open-date-range]
+  split: test
+- id: test-count-between-years-bedok
+  question: How many resale transactions were there in Bedok between 2018 and 2020 inclusive?
+  reference_sql: SELECT COUNT(*) FROM resale WHERE town = 'BEDOK' AND month BETWEEN '2018-01' AND '2020-12'
+  tags: [count, town, multi-year, inclusive-range]
+  split: test
+- id: test-count-not-2024-punggol
+  question: How many Punggol resale transactions happened before 2024?
+  reference_sql: SELECT COUNT(*) FROM resale WHERE town = 'PUNGGOL' AND month < '2024-01'
+  tags: [count, town, open-date-range]
+  split: test
+- id: test-count-storey-4-to-6-geylang-2022
+  question: How many flats in Geylang in 2022 were in the 04 TO 06 storey band?
+  reference_sql: SELECT COUNT(*) FROM resale WHERE town = 'GEYLANG' AND storey_range = '04 TO 06' AND month LIKE '2022-%'
+  tags: [count, storey, exact-value, year]
+  split: test
+- id: test-count-at-least-10th-floor-bishan-2023
+  question: How many Bishan resale flats in 2023 were on a storey band starting at floor 10 or higher?
+  reference_sql: SELECT COUNT(*) FROM resale WHERE town = 'BISHAN' AND CAST(substr(storey_range, 1, 2) AS INTEGER) >= 10 AND month LIKE '2023-%'
+  tags: [count, storey, numeric-parsing]
+  split: test
+- id: test-count-below-10th-floor-serangoon-2024
+  question: Count Serangoon resale transactions in 2024 where the highest floor in the storey band is below 10.
+  reference_sql: SELECT COUNT(*) FROM resale WHERE town = 'SERANGOON' AND CAST(substr(storey_range, 7, 2) AS INTEGER) < 10 AND month LIKE '2024-%'
+  tags: [count, storey, numeric-parsing]
+  split: test
+- id: test-average-high-floor-woodlands-5-room-2023
+  question: What was the average price of 5-room Woodlands flats in 2023 whose storey band starts at floor 19 or higher?
+  reference_sql: SELECT AVG(resale_price) FROM resale WHERE town = 'WOODLANDS' AND flat_type = '5 ROOM' AND CAST(substr(storey_range, 1, 2) AS INTEGER) >= 19 AND month LIKE '2023-%'
+  tags: [average, storey, numeric-parsing, multi-filter]
+  split: test
+- id: test-count-storey-band-13-to-15-bedok-2021
+  question: How many 4-room flats in Bedok were sold on floors 13 to 15 in 2021?
+  reference_sql: SELECT COUNT(*) FROM resale WHERE town = 'BEDOK' AND flat_type = '4 ROOM' AND storey_range = '13 TO 15' AND month LIKE '2021-%'
+  tags: [count, storey, flat-type, exact-value]
+  split: test
+- id: test-count-not-lowest-storey-tampines-2020
+  question: How many Tampines resale flats in 2020 were not in the 01 TO 03 storey band?
+  reference_sql: SELECT COUNT(*) FROM resale WHERE town = 'TAMPINES' AND storey_range <> '01 TO 03' AND month LIKE '2020-%'
+  tags: [count, storey, inequality]
+  split: test
+- id: test-count-exact-model-a-not-a2-2022
+  question: How many flats with the exact model Model A, excluding Model A2, were sold in 2022?
+  reference_sql: SELECT COUNT(*) FROM resale WHERE flat_model = 'Model A' AND month LIKE '2022-%'
+  tags: [count, flat-model, exact-match]
+  split: test
+- id: test-count-model-a2-all
+  question: How many resale transactions in the dataset used the Model A2 flat model?
+  reference_sql: SELECT COUNT(*) FROM resale WHERE flat_model = 'Model A2'
+  tags: [count, flat-model, exact-match]
+  split: test
+- id: test-count-maisonette-model-all
+  question: How many resale transactions had the flat model Maisonette?
+  reference_sql: SELECT COUNT(*) FROM resale WHERE flat_model = 'Maisonette'
+  tags: [count, flat-model, exact-value]
+  split: test
+- id: test-count-improved-maisonette-all
+  question: How many flats had the exact model name Improved-Maisonette?
+  reference_sql: SELECT COUNT(*) FROM resale WHERE flat_model = 'Improved-Maisonette'
+  tags: [count, flat-model, exact-value, punctuation]
+  split: test
+- id: test-count-3gen-all
+  question: How many resale flats are recorded with the model label 3Gen?
+  reference_sql: SELECT COUNT(*) FROM resale WHERE flat_model = '3Gen'
+  tags: [count, flat-model, exact-value, mixed-case]
+  split: test
+- id: test-count-adjoined-flat-all
+  question: Count the resale records whose flat model is Adjoined flat.
+  reference_sql: SELECT COUNT(*) FROM resale WHERE flat_model = 'Adjoined flat'
+  tags: [count, flat-model, exact-value, mixed-case]
+  split: test
+- id: test-count-two-room-model-all
+  question: How many records use the flat model label 2-room?
+  reference_sql: SELECT COUNT(*) FROM resale WHERE flat_model = '2-room'
+  tags: [count, flat-model, exact-value, punctuation]
+  split: test
+- id: test-average-model-a2-jurong-west-2024
+  question: What was the average resale price of Model A2 flats in Jurong West in 2024?
+  reference_sql: SELECT AVG(resale_price) FROM resale WHERE town = 'JURONG WEST' AND flat_model = 'Model A2' AND month LIKE '2024-%'
+  tags: [average, flat-model, exact-match]
+  split: test
+- id: test-count-flat-type-executive-not-room
+  question: How many resale transactions have flat_type exactly equal to EXECUTIVE?
+  reference_sql: SELECT COUNT(*) FROM resale WHERE flat_type = 'EXECUTIVE'
+  tags: [count, flat-type, exact-value]
+  split: test
+- id: test-count-2-room-flat-type-all
+  question: How many records have the flat type 2 ROOM?
+  reference_sql: SELECT COUNT(*) FROM resale WHERE flat_type = '2 ROOM'
+  tags: [count, flat-type, exact-value, spacing]
+  split: test
+- id: test-count-exact-5-room-not-executive
+  question: How many flats have flat_type exactly 5 ROOM, excluding Executive flats by type?
+  reference_sql: SELECT COUNT(*) FROM resale WHERE flat_type = '5 ROOM'
+  tags: [count, flat-type, exact-match]
+  split: test
+- id: test-count-multi-generation-flat-type
+  question: How many transactions have the flat type MULTI-GENERATION?
+  reference_sql: SELECT COUNT(*) FROM resale WHERE flat_type = 'MULTI-GENERATION'
+  tags: [count, flat-type, exact-value, punctuation]
+  split: test
+- id: test-average-price-per-sqm-pasir-ris-4-room-2022
+  question: Across individual transactions, what was the average resale price per square metre for 4-room flats in Pasir Ris in 2022?
+  reference_sql: SELECT AVG(resale_price / floor_area_sqm) FROM resale WHERE town = 'PASIR RIS' AND flat_type = '4 ROOM' AND month LIKE '2022-%'
+  tags: [average, derived-metric, floor-area]
+  split: test
+- id: test-average-of-individual-price-per-sqm-queenstown-2021
+  question: What is the mean of each flat's price divided by floor area for Queenstown transactions in 2021?
+  reference_sql: SELECT AVG(resale_price / floor_area_sqm) FROM resale WHERE town = 'QUEENSTOWN' AND month LIKE '2021-%'
+  tags: [average, derived-metric, wording]
+  split: test
+- id: test-average-price-per-sqm-executive-2020
+  question: Calculate the average dollars per square metre for Executive flats sold in 2020.
+  reference_sql: SELECT AVG(resale_price / floor_area_sqm) FROM resale WHERE flat_type = 'EXECUTIVE' AND month LIKE '2020-%'
+  tags: [average, derived-metric, flat-type]
+  split: test
+- id: test-price-per-sqm-tampines-versus-bedok-2023
+  question: What was the average individual-flat resale price per square metre in Tampines and Bedok combined in 2023?
+  reference_sql: SELECT AVG(resale_price / floor_area_sqm) FROM resale WHERE town IN ('TAMPINES', 'BEDOK') AND month LIKE '2023-%'
+  tags: [average, derived-metric, multi-town]
+  split: test
+- id: test-average-area-5-room-sengkang-2024
+  question: What was the average floor area of 5-room flats sold in Sengkang in 2024?
+  reference_sql: SELECT AVG(floor_area_sqm) FROM resale WHERE town = 'SENGKANG' AND flat_type = '5 ROOM' AND month LIKE '2024-%'
+  tags: [average, floor-area, flat-type]
+  split: test
+- id: test-max-floor-area-3-room-2023
+  question: What was the largest floor area among 3-room resale flats in 2023?
+  reference_sql: SELECT MAX(floor_area_sqm) FROM resale WHERE flat_type = '3 ROOM' AND month LIKE '2023-%'
+  tags: [maximum, floor-area, flat-type]
+  split: test
+- id: test-average-price-above-sqm-100-2024
+  question: What was the average resale price of flats with at least 100 square metres of floor area in 2024?
+  reference_sql: SELECT AVG(resale_price) FROM resale WHERE floor_area_sqm >= 100 AND month LIKE '2024-%'
+  tags: [average, floor-area, threshold]
+  split: test
+- id: test-count-area-between-90-and-100-2022
+  question: How many flats had floor area from 90 through 100 square metres inclusive in 2022?
+  reference_sql: SELECT COUNT(*) FROM resale WHERE floor_area_sqm BETWEEN 90 AND 100 AND month LIKE '2022-%'
+  tags: [count, floor-area, inclusive-range]
+  split: test
+- id: test-share-4-room-tampines-2023
+  question: What percentage of Tampines resale transactions in 2023 were 4-room flats? Return a number from 0 to 100.
+  reference_sql: SELECT 100.0 * SUM(CASE WHEN flat_type = '4 ROOM' THEN 1 ELSE 0 END) / COUNT(*) FROM resale WHERE town = 'TAMPINES' AND month LIKE '2023-%'
+  tags: [percentage, conditional-aggregation]
+  split: test
+- id: test-share-executive-woodlands-2022
+  question: Among Woodlands transactions in 2022, what percentage were Executive flats?
+  reference_sql: SELECT 100.0 * SUM(CASE WHEN flat_type = 'EXECUTIVE' THEN 1 ELSE 0 END) / COUNT(*) FROM resale WHERE town = 'WOODLANDS' AND month LIKE '2022-%'
+  tags: [percentage, conditional-aggregation, flat-type]
+  split: test
+- id: test-share-5-room-singapore-2021
+  question: What percentage of all resale transactions in 2021 were for 5-room flats?
+  reference_sql: SELECT 100.0 * SUM(CASE WHEN flat_type = '5 ROOM' THEN 1 ELSE 0 END) / COUNT(*) FROM resale WHERE month LIKE '2021-%'
+  tags: [percentage, conditional-aggregation]
+  split: test
+- id: test-share-high-floor-bishan-2024
+  question: What percentage of Bishan resale transactions in 2024 were on storey bands starting at floor 10 or above?
+  reference_sql: SELECT 100.0 * SUM(CASE WHEN CAST(substr(storey_range, 1, 2) AS INTEGER) >= 10 THEN 1 ELSE 0 END) / COUNT(*) FROM resale WHERE town = 'BISHAN' AND month LIKE '2024-%'
+  tags: [percentage, conditional-aggregation, storey]
+  split: test
+- id: test-count-price-between-500-and-600k-2023
+  question: How many flats sold in 2023 had resale prices from $500,000 through $600,000 inclusive?
+  reference_sql: SELECT COUNT(*) FROM resale WHERE resale_price BETWEEN 500000 AND 600000 AND month LIKE '2023-%'
+  tags: [count, price, inclusive-range]
+  split: test
+- id: test-count-price-over-1m-central-area-2024
+  question: How many resale flats in Central Area sold for more than $1,000,000 in 2024?
+  reference_sql: SELECT COUNT(*) FROM resale WHERE town = 'CENTRAL AREA' AND resale_price > 1000000 AND month LIKE '2024-%'
+  tags: [count, price, strict-threshold]
+  split: test
+- id: test-count-price-at-most-300k-2020
+  question: How many resale transactions in 2020 were priced at $300,000 or less?
+  reference_sql: SELECT COUNT(*) FROM resale WHERE resale_price <= 300000 AND month LIKE '2020-%'
+  tags: [count, price, inclusive-threshold]
+  split: test
+- id: test-average-price-without-extremes-punggol-2023
+  question: What was the average resale price in Punggol in 2023 after excluding prices below $200,000 and above $800,000?
+  reference_sql: SELECT AVG(resale_price) FROM resale WHERE town = 'PUNGGOL' AND resale_price BETWEEN 200000 AND 800000 AND month LIKE '2023-%'
+  tags: [average, price, inclusive-range]
+  split: test
+- id: test-distinct-streets-toa-payoh-2022
+  question: How many distinct street names had resale transactions in Toa Payoh in 2022?
+  reference_sql: SELECT COUNT(DISTINCT street_name) FROM resale WHERE town = 'TOA PAYOH' AND month LIKE '2022-%'
+  tags: [distinct-count, town, year]
+  split: test
+- id: test-distinct-flat-models-bedok-2024
+  question: How many different flat models were resold in Bedok during 2024?
+  reference_sql: SELECT COUNT(DISTINCT flat_model) FROM resale WHERE town = 'BEDOK' AND month LIKE '2024-%'
+  tags: [distinct-count, flat-model]
+  split: test
+- id: test-distinct-flat-types-hougang-2023
+  question: How many distinct flat types were sold in Hougang in 2023?
+  reference_sql: SELECT COUNT(DISTINCT flat_type) FROM resale WHERE town = 'HOUGANG' AND month LIKE '2023-%'
+  tags: [distinct-count, flat-type]
+  split: test
+- id: test-distinct-years-bishan
+  question: Across how many different calendar years does the dataset contain resale transactions in Bishan?
+  reference_sql: SELECT COUNT(DISTINCT substr(month, 1, 4)) FROM resale WHERE town = 'BISHAN'
+  tags: [distinct-count, date-extraction]
+  split: test
+- id: test-distinct-streets-over-800k-2023
+  question: In 2023, how many different streets had a resale transaction priced above $800,000?
+  reference_sql: SELECT COUNT(DISTINCT street_name) FROM resale WHERE resale_price > 800000 AND month LIKE '2023-%'
+  tags: [distinct-count, price, strict-threshold]
+  split: test
+- id: test-town-transaction-counts-2022
+  question: Return every town and its number of resale transactions in 2022, ordered from the most transactions to the fewest and then alphabetically by town.
+  reference_sql: SELECT town, COUNT(*) FROM resale WHERE month LIKE '2022-%' GROUP BY town ORDER BY COUNT(*) DESC, town ASC
+  tags: [group-by, ranking, ordering]
+  compare: { ordered: true }
+  split: test
+- id: test-flat-type-average-prices-2023
+  question: For 2023, return each flat type and its average resale price, ordered by average price from highest to lowest.
+  reference_sql: SELECT flat_type, AVG(resale_price) FROM resale WHERE month LIKE '2023-%' GROUP BY flat_type ORDER BY AVG(resale_price) DESC, flat_type ASC
+  tags: [group-by, average, ranking]
+  compare: { ordered: true }
+  split: test
+- id: test-town-counts-3-room-2024
+  question: List towns with their counts of 3-room transactions in 2024, alphabetically by town.
+  reference_sql: SELECT town, COUNT(*) FROM resale WHERE flat_type = '3 ROOM' AND month LIKE '2024-%' GROUP BY town ORDER BY town
+  tags: [group-by, count, ordering]
+  compare: { ordered: true }
+  split: test
+- id: test-model-counts-sengkang-2023
+  question: Return each flat model and its number of resale transactions in Sengkang in 2023, from most common to least common.
+  reference_sql: SELECT flat_model, COUNT(*) FROM resale WHERE town = 'SENGKANG' AND month LIKE '2023-%' GROUP BY flat_model ORDER BY COUNT(*) DESC, flat_model ASC
+  tags: [group-by, flat-model, ranking]
+  compare: { ordered: true }
+  split: test
+- id: test-town-min-max-prices-2024
+  question: For each town in 2024, return the town, minimum resale price, and maximum resale price, ordered by town name.
+  reference_sql: SELECT town, MIN(resale_price), MAX(resale_price) FROM resale WHERE month LIKE '2024-%' GROUP BY town ORDER BY town
+  tags: [group-by, min, max, multi-column]
+  compare: { ordered: true }
+  split: test
+- id: test-year-average-prices-4-room
+  question: Return each calendar year and the average resale price of 4-room flats, ordered from earliest to latest year.
+  reference_sql: SELECT substr(month, 1, 4), AVG(resale_price) FROM resale WHERE flat_type = '4 ROOM' GROUP BY substr(month, 1, 4) ORDER BY substr(month, 1, 4)
+  tags: [group-by, date-extraction, average]
+  compare: { ordered: true }
+  split: test
+- id: test-month-counts-tampines-2024
+  question: For each month of 2024, return the month and number of resale transactions in Tampines, ordered chronologically.
+  reference_sql: SELECT month, COUNT(*) FROM resale WHERE town = 'TAMPINES' AND month BETWEEN '2024-01' AND '2024-12' GROUP BY month ORDER BY month
+  tags: [group-by, month, ordering]
+  compare: { ordered: true }
+  split: test
+- id: test-town-averages-executive-2023
+  question: Return towns and their average Executive-flat resale prices in 2023, sorted alphabetically.
+  reference_sql: SELECT town, AVG(resale_price) FROM resale WHERE flat_type = 'EXECUTIVE' AND month LIKE '2023-%' GROUP BY town ORDER BY town
+  tags: [group-by, average, flat-type]
+  compare: { ordered: true }
+  split: test
+- id: test-town-flat-type-counts-bedok-2022
+  question: In Bedok in 2022, show the transaction count for each flat type, ordered by flat type.
+  reference_sql: SELECT flat_type, COUNT(*) FROM resale WHERE town = 'BEDOK' AND month LIKE '2022-%' GROUP BY flat_type ORDER BY flat_type
+  tags: [group-by, flat-type, count]
+  compare: { ordered: true }
+  split: test
+- id: test-town-average-area-2021
+  question: Return each town and its average resale-flat floor area in 2021, sorted from largest average area to smallest.
+  reference_sql: SELECT town, AVG(floor_area_sqm) FROM resale WHERE month LIKE '2021-%' GROUP BY town ORDER BY AVG(floor_area_sqm) DESC, town ASC
+  tags: [group-by, average, floor-area, ranking]
+  compare: { ordered: true }
+  split: test
+- id: test-town-price-sums-2024
+  question: For each town in 2024, return the total resale value, ordered from greatest total to least.
+  reference_sql: SELECT town, SUM(resale_price) FROM resale WHERE month LIKE '2024-%' GROUP BY town ORDER BY SUM(resale_price) DESC, town ASC
+  tags: [group-by, sum, ranking]
+  compare: { ordered: true }
+  split: test
+- id: test-town-price-range-2023
+  question: For each town in 2023, return the difference between its highest and lowest resale price, sorted by town.
+  reference_sql: SELECT town, MAX(resale_price) - MIN(resale_price) FROM resale WHERE month LIKE '2023-%' GROUP BY town ORDER BY town
+  tags: [group-by, derived-metric, min, max]
+  compare: { ordered: true }
+  split: test
+- id: test-town-counts-at-least-100-2024
+  question: How many towns had at least 100 resale transactions in 2024?
+  reference_sql: SELECT COUNT(*) FROM (SELECT town FROM resale WHERE month LIKE '2024-%' GROUP BY town HAVING COUNT(*) >= 100)
+  tags: [group-by, having, count]
+  split: test
+- id: test-town-average-3room-over-450k-2023
+  question: Which towns had an average 3-room resale price above $450,000 in 2023? Return town names alphabetically.
+  reference_sql: SELECT town FROM resale WHERE flat_type = '3 ROOM' AND month LIKE '2023-%' GROUP BY town HAVING AVG(resale_price) > 450000 ORDER BY town
+  tags: [group-by, having, threshold]
+  compare: { ordered: true }
+  split: test
+- id: test-town-model-groups-over-100-tampines-2022
+  question: How many distinct flat models each had more than 100 transactions in Tampines in 2022?
+  reference_sql: SELECT COUNT(*) FROM (SELECT flat_model FROM resale WHERE town = 'TAMPINES' AND month LIKE '2022-%' GROUP BY flat_model HAVING COUNT(*) > 100)
+  tags: [group-by, having, flat-model]
+  split: test
+- id: test-flat-type-mean-over-600k-2024
+  question: Which flat types had an average resale price above $600,000 in 2024? Return them alphabetically.
+  reference_sql: SELECT flat_type FROM resale WHERE month LIKE '2024-%' GROUP BY flat_type HAVING AVG(resale_price) > 600000 ORDER BY flat_type
+  tags: [group-by, having, threshold]
+  compare: { ordered: true }
+  split: test
+- id: test-town-transaction-groups-over-12-months-2023
+  question: How many towns recorded transactions in all twelve months of 2023?
+  reference_sql: SELECT COUNT(*) FROM (SELECT town FROM resale WHERE month LIKE '2023-%' GROUP BY town HAVING COUNT(DISTINCT month) = 12)
+  tags: [group-by, having, distinct-count]
+  split: test
+- id: test-town-model-counts-at-least-5-2024
+  question: How many towns had at least five different flat models sold in 2024?
+  reference_sql: SELECT COUNT(*) FROM (SELECT town FROM resale WHERE month LIKE '2024-%' GROUP BY town HAVING COUNT(DISTINCT flat_model) >= 5)
+  tags: [group-by, having, distinct-count]
+  split: test
+- id: test-average-price-most-expensive-town-2023
+  question: Which town had the highest average resale price across all flat types in 2023? Break ties alphabetically.
+  reference_sql: SELECT town FROM resale WHERE month LIKE '2023-%' GROUP BY town ORDER BY AVG(resale_price) DESC, town ASC LIMIT 1
+  tags: [group-by, ranking, tie-break]
+  split: test
+- id: test-lowest-average-town-4room-2024
+  question: Which town had the lowest average 4-room resale price in 2024? Return one town, breaking ties alphabetically.
+  reference_sql: SELECT town FROM resale WHERE flat_type = '4 ROOM' AND month LIKE '2024-%' GROUP BY town ORDER BY AVG(resale_price) ASC, town ASC LIMIT 1
+  tags: [group-by, ranking, tie-break]
+  split: test

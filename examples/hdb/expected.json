@@ -60,6 +60,138 @@
         ]
       ]
     },
+    "gen-avg-yishun-4-room-2024": {
+      "sqlHash": "5790fa4b5086f4a3",
+      "columns": [
+        "AVG(resale_price)"
+      ],
+      "rows": [
+        [
+          538154.4496644295
+        ]
+      ]
+    },
+    "gen-count-bedok-2017": {
+      "sqlHash": "7b4be3449ccdb148",
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          1148
+        ]
+      ]
+    },
+    "gen-count-flat-3-room-2020": {
+      "sqlHash": "064f04a5d953834b",
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          5384
+        ]
+      ]
+    },
+    "gen-count-flat-3-room-2025": {
+      "sqlHash": "4a514ab3e7bf3b88",
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          6149
+        ]
+      ]
+    },
+    "gen-count-punggol-2024": {
+      "sqlHash": "d6882aa515f47ebc",
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          2027
+        ]
+      ]
+    },
+    "gen-count-queenstown-2025": {
+      "sqlHash": "af5a418924b12817",
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          605
+        ]
+      ]
+    },
+    "gen-max-hougang-5-room-2024": {
+      "sqlHash": "1e28156140ba3225",
+      "columns": [
+        "MAX(resale_price)"
+      ],
+      "rows": [
+        [
+          1150000
+        ]
+      ]
+    },
+    "gen-max-jurong-west-4-room-2024": {
+      "sqlHash": "dc98f0b17560a791",
+      "columns": [
+        "MAX(resale_price)"
+      ],
+      "rows": [
+        [
+          742000
+        ]
+      ]
+    },
+    "gen-median-sengkang-3-room-2019": {
+      "sqlHash": "a830b5cb9239ef00",
+      "columns": [
+        "AVG(resale_price)"
+      ],
+      "rows": [
+        [
+          340000
+        ]
+      ]
+    },
+    "gen-sqm-marine-parade-4-room-2020": {
+      "sqlHash": "c63451fff0e09aa9",
+      "columns": [
+        "AVG(resale_price / floor_area_sqm)"
+      ],
+      "rows": [
+        [
+          5532.886657101865
+        ]
+      ]
+    },
+    "gen-sqm-serangoon-3-room-2021": {
+      "sqlHash": "6c0b920cdaa1ebeb",
+      "columns": [
+        "AVG(resale_price / floor_area_sqm)"
+      ],
+      "rows": [
+        [
+          5329.679297429522
+        ]
+      ]
+    },
+    "gen-top-town-2021": {
+      "sqlHash": "62445ef5c86efb59",
+      "columns": [
+        "town"
+      ],
+      "rows": [
+        [
+          "SENGKANG"
+        ]
+      ]
+    },
     "gen-avg-ang-mo-kio-5-room-2020": {
       "sqlHash": "db4388b16fbb0777",
       "columns": [
@@ -159,28 +291,6 @@
         ]
       ]
     },
-    "gen-avg-yishun-4-room-2024": {
-      "sqlHash": "5790fa4b5086f4a3",
-      "columns": [
-        "AVG(resale_price)"
-      ],
-      "rows": [
-        [
-          538154.4496644295
-        ]
-      ]
-    },
-    "gen-count-bedok-2017": {
-      "sqlHash": "7b4be3449ccdb148",
-      "columns": [
-        "COUNT(*)"
-      ],
-      "rows": [
-        [
-          1148
-        ]
-      ]
-    },
     "gen-count-choa-chu-kang-2018": {
       "sqlHash": "9b2951796fea4471",
       "columns": [
@@ -214,17 +324,6 @@
         ]
       ]
     },
-    "gen-count-flat-3-room-2020": {
-      "sqlHash": "064f04a5d953834b",
-      "columns": [
-        "COUNT(*)"
-      ],
-      "rows": [
-        [
-          5384
-        ]
-      ]
-    },
     "gen-count-flat-3-room-2021": {
       "sqlHash": "06dd0157c47709de",
       "columns": [
@@ -233,17 +332,6 @@
       "rows": [
         [
           6266
-        ]
-      ]
-    },
-    "gen-count-flat-3-room-2025": {
-      "sqlHash": "4a514ab3e7bf3b88",
-      "columns": [
-        "COUNT(*)"
-      ],
-      "rows": [
-        [
-          6149
         ]
       ]
     },
@@ -313,28 +401,6 @@
         ]
       ]
     },
-    "gen-count-punggol-2024": {
-      "sqlHash": "d6882aa515f47ebc",
-      "columns": [
-        "COUNT(*)"
-      ],
-      "rows": [
-        [
-          2027
-        ]
-      ]
-    },
-    "gen-count-queenstown-2025": {
-      "sqlHash": "af5a418924b12817",
-      "columns": [
-        "COUNT(*)"
-      ],
-      "rows": [
-        [
-          605
-        ]
-      ]
-    },
     "gen-count-tampines-2022": {
       "sqlHash": "f2cff07c41bfc444",
       "columns": [
@@ -357,17 +423,6 @@
         ]
       ]
     },
-    "gen-max-hougang-5-room-2024": {
-      "sqlHash": "1e28156140ba3225",
-      "columns": [
-        "MAX(resale_price)"
-      ],
-      "rows": [
-        [
-          1150000
-        ]
-      ]
-    },
     "gen-max-jurong-west-4-room-2023": {
       "sqlHash": "85c894f9533684b1",
       "columns": [
@@ -376,17 +431,6 @@
       "rows": [
         [
           702000
-        ]
-      ]
-    },
-    "gen-max-jurong-west-4-room-2024": {
-      "sqlHash": "dc98f0b17560a791",
-      "columns": [
-        "MAX(resale_price)"
-      ],
-      "rows": [
-        [
-          742000
         ]
       ]
     },
@@ -533,17 +577,6 @@
         ]
       ]
     },
-    "gen-median-sengkang-3-room-2019": {
-      "sqlHash": "a830b5cb9239ef00",
-      "columns": [
-        "AVG(resale_price)"
-      ],
-      "rows": [
-        [
-          340000
-        ]
-      ]
-    },
     "gen-sqm-ang-mo-kio-3-room-2018": {
       "sqlHash": "6e2344fd55cf8135",
       "columns": [
@@ -588,17 +621,6 @@
         ]
       ]
     },
-    "gen-sqm-marine-parade-4-room-2020": {
-      "sqlHash": "c63451fff0e09aa9",
-      "columns": [
-        "AVG(resale_price / floor_area_sqm)"
-      ],
-      "rows": [
-        [
-          5532.886657101865
-        ]
-      ]
-    },
     "gen-sqm-punggol-5-room-2017": {
       "sqlHash": "2cf6e2c049c274be",
       "columns": [
@@ -607,17 +629,6 @@
       "rows": [
         [
           4211.719334568123
-        ]
-      ]
-    },
-    "gen-sqm-serangoon-3-room-2021": {
-      "sqlHash": "6c0b920cdaa1ebeb",
-      "columns": [
-        "AVG(resale_price / floor_area_sqm)"
-      ],
-      "rows": [
-        [
-          5329.679297429522
         ]
       ]
     },
@@ -645,17 +656,6 @@
     },
     "gen-top-town-2019": {
       "sqlHash": "4c6a5b3c830a1569",
-      "columns": [
-        "town"
-      ],
-      "rows": [
-        [
-          "SENGKANG"
-        ]
-      ]
-    },
-    "gen-top-town-2021": {
-      "sqlHash": "62445ef5c86efb59",
       "columns": [
         "town"
       ],
@@ -1161,6 +1161,1889 @@
       "rows": [
         [
           15
+        ]
+      ]
+    },
+    "test-count-ang-mo-kio-2-room-2021": {
+      "sqlHash": "bdc126f280aa13d4",
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          11
+        ]
+      ]
+    },
+    "test-count-bukit-merah-5-room-2024": {
+      "sqlHash": "e35aca6c41e6d35d",
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          183
+        ]
+      ]
+    },
+    "test-count-clementi-executive-2019": {
+      "sqlHash": "a0358009ea9c8342",
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          18
+        ]
+      ]
+    },
+    "test-count-geylang-1-room-2018": {
+      "sqlHash": "127ab6a2b59ef5e6",
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          0
+        ]
+      ]
+    },
+    "test-count-jurong-east-3-room-2022": {
+      "sqlHash": "7de666a69b2d7e85",
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          178
+        ]
+      ]
+    },
+    "test-count-marine-parade-4-room-2020": {
+      "sqlHash": "7cd353f3dd2edd53",
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          34
+        ]
+      ]
+    },
+    "test-count-queenstown-executive-2023": {
+      "sqlHash": "bf5fcf6e91d1bce2",
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          7
+        ]
+      ]
+    },
+    "test-count-serangoon-2-room-2021": {
+      "sqlHash": "ee42f75190e32967",
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          2
+        ]
+      ]
+    },
+    "test-count-toa-payoh-5-room-2017": {
+      "sqlHash": "31b45f28d7f521ad",
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          158
+        ]
+      ]
+    },
+    "test-count-yishun-multi-generation": {
+      "sqlHash": "25b22b2d8fc9be0d",
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          91
+        ]
+      ]
+    },
+    "test-average-bishan-3-room-2021": {
+      "sqlHash": "c89d84c2f2eb14a9",
+      "columns": [
+        "AVG(resale_price)"
+      ],
+      "rows": [
+        [
+          387566.6153846154
+        ]
+      ]
+    },
+    "test-average-bukit-panjang-4-room-2018": {
+      "sqlHash": "fd915745007916b4",
+      "columns": [
+        "AVG(resale_price)"
+      ],
+      "rows": [
+        [
+          378549.9176829268
+        ]
+      ]
+    },
+    "test-average-hougang-executive-2020": {
+      "sqlHash": "781cd72ddff30cbf",
+      "columns": [
+        "AVG(resale_price)"
+      ],
+      "rows": [
+        [
+          678372.5428571429
+        ]
+      ]
+    },
+    "test-average-pasir-ris-2-room-2024": {
+      "sqlHash": "631c717b16672869",
+      "columns": [
+        "AVG(resale_price)"
+      ],
+      "rows": [
+        [
+          408600
+        ]
+      ]
+    },
+    "test-average-woodlands-5-room-2019": {
+      "sqlHash": "acda60ee157501e7",
+      "columns": [
+        "AVG(resale_price)"
+      ],
+      "rows": [
+        [
+          403034.39019963704
+        ]
+      ]
+    },
+    "test-maximum-tampines-2-room-2022": {
+      "sqlHash": "363adede9d6f7b97",
+      "columns": [
+        "MAX(resale_price)"
+      ],
+      "rows": [
+        [
+          338000
+        ]
+      ]
+    },
+    "test-minimum-bukit-batok-3-room-2020": {
+      "sqlHash": "4179a20595ec579b",
+      "columns": [
+        "MIN(resale_price)"
+      ],
+      "rows": [
+        [
+          208000
+        ]
+      ]
+    },
+    "test-total-punggol-4-room-2023": {
+      "sqlHash": "2d4e98fab8755c09",
+      "columns": [
+        "SUM(resale_price)"
+      ],
+      "rows": [
+        [
+          629366082
+        ]
+      ]
+    },
+    "test-median-bukit-merah-3-room-2022": {
+      "sqlHash": "c50255dddfd1cb5b",
+      "columns": [
+        "AVG(resale_price)"
+      ],
+      "rows": [
+        [
+          380000
+        ]
+      ]
+    },
+    "test-count-bedok-first-half-2023": {
+      "sqlHash": "fb156caf501572a5",
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          682
+        ]
+      ]
+    },
+    "test-count-hougang-second-half-2022": {
+      "sqlHash": "6a4c44000cef5bf5",
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          635
+        ]
+      ]
+    },
+    "test-count-central-area-2020-through-2022": {
+      "sqlHash": "7e29459af79767a9",
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          644
+        ]
+      ]
+    },
+    "test-count-tampines-q1-2024": {
+      "sqlHash": "53ba9ee07c859dc6",
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          475
+        ]
+      ]
+    },
+    "test-count-yishun-q3-2023": {
+      "sqlHash": "c1ab3f610ab2e9ca",
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          452
+        ]
+      ]
+    },
+    "test-count-4-room-2025": {
+      "sqlHash": "3a24dceff7924b99",
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          10843
+        ]
+      ]
+    },
+    "test-count-pre-2020-executive": {
+      "sqlHash": "948e8d8d27bbd85c",
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          5169
+        ]
+      ]
+    },
+    "test-count-after-2022-3-room": {
+      "sqlHash": "00d1996634ab85ef",
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          30232
+        ]
+      ]
+    },
+    "test-count-between-years-bedok": {
+      "sqlHash": "537733748247e8fa",
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          3600
+        ]
+      ]
+    },
+    "test-count-not-2024-punggol": {
+      "sqlHash": "d1f995d8ac1b5cd6",
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          12592
+        ]
+      ]
+    },
+    "test-count-storey-4-to-6-geylang-2022": {
+      "sqlHash": "d99257b231fdcf87",
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          161
+        ]
+      ]
+    },
+    "test-count-at-least-10th-floor-bishan-2023": {
+      "sqlHash": "9ba5bd4b60ef17da",
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          126
+        ]
+      ]
+    },
+    "test-count-below-10th-floor-serangoon-2024": {
+      "sqlHash": "88ece35f2b06f4ea",
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          321
+        ]
+      ]
+    },
+    "test-average-high-floor-woodlands-5-room-2023": {
+      "sqlHash": "a05f91656b16c0ea",
+      "columns": [
+        "AVG(resale_price)"
+      ],
+      "rows": [
+        [
+          594666.6666666666
+        ]
+      ]
+    },
+    "test-count-storey-band-13-to-15-bedok-2021": {
+      "sqlHash": "a56da6dd144390f1",
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          68
+        ]
+      ]
+    },
+    "test-count-not-lowest-storey-tampines-2020": {
+      "sqlHash": "31ce8e386223c4f0",
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          1300
+        ]
+      ]
+    },
+    "test-count-exact-model-a-not-a2-2022": {
+      "sqlHash": "828c225eb58972b0",
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          9503
+        ]
+      ]
+    },
+    "test-count-model-a2-all": {
+      "sqlHash": "1eac2ae681bc47e1",
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          2715
+        ]
+      ]
+    },
+    "test-count-maisonette-model-all": {
+      "sqlHash": "d59cec092b1d56a2",
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          6626
+        ]
+      ]
+    },
+    "test-count-improved-maisonette-all": {
+      "sqlHash": "043de3561383722c",
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          33
+        ]
+      ]
+    },
+    "test-count-3gen-all": {
+      "sqlHash": "008b122f0abcfaf3",
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          84
+        ]
+      ]
+    },
+    "test-count-adjoined-flat-all": {
+      "sqlHash": "cbe41a53ac524966",
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          416
+        ]
+      ]
+    },
+    "test-count-two-room-model-all": {
+      "sqlHash": "57558401674932e5",
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          518
+        ]
+      ]
+    },
+    "test-average-model-a2-jurong-west-2024": {
+      "sqlHash": "41f92638e4455449",
+      "columns": [
+        "AVG(resale_price)"
+      ],
+      "rows": [
+        [
+          506830.36734693876
+        ]
+      ]
+    },
+    "test-count-flat-type-executive-not-room": {
+      "sqlHash": "7335ab21e17ec300",
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          17265
+        ]
+      ]
+    },
+    "test-count-2-room-flat-type-all": {
+      "sqlHash": "8181605038d99d41",
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          5097
+        ]
+      ]
+    },
+    "test-count-exact-5-room-not-executive": {
+      "sqlHash": "055c46bad295ad01",
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          59267
+        ]
+      ]
+    },
+    "test-count-multi-generation-flat-type": {
+      "sqlHash": "56a05d4a21a331ec",
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          91
+        ]
+      ]
+    },
+    "test-average-price-per-sqm-pasir-ris-4-room-2022": {
+      "sqlHash": "db0697b71c2ecdcf",
+      "columns": [
+        "AVG(resale_price / floor_area_sqm)"
+      ],
+      "rows": [
+        [
+          5136.9717562943515
+        ]
+      ]
+    },
+    "test-average-of-individual-price-per-sqm-queenstown-2021": {
+      "sqlHash": "6f330237626a45f6",
+      "columns": [
+        "AVG(resale_price / floor_area_sqm)"
+      ],
+      "rows": [
+        [
+          7505.148153485412
+        ]
+      ]
+    },
+    "test-average-price-per-sqm-executive-2020": {
+      "sqlHash": "94651d2f9d0b85c9",
+      "columns": [
+        "AVG(resale_price / floor_area_sqm)"
+      ],
+      "rows": [
+        [
+          4381.422150995853
+        ]
+      ]
+    },
+    "test-price-per-sqm-tampines-versus-bedok-2023": {
+      "sqlHash": "0f4c987aa0dc48dc",
+      "columns": [
+        "AVG(resale_price / floor_area_sqm)"
+      ],
+      "rows": [
+        [
+          5870.918594986334
+        ]
+      ]
+    },
+    "test-average-area-5-room-sengkang-2024": {
+      "sqlHash": "8e65823180da5a8c",
+      "columns": [
+        "AVG(floor_area_sqm)"
+      ],
+      "rows": [
+        [
+          112.69177126917712
+        ]
+      ]
+    },
+    "test-max-floor-area-3-room-2023": {
+      "sqlHash": "7c137dba530b0b95",
+      "columns": [
+        "MAX(floor_area_sqm)"
+      ],
+      "rows": [
+        [
+          155
+        ]
+      ]
+    },
+    "test-average-price-above-sqm-100-2024": {
+      "sqlHash": "2fddba4e14c71171",
+      "columns": [
+        "AVG(resale_price)"
+      ],
+      "rows": [
+        [
+          710918.9766464366
+        ]
+      ]
+    },
+    "test-count-area-between-90-and-100-2022": {
+      "sqlHash": "be1980e61c25f460",
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          7027
+        ]
+      ]
+    },
+    "test-share-4-room-tampines-2023": {
+      "sqlHash": "486a2d7c8d4473b8",
+      "columns": [
+        "100.0 * SUM(CASE WHEN flat_type = '4 ROOM' THEN 1 ELSE 0 END) / COUNT(*)"
+      ],
+      "rows": [
+        [
+          41.2484700122399
+        ]
+      ]
+    },
+    "test-share-executive-woodlands-2022": {
+      "sqlHash": "f787b282758b271d",
+      "columns": [
+        "100.0 * SUM(CASE WHEN flat_type = 'EXECUTIVE' THEN 1 ELSE 0 END) / COUNT(*)"
+      ],
+      "rows": [
+        [
+          10.53475935828877
+        ]
+      ]
+    },
+    "test-share-5-room-singapore-2021": {
+      "sqlHash": "d35f9ebf51995fa6",
+      "columns": [
+        "100.0 * SUM(CASE WHEN flat_type = '5 ROOM' THEN 1 ELSE 0 END) / COUNT(*)"
+      ],
+      "rows": [
+        [
+          26.829855261800805
+        ]
+      ]
+    },
+    "test-share-high-floor-bishan-2024": {
+      "sqlHash": "1cb768e706ca796e",
+      "columns": [
+        "100.0 * SUM(CASE WHEN CAST(substr(storey_range, 1, 2) AS INTEGER) >= 10 THEN 1 ELSE 0 END) / COUNT(*)"
+      ],
+      "rows": [
+        [
+          35.86387434554974
+        ]
+      ]
+    },
+    "test-count-price-between-500-and-600k-2023": {
+      "sqlHash": "fb6464750ebbfc68",
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          7048
+        ]
+      ]
+    },
+    "test-count-price-over-1m-central-area-2024": {
+      "sqlHash": "02a390d0c7dfe93c",
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          46
+        ]
+      ]
+    },
+    "test-count-price-at-most-300k-2020": {
+      "sqlHash": "39125437a52905ca",
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          3618
+        ]
+      ]
+    },
+    "test-average-price-without-extremes-punggol-2023": {
+      "sqlHash": "8187f32ead33b5a7",
+      "columns": [
+        "AVG(resale_price)"
+      ],
+      "rows": [
+        [
+          581105.0629370629
+        ]
+      ]
+    },
+    "test-distinct-streets-toa-payoh-2022": {
+      "sqlHash": "b8ce80cb95c949eb",
+      "columns": [
+        "COUNT(DISTINCT street_name)"
+      ],
+      "rows": [
+        [
+          19
+        ]
+      ]
+    },
+    "test-distinct-flat-models-bedok-2024": {
+      "sqlHash": "74d4e5bb6869e840",
+      "columns": [
+        "COUNT(DISTINCT flat_model)"
+      ],
+      "rows": [
+        [
+          11
+        ]
+      ]
+    },
+    "test-distinct-flat-types-hougang-2023": {
+      "sqlHash": "3b09703343b3aada",
+      "columns": [
+        "COUNT(DISTINCT flat_type)"
+      ],
+      "rows": [
+        [
+          5
+        ]
+      ]
+    },
+    "test-distinct-years-bishan": {
+      "sqlHash": "af6717d3a999a329",
+      "columns": [
+        "COUNT(DISTINCT substr(month, 1, 4))"
+      ],
+      "rows": [
+        [
+          10
+        ]
+      ]
+    },
+    "test-distinct-streets-over-800k-2023": {
+      "sqlHash": "a59ad5db126bd2c2",
+      "columns": [
+        "COUNT(DISTINCT street_name)"
+      ],
+      "rows": [
+        [
+          284
+        ]
+      ]
+    },
+    "test-town-transaction-counts-2022": {
+      "sqlHash": "a867672255c727f3",
+      "columns": [
+        "town",
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          "SENGKANG",
+          2299
+        ],
+        [
+          "PUNGGOL",
+          2005
+        ],
+        [
+          "YISHUN",
+          1990
+        ],
+        [
+          "WOODLANDS",
+          1870
+        ],
+        [
+          "TAMPINES",
+          1704
+        ],
+        [
+          "JURONG WEST",
+          1655
+        ],
+        [
+          "CHOA CHU KANG",
+          1404
+        ],
+        [
+          "BEDOK",
+          1363
+        ],
+        [
+          "HOUGANG",
+          1326
+        ],
+        [
+          "ANG MO KIO",
+          1026
+        ],
+        [
+          "BUKIT MERAH",
+          963
+        ],
+        [
+          "BUKIT PANJANG",
+          954
+        ],
+        [
+          "KALLANG/WHAMPOA",
+          927
+        ],
+        [
+          "BUKIT BATOK",
+          886
+        ],
+        [
+          "TOA PAYOH",
+          846
+        ],
+        [
+          "PASIR RIS",
+          818
+        ],
+        [
+          "SEMBAWANG",
+          790
+        ],
+        [
+          "QUEENSTOWN",
+          754
+        ],
+        [
+          "GEYLANG",
+          683
+        ],
+        [
+          "CLEMENTI",
+          610
+        ],
+        [
+          "JURONG EAST",
+          485
+        ],
+        [
+          "BISHAN",
+          465
+        ],
+        [
+          "SERANGOON",
+          428
+        ],
+        [
+          "CENTRAL AREA",
+          213
+        ],
+        [
+          "MARINE PARADE",
+          194
+        ],
+        [
+          "BUKIT TIMAH",
+          62
+        ]
+      ]
+    },
+    "test-flat-type-average-prices-2023": {
+      "sqlHash": "c857bdefdd0edfe1",
+      "columns": [
+        "flat_type",
+        "AVG(resale_price)"
+      ],
+      "rows": [
+        [
+          "MULTI-GENERATION",
+          996666.6666666666
+        ],
+        [
+          "EXECUTIVE",
+          829310.2505921491
+        ],
+        [
+          "5 ROOM",
+          685338.0879219446
+        ],
+        [
+          "4 ROOM",
+          584049.9534665846
+        ],
+        [
+          "3 ROOM",
+          411871.742036192
+        ],
+        [
+          "2 ROOM",
+          321432.07994186046
+        ],
+        [
+          "1 ROOM",
+          243000
+        ]
+      ]
+    },
+    "test-town-counts-3-room-2024": {
+      "sqlHash": "9b58fae791061325",
+      "columns": [
+        "town",
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          "ANG MO KIO",
+          571
+        ],
+        [
+          "BEDOK",
+          536
+        ],
+        [
+          "BISHAN",
+          51
+        ],
+        [
+          "BUKIT BATOK",
+          428
+        ],
+        [
+          "BUKIT MERAH",
+          378
+        ],
+        [
+          "BUKIT PANJANG",
+          119
+        ],
+        [
+          "BUKIT TIMAH",
+          12
+        ],
+        [
+          "CENTRAL AREA",
+          81
+        ],
+        [
+          "CHOA CHU KANG",
+          85
+        ],
+        [
+          "CLEMENTI",
+          270
+        ],
+        [
+          "GEYLANG",
+          306
+        ],
+        [
+          "HOUGANG",
+          308
+        ],
+        [
+          "JURONG EAST",
+          230
+        ],
+        [
+          "JURONG WEST",
+          397
+        ],
+        [
+          "KALLANG/WHAMPOA",
+          415
+        ],
+        [
+          "MARINE PARADE",
+          78
+        ],
+        [
+          "PASIR RIS",
+          18
+        ],
+        [
+          "PUNGGOL",
+          259
+        ],
+        [
+          "QUEENSTOWN",
+          338
+        ],
+        [
+          "SEMBAWANG",
+          111
+        ],
+        [
+          "SENGKANG",
+          171
+        ],
+        [
+          "SERANGOON",
+          96
+        ],
+        [
+          "TAMPINES",
+          421
+        ],
+        [
+          "TOA PAYOH",
+          366
+        ],
+        [
+          "WOODLANDS",
+          271
+        ],
+        [
+          "YISHUN",
+          477
+        ]
+      ]
+    },
+    "test-model-counts-sengkang-2023": {
+      "sqlHash": "fb608a0f4e72d0f3",
+      "columns": [
+        "flat_model",
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          "Model A",
+          758
+        ],
+        [
+          "Premium Apartment",
+          614
+        ],
+        [
+          "Improved",
+          434
+        ],
+        [
+          "Apartment",
+          69
+        ],
+        [
+          "Model A2",
+          64
+        ],
+        [
+          "Maisonette",
+          6
+        ],
+        [
+          "3Gen",
+          5
+        ],
+        [
+          "2-room",
+          3
+        ]
+      ]
+    },
+    "test-town-min-max-prices-2024": {
+      "sqlHash": "6f198beba1dff744",
+      "columns": [
+        "town",
+        "MIN(resale_price)",
+        "MAX(resale_price)"
+      ],
+      "rows": [
+        [
+          "ANG MO KIO",
+          285000,
+          1320000
+        ],
+        [
+          "BEDOK",
+          272000,
+          1180888
+        ],
+        [
+          "BISHAN",
+          325000,
+          1568000
+        ],
+        [
+          "BUKIT BATOK",
+          303000,
+          1050000
+        ],
+        [
+          "BUKIT MERAH",
+          230000,
+          1588000
+        ],
+        [
+          "BUKIT PANJANG",
+          300000,
+          1100000
+        ],
+        [
+          "BUKIT TIMAH",
+          445000,
+          1410000
+        ],
+        [
+          "CENTRAL AREA",
+          288000,
+          1542880
+        ],
+        [
+          "CHOA CHU KANG",
+          303000,
+          915000
+        ],
+        [
+          "CLEMENTI",
+          318000,
+          1300000
+        ],
+        [
+          "GEYLANG",
+          246000,
+          1150000
+        ],
+        [
+          "HOUGANG",
+          290000,
+          1150000
+        ],
+        [
+          "JURONG EAST",
+          290000,
+          1088000
+        ],
+        [
+          "JURONG WEST",
+          255000,
+          980000
+        ],
+        [
+          "KALLANG/WHAMPOA",
+          250000,
+          1568000
+        ],
+        [
+          "MARINE PARADE",
+          270000,
+          1380000
+        ],
+        [
+          "PASIR RIS",
+          353000,
+          1030000
+        ],
+        [
+          "PUNGGOL",
+          290000,
+          1228000
+        ],
+        [
+          "QUEENSTOWN",
+          258000,
+          1550000
+        ],
+        [
+          "SEMBAWANG",
+          290000,
+          855000
+        ],
+        [
+          "SENGKANG",
+          318000,
+          1050000
+        ],
+        [
+          "SERANGOON",
+          286000,
+          1238000
+        ],
+        [
+          "TAMPINES",
+          328000,
+          1140000
+        ],
+        [
+          "TOA PAYOH",
+          240000,
+          1568888
+        ],
+        [
+          "WOODLANDS",
+          285000,
+          1155000
+        ],
+        [
+          "YISHUN",
+          293000,
+          1200000
+        ]
+      ]
+    },
+    "test-year-average-prices-4-room": {
+      "sqlHash": "e0c87ae2539fe977",
+      "columns": [
+        "substr(month, 1, 4)",
+        "AVG(resale_price)"
+      ],
+      "rows": [
+        [
+          "2017",
+          437119.99533705256
+        ],
+        [
+          "2018",
+          431752.93531303457
+        ],
+        [
+          "2019",
+          429748.8802427395
+        ],
+        [
+          "2020",
+          448608.280373173
+        ],
+        [
+          "2021",
+          505094.85338409204
+        ],
+        [
+          "2022",
+          549087.5679158194
+        ],
+        [
+          "2023",
+          584049.9534665846
+        ],
+        [
+          "2024",
+          627378.1285168502
+        ],
+        [
+          "2025",
+          672111.71912847
+        ],
+        [
+          "2026",
+          677264.4203915391
+        ]
+      ]
+    },
+    "test-month-counts-tampines-2024": {
+      "sqlHash": "f789f64cec7d720c",
+      "columns": [
+        "month",
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          "2024-01",
+          178
+        ],
+        [
+          "2024-02",
+          138
+        ],
+        [
+          "2024-03",
+          159
+        ],
+        [
+          "2024-04",
+          170
+        ],
+        [
+          "2024-05",
+          188
+        ],
+        [
+          "2024-06",
+          160
+        ],
+        [
+          "2024-07",
+          201
+        ],
+        [
+          "2024-08",
+          178
+        ],
+        [
+          "2024-09",
+          131
+        ],
+        [
+          "2024-10",
+          155
+        ],
+        [
+          "2024-11",
+          120
+        ],
+        [
+          "2024-12",
+          183
+        ]
+      ]
+    },
+    "test-town-averages-executive-2023": {
+      "sqlHash": "1ee804ea384c93d2",
+      "columns": [
+        "town",
+        "AVG(resale_price)"
+      ],
+      "rows": [
+        [
+          "ANG MO KIO",
+          1039420.5714285715
+        ],
+        [
+          "BEDOK",
+          900588.8
+        ],
+        [
+          "BISHAN",
+          1088284.1951219512
+        ],
+        [
+          "BUKIT BATOK",
+          840810.7571428572
+        ],
+        [
+          "BUKIT PANJANG",
+          784308.9315068494
+        ],
+        [
+          "BUKIT TIMAH",
+          1232000
+        ],
+        [
+          "CENTRAL AREA",
+          1034000
+        ],
+        [
+          "CHOA CHU KANG",
+          728123.75
+        ],
+        [
+          "CLEMENTI",
+          985040
+        ],
+        [
+          "GEYLANG",
+          907664.4
+        ],
+        [
+          "HOUGANG",
+          876236.4198165138
+        ],
+        [
+          "JURONG EAST",
+          863624.5106382979
+        ],
+        [
+          "JURONG WEST",
+          710975.1048951049
+        ],
+        [
+          "KALLANG/WHAMPOA",
+          991557.1428571428
+        ],
+        [
+          "PASIR RIS",
+          822469.932835821
+        ],
+        [
+          "PUNGGOL",
+          737354.1818181818
+        ],
+        [
+          "QUEENSTOWN",
+          1139714.2857142857
+        ],
+        [
+          "SEMBAWANG",
+          681063.0588235294
+        ],
+        [
+          "SENGKANG",
+          737952.2201834862
+        ],
+        [
+          "SERANGOON",
+          940201.2075471698
+        ],
+        [
+          "TAMPINES",
+          870442.144
+        ],
+        [
+          "TOA PAYOH",
+          982828.6666666666
+        ],
+        [
+          "WOODLANDS",
+          823537.1157894736
+        ],
+        [
+          "YISHUN",
+          823621.0813333334
+        ]
+      ]
+    },
+    "test-town-flat-type-counts-bedok-2022": {
+      "sqlHash": "84e1928e3006222b",
+      "columns": [
+        "flat_type",
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          "2 ROOM",
+          20
+        ],
+        [
+          "3 ROOM",
+          552
+        ],
+        [
+          "4 ROOM",
+          461
+        ],
+        [
+          "5 ROOM",
+          253
+        ],
+        [
+          "EXECUTIVE",
+          77
+        ]
+      ]
+    },
+    "test-town-average-area-2021": {
+      "sqlHash": "34b773878de98df5",
+      "columns": [
+        "town",
+        "AVG(floor_area_sqm)"
+      ],
+      "rows": [
+        [
+          "PASIR RIS",
+          119.27234490010515
+        ],
+        [
+          "BUKIT TIMAH",
+          111.02439024390245
+        ],
+        [
+          "BISHAN",
+          109.61228070175439
+        ],
+        [
+          "WOODLANDS",
+          107.73427000610873
+        ],
+        [
+          "CHOA CHU KANG",
+          105.48089171974522
+        ],
+        [
+          "TAMPINES",
+          105.46021405304793
+        ],
+        [
+          "SEMBAWANG",
+          103.82846003898635
+        ],
+        [
+          "SERANGOON",
+          103.55491329479769
+        ],
+        [
+          "JURONG WEST",
+          102.538
+        ],
+        [
+          "BUKIT PANJANG",
+          101.92511848341232
+        ],
+        [
+          "HOUGANG",
+          101.74847042828009
+        ],
+        [
+          "JURONG EAST",
+          100.97699115044247
+        ],
+        [
+          "SENGKANG",
+          99.85859687386404
+        ],
+        [
+          "BUKIT BATOK",
+          97.81382978723404
+        ],
+        [
+          "PUNGGOL",
+          96.80525164113786
+        ],
+        [
+          "YISHUN",
+          94.568
+        ],
+        [
+          "BEDOK",
+          92.52846534653466
+        ],
+        [
+          "MARINE PARADE",
+          91.03921568627452
+        ],
+        [
+          "TOA PAYOH",
+          88.28165938864629
+        ],
+        [
+          "BUKIT MERAH",
+          88.0929241261722
+        ],
+        [
+          "KALLANG/WHAMPOA",
+          87.9297052154195
+        ],
+        [
+          "CLEMENTI",
+          87.34821428571429
+        ],
+        [
+          "GEYLANG",
+          86.78091397849462
+        ],
+        [
+          "ANG MO KIO",
+          86.38388625592417
+        ],
+        [
+          "CENTRAL AREA",
+          85.35249042145594
+        ],
+        [
+          "QUEENSTOWN",
+          84.13981762917933
+        ]
+      ]
+    },
+    "test-town-price-sums-2024": {
+      "sqlHash": "fbd3bf59a6a33557",
+      "columns": [
+        "town",
+        "SUM(resale_price)"
+      ],
+      "rows": [
+        [
+          "SENGKANG",
+          1342520934
+        ],
+        [
+          "PUNGGOL",
+          1302966620
+        ],
+        [
+          "TAMPINES",
+          1289238496
+        ],
+        [
+          "WOODLANDS",
+          1188800880.88
+        ],
+        [
+          "JURONG WEST",
+          1042460541.76
+        ],
+        [
+          "YISHUN",
+          998036618
+        ],
+        [
+          "BUKIT BATOK",
+          991745346
+        ],
+        [
+          "HOUGANG",
+          897055545
+        ],
+        [
+          "BUKIT MERAH",
+          753243724
+        ],
+        [
+          "BEDOK",
+          742663718
+        ],
+        [
+          "CHOA CHU KANG",
+          738020612
+        ],
+        [
+          "KALLANG/WHAMPOA",
+          638742121.88
+        ],
+        [
+          "ANG MO KIO",
+          595291537
+        ],
+        [
+          "SEMBAWANG",
+          582824321
+        ],
+        [
+          "TOA PAYOH",
+          536996507
+        ],
+        [
+          "BUKIT PANJANG",
+          519504607
+        ],
+        [
+          "PASIR RIS",
+          480550499
+        ],
+        [
+          "QUEENSTOWN",
+          478822187
+        ],
+        [
+          "GEYLANG",
+          408663282.9
+        ],
+        [
+          "CLEMENTI",
+          339034455
+        ],
+        [
+          "BISHAN",
+          317324999
+        ],
+        [
+          "JURONG EAST",
+          296493100
+        ],
+        [
+          "SERANGOON",
+          295890369
+        ],
+        [
+          "CENTRAL AREA",
+          135657835
+        ],
+        [
+          "MARINE PARADE",
+          82478840.88
+        ],
+        [
+          "BUKIT TIMAH",
+          54770352
+        ]
+      ]
+    },
+    "test-town-price-range-2023": {
+      "sqlHash": "d138c72c2cf2fd40",
+      "columns": [
+        "town",
+        "MAX(resale_price) - MIN(resale_price)"
+      ],
+      "rows": [
+        [
+          "ANG MO KIO",
+          935000
+        ],
+        [
+          "BEDOK",
+          850888
+        ],
+        [
+          "BISHAN",
+          1130000
+        ],
+        [
+          "BUKIT BATOK",
+          798000
+        ],
+        [
+          "BUKIT MERAH",
+          1271000
+        ],
+        [
+          "BUKIT PANJANG",
+          730000
+        ],
+        [
+          "BUKIT TIMAH",
+          922000
+        ],
+        [
+          "CENTRAL AREA",
+          1210000
+        ],
+        [
+          "CHOA CHU KANG",
+          572000
+        ],
+        [
+          "CLEMENTI",
+          980000
+        ],
+        [
+          "GEYLANG",
+          888000
+        ],
+        [
+          "HOUGANG",
+          793000
+        ],
+        [
+          "JURONG EAST",
+          760000
+        ],
+        [
+          "JURONG WEST",
+          685000
+        ],
+        [
+          "KALLANG/WHAMPOA",
+          1050888
+        ],
+        [
+          "MARINE PARADE",
+          773888
+        ],
+        [
+          "PASIR RIS",
+          685000
+        ],
+        [
+          "PUNGGOL",
+          930000
+        ],
+        [
+          "QUEENSTOWN",
+          1042000
+        ],
+        [
+          "SEMBAWANG",
+          510000
+        ],
+        [
+          "SENGKANG",
+          655000
+        ],
+        [
+          "SERANGOON",
+          845000
+        ],
+        [
+          "TAMPINES",
+          875000
+        ],
+        [
+          "TOA PAYOH",
+          1220000
+        ],
+        [
+          "WOODLANDS",
+          1000000
+        ],
+        [
+          "YISHUN",
+          820000
+        ]
+      ]
+    },
+    "test-town-counts-at-least-100-2024": {
+      "sqlHash": "0d3c51fb7b239743",
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          25
+        ]
+      ]
+    },
+    "test-town-average-3room-over-450k-2023": {
+      "sqlHash": "34856b878c2feca5",
+      "columns": [
+        "town"
+      ],
+      "rows": [
+        [
+          "BUKIT MERAH"
+        ],
+        [
+          "BUKIT TIMAH"
+        ],
+        [
+          "CENTRAL AREA"
+        ],
+        [
+          "PASIR RIS"
+        ],
+        [
+          "PUNGGOL"
+        ],
+        [
+          "SENGKANG"
+        ]
+      ]
+    },
+    "test-town-model-groups-over-100-tampines-2022": {
+      "sqlHash": "67273384a7f759ca",
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          3
+        ]
+      ]
+    },
+    "test-flat-type-mean-over-600k-2024": {
+      "sqlHash": "2579457e8ca28b98",
+      "columns": [
+        "flat_type"
+      ],
+      "rows": [
+        [
+          "4 ROOM"
+        ],
+        [
+          "5 ROOM"
+        ],
+        [
+          "EXECUTIVE"
+        ],
+        [
+          "MULTI-GENERATION"
+        ]
+      ]
+    },
+    "test-town-transaction-groups-over-12-months-2023": {
+      "sqlHash": "91d0df4e025bb286",
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          26
+        ]
+      ]
+    },
+    "test-town-model-counts-at-least-5-2024": {
+      "sqlHash": "8354540fad2d8115",
+      "columns": [
+        "COUNT(*)"
+      ],
+      "rows": [
+        [
+          25
+        ]
+      ]
+    },
+    "test-average-price-most-expensive-town-2023": {
+      "sqlHash": "c68ce6fa6a68d1a5",
+      "columns": [
+        "town"
+      ],
+      "rows": [
+        [
+          "BUKIT TIMAH"
+        ]
+      ]
+    },
+    "test-lowest-average-town-4room-2024": {
+      "sqlHash": "0a010805048b11b4",
+      "columns": [
+        "town"
+      ],
+      "rows": [
+        [
+          "JURONG WEST"
         ]
       ]
     }
