@@ -23,7 +23,7 @@
       margin: 0;
       background: var(--paper);
       color: var(--ink);
-      font: 14px/1.5 Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+      font: 16px/1.55 Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
     }
     button { font: inherit; }
 
@@ -40,7 +40,7 @@
       width: 30px; height: 30px; border-radius: 9px; background: var(--red);
       color: white; display: grid; place-items: center; font-size: 16px;
     }
-    .nav-label { margin: 42px 10px 10px; color: var(--muted); font-size: 10px; font-weight: 700; letter-spacing: .12em; }
+    .nav-label { margin: 42px 10px 10px; color: var(--muted); font-size: 12px; font-weight: 700; letter-spacing: .12em; }
     nav a {
       display: block; margin: 4px 0; padding: 10px 12px; border-radius: 8px;
       color: #596575; text-decoration: none;
@@ -48,18 +48,18 @@
     nav a.active { color: #a92f33; background: var(--red-soft); font-weight: 650; }
     .side-note {
       position: absolute; left: 20px; right: 20px; bottom: 22px;
-      color: #7f817e; font-size: 10px; letter-spacing: .12em; text-transform: uppercase;
+      color: #7f817e; font-size: 12px; letter-spacing: .12em; text-transform: uppercase;
     }
     .building { width: 100%; height: 175px; margin-bottom: 10px; opacity: .7; }
 
     main { min-width: 0; padding: 30px clamp(20px, 4vw, 56px) 48px; }
     .topline { display: flex; justify-content: space-between; align-items: center; gap: 16px; }
-    .eyebrow { color: var(--muted); font-size: 12px; }
-    .status { padding: 6px 10px; background: var(--green-soft); color: var(--green); border-radius: 20px; font-size: 11px; font-weight: 700; }
+    .eyebrow { color: var(--muted); font-size: 14px; }
+    .status { padding: 7px 11px; background: var(--green-soft); color: var(--green); border-radius: 20px; font-size: 13px; font-weight: 700; }
     h1 { margin: 24px 0 5px; font-family: Georgia, "Times New Roman", serif; font-size: clamp(26px, 3vw, 36px); letter-spacing: -.03em; }
     .subtitle { margin: 0; color: var(--muted); }
     .run-meta { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 8px; }
-    .pill { border: 1px solid var(--line); border-radius: 20px; background: var(--surface); padding: 6px 10px; color: #596575; font-size: 11px; }
+    .pill { border: 1px solid var(--line); border-radius: 20px; background: var(--surface); padding: 7px 11px; color: #596575; font-size: 13px; }
     .pill strong { color: var(--ink); }
 
     .tabs { display: flex; gap: 8px; margin: 26px 0 18px; }
@@ -73,21 +73,21 @@
     .cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
     .card, .panel { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; box-shadow: var(--shadow); }
     .card { padding: 17px 18px; }
-    .card-label { color: var(--muted); font-size: 12px; }
-    .card-value { margin-top: 7px; font-size: 23px; font-weight: 750; letter-spacing: -.03em; }
-    .card-detail { margin-top: 2px; color: var(--muted); font-size: 11px; }
+    .card-label { color: var(--muted); font-size: 14px; }
+    .card-value { margin-top: 7px; font-size: 26px; font-weight: 750; letter-spacing: -.03em; }
+    .card-detail { margin-top: 2px; color: var(--muted); font-size: 13px; }
 
     .content-grid { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(260px, .8fr); gap: 16px; margin-top: 16px; }
     .panel { padding: 18px; min-width: 0; }
     .panel-heading { display: flex; justify-content: space-between; gap: 10px; align-items: start; margin-bottom: 16px; }
-    h2 { margin: 0; font-size: 15px; }
-    .panel-hint { color: var(--muted); font-size: 11px; }
+    h2 { margin: 0; font-size: 18px; }
+    .panel-hint { color: var(--muted); font-size: 13px; }
 
     table { width: 100%; border-collapse: collapse; text-align: left; }
-    th { padding: 8px 7px; color: var(--muted); font-size: 10px; font-weight: 650; text-transform: uppercase; letter-spacing: .06em; }
-    td { padding: 11px 7px; border-top: 1px solid #eeeae4; vertical-align: middle; }
+    th { padding: 10px 8px; color: var(--muted); font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; }
+    td { padding: 12px 8px; border-top: 1px solid #eeeae4; vertical-align: middle; font-size: 15px; }
     .model-name { font-weight: 650; }
-    .model-id { color: var(--muted); font-size: 10px; }
+    .model-id { color: var(--muted); font-size: 12px; }
     .score { white-space: nowrap; font-weight: 700; }
     .bar-cell { min-width: 100px; }
     .bar-track { height: 8px; overflow: hidden; border-radius: 8px; background: #eeeae4; }
@@ -96,59 +96,67 @@
     .cost { color: #596575; white-space: nowrap; font-variant-numeric: tabular-nums; }
 
     .fail-list { display: grid; gap: 14px; }
-    .fail-row { display: grid; grid-template-columns: 94px 1fr 27px; gap: 8px; align-items: center; font-size: 11px; }
+    .fail-row { display: grid; grid-template-columns: 110px 1fr 32px; gap: 10px; align-items: center; font-size: 13px; }
     .fail-track { height: 8px; background: #eeeae4; border-radius: 8px; overflow: hidden; }
     .fail-bar { height: 100%; background: #d98a7e; border-radius: inherit; }
     .fail-count { text-align: right; color: var(--muted); font-variant-numeric: tabular-nums; }
-    .note { margin-top: 15px; padding: 11px 12px; border-left: 3px solid #d9ae6f; background: #fbf5e9; color: #6d5b3e; font-size: 11px; }
+    .note { margin-top: 15px; padding: 12px 13px; border-left: 3px solid #d9ae6f; background: #fbf5e9; color: #6d5b3e; font-size: 13px; }
 
     .case-panel { margin-top: 16px; }
     #caseMeta { margin-top: 0; justify-content: flex-end; }
     .page-view { display: none; }
     .page-view.active { display: block; }
-    .case-filters { display: grid; grid-template-columns: minmax(220px, 1fr) repeat(3, minmax(145px, 190px)); gap: 10px; margin: 18px 0 12px; }
+    .case-filters { display: grid; grid-template-columns: minmax(220px, 1fr) repeat(4, minmax(145px, 190px)); gap: 10px; margin: 18px 0 12px; }
     .case-filters input, .case-filters select, .detail-candidate select {
       width: 100%; border: 1px solid var(--line); border-radius: 8px; padding: 9px 11px;
-      background: var(--surface); color: var(--ink); font: inherit; font-size: 12px;
+      background: var(--surface); color: var(--ink); font: inherit; font-size: 15px;
     }
     .case-summary { display: grid; grid-template-columns: .7fr .8fr 1.5fr; margin: 14px 0; border: 1px solid var(--line); border-radius: 9px; background: #fbfaf7; }
     .case-summary-item { min-width: 0; padding: 11px 16px; border-right: 1px solid var(--line); }
     .case-summary-item:last-child { border-right: 0; }
-    .case-summary-label { color: var(--muted); font-size: 10px; letter-spacing: .08em; text-transform: uppercase; }
-    .case-summary-value { margin-top: 3px; font: 700 20px/1.25 Georgia, "Times New Roman", serif; }
+    .case-summary-label { color: var(--muted); font-size: 12px; font-weight: 650; letter-spacing: .08em; text-transform: uppercase; }
+    .case-summary-value { margin-top: 3px; font: 700 25px/1.3 Georgia, "Times New Roman", serif; }
     .case-summary-value.alert { color: var(--red); }
     .case-table-scroll { max-height: 470px; overflow: auto; border: 1px solid var(--line); border-radius: 8px; }
     .case-table { min-width: 680px; }
     .case-table thead { position: sticky; top: 0; z-index: 1; background: #f7f5f0; }
-    .case-table th { padding: 10px 9px; }
-    .case-table td { padding: 8px 9px; }
+    .case-table th { padding: 12px 11px; font-size: 13px; }
+    .case-table td { padding: 11px; font-size: 14px; }
     .case-table tbody tr { cursor: pointer; }
     .case-table tbody tr:hover { background: #faf7f2; }
     .case-table tbody tr[aria-selected="true"] { background: var(--red-soft); }
     .case-name { color: var(--ink); font-weight: 650; }
-    .case-question-preview { display: block; max-width: 390px; overflow: hidden; color: var(--muted); font-size: 10px; text-overflow: ellipsis; white-space: nowrap; }
-    .case-id { display: block; max-width: 280px; overflow: hidden; color: var(--muted); font-size: 10px; text-overflow: ellipsis; white-space: nowrap; }
+    .case-question-preview { display: block; max-width: 390px; overflow: hidden; color: var(--muted); font-size: 12px; text-overflow: ellipsis; white-space: nowrap; }
+    .case-id { display: block; max-width: 280px; overflow: hidden; color: var(--muted); font-size: 12px; text-overflow: ellipsis; white-space: nowrap; }
     .tag-list { display: flex; flex-wrap: wrap; gap: 4px; max-width: 210px; }
-    .tag { border-radius: 12px; padding: 2px 7px; background: #f0eee8; color: #596575; font-size: 9px; white-space: nowrap; }
-    .case-outcome { white-space: nowrap; font-size: 11px; }
+    .tag { border-radius: 12px; padding: 3px 8px; background: #f0eee8; color: #596575; font-size: 12px; white-space: nowrap; }
+    .case-outcome { white-space: nowrap; font-size: 13px; }
     .case-outcome.pass { color: var(--green); }
     .case-outcome.fail { color: var(--red); }
     .case-empty { padding: 24px; color: var(--muted); text-align: center; }
     .case-detail { margin-top: 14px; padding: 16px; border: 1px solid var(--line); border-radius: 9px; background: #fffefa; }
     .case-detail-empty { color: var(--muted); }
     .case-detail-heading { display: flex; align-items: start; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
-    .case-detail-heading h3 { margin: 0; font: 700 18px/1.3 Georgia, "Times New Roman", serif; }
-    .case-question { margin: 0 0 12px; padding: 12px; border-radius: 7px; background: #f7f5f0; }
-    .detail-candidate { display: grid; grid-template-columns: 140px minmax(160px, 230px); gap: 10px; align-items: center; margin: 12px 0; color: var(--muted); font-size: 11px; }
+    .case-detail-heading h3 { margin: 0; font: 700 23px/1.3 Georgia, "Times New Roman", serif; }
+    .case-question { margin: 0 0 14px; padding: 14px; border-radius: 7px; background: #f7f5f0; font-size: 17px; }
+    .detail-candidate { display: grid; grid-template-columns: 150px minmax(180px, 260px); gap: 10px; align-items: center; margin: 14px 0; color: var(--muted); font-size: 14px; }
     .result-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
     .result-box { min-width: 0; border: 1px solid var(--line); border-radius: 7px; padding: 11px; }
     .result-box.actual { background: #fcf0ee; }
     .result-box.expected { background: #eff5f0; }
-    .result-label { color: var(--muted); font-size: 10px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
-    .result-box pre { max-height: 230px; margin: 7px 0 0; overflow: auto; color: var(--ink); font: 11px/1.5 ui-monospace, SFMono-Regular, Consolas, monospace; white-space: pre-wrap; overflow-wrap: anywhere; }
-    .case-detail-note { margin-top: 9px; color: var(--muted); font-size: 11px; }
+    .result-label { color: var(--muted); font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+    .result-box pre { max-height: 260px; margin: 8px 0 0; overflow: auto; color: var(--ink); font: 14px/1.65 ui-monospace, SFMono-Regular, Consolas, monospace; white-space: pre-wrap; overflow-wrap: anywhere; }
+    .result-box pre.sql-code { background: #f7f8fa; padding: 12px; border: 1px solid #e5e8ec; border-radius: 6px; }
+    .sql-keyword { color: #6b42a5; font-weight: 700; }
+    .sql-function { color: #075f9b; font-weight: 700; }
+    .sql-identifier { color: #315c7d; }
+    .sql-string { color: #b4232c; }
+    .sql-number { color: #087443; }
+    .sql-comment { color: #75808c; font-style: italic; }
+    .sql-operator { color: #a04b16; font-weight: 650; }
+    .case-detail-note { margin-top: 11px; color: var(--muted); font-size: 13px; }
 
-    .footer { margin-top: 18px; color: var(--muted); font-size: 11px; }
+    .footer { margin-top: 18px; color: var(--muted); font-size: 13px; }
     .network { width: 42px; height: 42px; flex: 0 0 42px; }
     .heading-row { display: flex; align-items: center; gap: 13px; }
 
@@ -170,7 +178,7 @@
       aside { position: static; display: flex; align-items: center; justify-content: space-between; border-right: 0; border-bottom: 1px solid var(--line); padding: 12px 16px; }
       .brand { justify-content: start; }
       nav { display: flex; gap: 4px; margin: 0; }
-      nav a { font-size: 11px; padding: 8px; }
+      nav a { font-size: 13px; padding: 8px; }
       nav a::first-letter { font-size: inherit; }
       main { padding: 22px 15px 34px; }
       .cards { grid-template-columns: 1fr; }
@@ -314,6 +322,30 @@
   const escapeHtml = value => String(value ?? "").replace(/[&<>"']/g, char => ({
     "&": "&amp;", "<": "&lt;", ">": "&gt;", "\"": "&quot;", "'": "&#39;"
   })[char]);
+  const sqlKeywords = new Set("SELECT FROM WHERE AND OR NOT NULL IS IN LIKE BETWEEN GROUP BY ORDER HAVING LIMIT OFFSET AS DISTINCT CASE WHEN THEN ELSE END JOIN LEFT RIGHT INNER OUTER ON UNION ALL WITH OVER PARTITION ROWS RANGE ASC DESC CAST COUNT".split(" "));
+  const sqlFunctions = new Set("COUNT AVG SUM MIN MAX ROUND COALESCE LOWER UPPER LENGTH SUBSTR DATE STRFTIME ROW_NUMBER LAG LEAD".split(" "));
+  const sqlTokenPattern = /--[^\n]*|\/\*[\s\S]*?\*\/|'(?:''|[^'])*'|"(?:""|[^"])*"|\b[A-Za-z_][A-Za-z0-9_$]*\b|\b\d+(?:\.\d+)?\b|<=|>=|<>|!=|[=<>+*/%-]|[\s\S]/g;
+  function highlightSql(value) {
+    return String(value ?? "").replace(sqlTokenPattern, token => {
+      const upper = token.toUpperCase();
+      const safe = escapeHtml(token);
+      if (token.startsWith("--") || token.startsWith("/*")) return `<span class="sql-comment">${safe}</span>`;
+      if (token.startsWith("'")) return `<span class="sql-string">${safe}</span>`;
+      if (token.startsWith('"')) return `<span class="sql-identifier">${safe}</span>`;
+      if (/^\d/.test(token)) return `<span class="sql-number">${safe}</span>`;
+      if (sqlFunctions.has(upper)) return `<span class="sql-function">${safe}</span>`;
+      if (sqlKeywords.has(upper)) return `<span class="sql-keyword">${safe}</span>`;
+      if (/^(<=|>=|<>|!=|[=<>+*/%-])$/.test(token)) return `<span class="sql-operator">${safe}</span>`;
+      return safe;
+    });
+  }
+  function formatRows(rows, columns = []) {
+    if (!Array.isArray(rows) || rows.length === 0) return "No rows returned";
+    return rows.slice(0, 8).map(row => Array.isArray(row)
+      ? row.map((value, index) => `${columns[index] || `Column ${index + 1}`}: ${value == null ? "NULL" : String(value)}`).join("   ·   ")
+      : String(row)
+    ).join("\n");
+  }
   let activeSplit = "dev";
 
   function renderCases(run) {
@@ -422,10 +454,15 @@
     if (!candidateNames.includes(selectedDetailCandidate)) selectedDetailCandidate = preferred;
     const score = item.candidates.find(result => result.name === selectedDetailCandidate);
     const status = score?.passed ? "PASS" : (score?.failure || "FAILED").replaceAll("_", " ").toUpperCase();
-    const expectedText = JSON.stringify(item.expected, null, 2);
-    const actualText = score?.actualPreview
-      ? JSON.stringify(JSON.parse(score.actualPreview), null, 2)
-      : (score?.detail || "No result was recorded.");
+    const expectedText = formatRows(item.expected.rows, item.expected.columns);
+    let actualText = score?.detail || "No result was recorded.";
+    if (score?.actualPreview) {
+      try {
+        actualText = formatRows(JSON.parse(score.actualPreview), item.expected.columns);
+      } catch {
+        actualText = score.actualPreview;
+      }
+    }
 
     detail.innerHTML = `
       <div class="case-detail-heading">
@@ -441,8 +478,8 @@
       <div class="result-grid">
         <div class="result-box actual"><div class="result-label">Actual result · ${escapeHtml(selectedDetailCandidate)}</div><pre>${escapeHtml(actualText)}</pre></div>
         <div class="result-box expected"><div class="result-label">Expected result</div><pre>${escapeHtml(expectedText)}</pre></div>
-        <div class="result-box"><div class="result-label">Generated SQL · ${escapeHtml(selectedDetailCandidate)}</div><pre>${escapeHtml(score?.modelSql || "No SQL was recorded.")}</pre></div>
-        <div class="result-box"><div class="result-label">Reference SQL</div><pre>${escapeHtml(item.referenceSql)}</pre></div>
+        <div class="result-box"><div class="result-label">Generated SQL · ${escapeHtml(selectedDetailCandidate)}</div><pre class="sql-code">${score?.modelSql ? highlightSql(score.modelSql) : "No SQL was recorded."}</pre></div>
+        <div class="result-box"><div class="result-label">Reference SQL</div><pre class="sql-code">${highlightSql(item.referenceSql)}</pre></div>
       </div>
       ${score?.detail ? `<div class="case-detail-note">${escapeHtml(score.detail)}</div>` : ""}`;
 
