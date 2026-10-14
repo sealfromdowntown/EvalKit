@@ -180,8 +180,8 @@
 
     <div class="run-meta" id="runMeta"></div>
     <div class="tabs" role="tablist" aria-label="Evaluation split">
-      <button class="tab" id="devTab" role="tab" aria-selected="true">DEV <small>89 cases</small></button>
-      <button class="tab" id="testTab" role="tab" aria-selected="false">TEST <small>12 cases</small></button>
+      <button class="tab" id="devTab" role="tab" aria-selected="true">DEV <small id="devCaseCount"></small></button>
+      <button class="tab" id="testTab" role="tab" aria-selected="false">TEST <small id="testCaseCount"></small></button>
     </div>
 
     <section class="cards" id="summaryCards" aria-live="polite"></section>
@@ -208,7 +208,7 @@
     </div>
 
     <p class="footer" id="cases">
-      Benchmark: Singapore HDB resale transactions. Test results are a small held-out check (12 cases), not proof of general model quality.
+      Benchmark: Singapore HDB resale transactions. Test results are a held-out check, not proof of general model quality.
       Dataset: <a href="https://data.gov.sg/datasets/d_8b84c4ee58e3cfc0ece0d773c8ca6abc/view">data.gov.sg / HDB</a>.
     </p>
   </main>
@@ -296,6 +296,8 @@
 ])
   .then(([dev, test]) => {
     experiments = { dev, test };
+    document.querySelector("#devCaseCount").textContent = `${dev.cases} cases`;
+    document.querySelector("#testCaseCount").textContent = `${test.cases} cases`;
     render();
   })
   .catch((error) => {
