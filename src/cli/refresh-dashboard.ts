@@ -63,7 +63,7 @@ export function registerRefreshDashboard(program: Command): void {
       for (const split of ["dev", "test"] as const) {
         console.log(`\n=== ${split.toUpperCase()} evaluation ===`);
         const runId = await runConfiguredSuite({ ...opts, split });
-        exportRun(runId, join(opts.dashboardDir, `${split}.json`), opts.results);
+        exportRun(runId, join(opts.dashboardDir, `${split}.json`), opts.results, opts.cases, opts.expected);
       }
 
       console.log(`\nDashboard data refreshed in ${opts.dashboardDir}`);

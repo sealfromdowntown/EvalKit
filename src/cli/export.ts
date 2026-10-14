@@ -1,7 +1,9 @@
 import type { Command } from "commander";
-import { mkdirSync, writeFileSync } from "node:fs";
+import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, relative, resolve } from "node:path";
 import { openResultsDb } from "../db/results";
+import { loadCases } from "../cases/load";
+import type { ExpectedFile } from "../cases/expected";
 
 interface RunRow {
   run_id: string;
@@ -17,13 +19,24 @@ interface CandidateRow {
 }
 
 interface ScoreRow {
+  case_id: string;
+  candidate: string;
   passed: number;
   failure: string | null;
+  detail: string | null;
+  model_sql: string | null;
+  actual_preview: string | null;
   latency_ms: number | null;
   cost_usd: number | null;
 }
 
-export function exportRun(runId: string, outPath: string, resultsPath: string): void {
+export function exportRun(
+  runId: string,
+  outPath: string,
+  resultsPath: string,
+  casesDir = "examples/hdb/cases",
+  expectedPath = "examples/hdb/expected.json",
+): void {
   const db = openResultsDb(resultsPath);
 
   try {
@@ -50,14 +63,17 @@ export function exportRun(runId: string, outPath: string, resultsPath: string): 
       );
     }
 
+    const allScores = db
+      .prepare(`
+        SELECT case_id, candidate, passed, failure, detail, model_sql, actual_preview,
+               latency_ms, cost_usd
+        FROM scores
+        WHERE run_id = ?
+      `)
+      .all(runId) as ScoreRow[];
+
     const exportedCandidates = candidates.map((candidate) => {
-      const scores = db
-        .prepare(`
-              SELECT passed, failure, latency_ms, cost_usd
-              FROM scores
-              WHERE run_id = ? AND candidate = ?
-            `)
-        .all(runId, candidate.candidate) as ScoreRow[];
+      const scores = allScores.filter((score) => score.candidate === candidate.candidate);
 
       const failures: Record<string, number> = {};
       for (const score of scores) {
@@ -89,12 +105,49 @@ export function exportRun(runId: string, outPath: string, resultsPath: string): 
       };
     });
 
+    const cases = loadCases(casesDir).filter((item) => item.split === run.split);
+    const expected = JSON.parse(readFileSync(expectedPath, "utf8")) as ExpectedFile;
+    const caseResults = cases.map((item) => {
+      const result = expected.cases[item.id];
+      if (!result) throw new Error(`No expected result for case "${item.id}" in ${expectedPath}`);
+      return {
+        id: item.id,
+        question: item.question,
+        tags: item.tags,
+        referenceSql: item.reference_sql,
+        expected: { columns: result.columns, rows: result.rows },
+        candidates: candidates.map((candidate) => {
+          const score = allScores.find(
+            (entry) => entry.case_id === item.id && entry.candidate === candidate.candidate,
+          );
+          return score
+            ? {
+                name: candidate.candidate,
+                passed: score.passed === 1,
+                failure: score.failure,
+                detail: score.detail,
+                modelSql: score.model_sql,
+                actualPreview: score.actual_preview,
+              }
+            : {
+                name: candidate.candidate,
+                passed: false,
+                failure: "missing_score",
+                detail: "No score was saved for this candidate and case.",
+                modelSql: null,
+                actualPreview: null,
+              };
+        }),
+      };
+    });
+
     const output = {
       split: run.split,
       cases: run.case_count,
       runId: run.run_id,
       startedAt: run.started_at,
       candidates: exportedCandidates,
+      caseResults,
     };
 
     const outputPath = resolve(outPath);
@@ -113,7 +166,9 @@ export function registerExport(program: Command): void {
     .requiredOption("--run <id>", "run ID to export")
     .requiredOption("--out <path>", "output JSON file")
     .option("--results <path>", "results database", "examples/hdb/results.db")
-    .action((opts: { run: string; out: string; results: string }) => {
-      exportRun(opts.run, opts.out, opts.results);
+    .option("--cases <dir>", "case YAML directory", "examples/hdb/cases")
+    .option("--expected <path>", "expected results file", "examples/hdb/expected.json")
+    .action((opts: { run: string; out: string; results: string; cases: string; expected: string }) => {
+      exportRun(opts.run, opts.out, opts.results, opts.cases, opts.expected);
     });
 }

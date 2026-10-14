@@ -102,6 +102,40 @@
     .fail-count { text-align: right; color: var(--muted); font-variant-numeric: tabular-nums; }
     .note { margin-top: 15px; padding: 11px 12px; border-left: 3px solid #d9ae6f; background: #fbf5e9; color: #6d5b3e; font-size: 11px; }
 
+    .case-panel { margin-top: 16px; }
+    .case-filters { display: grid; grid-template-columns: minmax(220px, 1fr) repeat(2, minmax(150px, 190px)); gap: 10px; margin-bottom: 10px; }
+    .case-filters input, .case-filters select, .detail-candidate select {
+      width: 100%; border: 1px solid var(--line); border-radius: 8px; padding: 9px 11px;
+      background: var(--surface); color: var(--ink); font: inherit; font-size: 12px;
+    }
+    .case-table-scroll { max-height: 470px; overflow: auto; border: 1px solid var(--line); border-radius: 8px; }
+    .case-table { min-width: 680px; }
+    .case-table thead { position: sticky; top: 0; z-index: 1; background: #f7f5f0; }
+    .case-table th { padding: 10px 9px; }
+    .case-table td { padding: 8px 9px; }
+    .case-table tbody tr { cursor: pointer; }
+    .case-table tbody tr:hover { background: #faf7f2; }
+    .case-table tbody tr[aria-selected="true"] { background: var(--red-soft); }
+    .case-name { color: var(--ink); font-weight: 650; }
+    .case-id { display: block; max-width: 280px; overflow: hidden; color: var(--muted); font-size: 10px; text-overflow: ellipsis; white-space: nowrap; }
+    .tag-list { display: flex; flex-wrap: wrap; gap: 4px; max-width: 210px; }
+    .tag { border-radius: 12px; padding: 2px 7px; background: #f0eee8; color: #596575; font-size: 9px; white-space: nowrap; }
+    .case-outcome { white-space: nowrap; font-size: 11px; }
+    .case-outcome.pass { color: var(--green); }
+    .case-outcome.fail { color: var(--red); }
+    .case-empty { padding: 24px; color: var(--muted); text-align: center; }
+    .case-detail { margin-top: 14px; padding: 16px; border: 1px solid var(--line); border-radius: 9px; background: #fffefa; }
+    .case-detail-empty { color: var(--muted); }
+    .case-detail-heading { display: flex; align-items: start; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
+    .case-detail-heading h3 { margin: 0; font: 700 18px/1.3 Georgia, "Times New Roman", serif; }
+    .case-question { margin: 0 0 12px; padding: 12px; border-radius: 7px; background: #f7f5f0; }
+    .detail-candidate { display: grid; grid-template-columns: 140px minmax(160px, 230px); gap: 10px; align-items: center; margin: 12px 0; color: var(--muted); font-size: 11px; }
+    .result-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .result-box { min-width: 0; border: 1px solid var(--line); border-radius: 7px; padding: 11px; }
+    .result-label { color: var(--muted); font-size: 10px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+    .result-box pre { max-height: 230px; margin: 7px 0 0; overflow: auto; color: var(--ink); font: 11px/1.5 ui-monospace, SFMono-Regular, Consolas, monospace; white-space: pre-wrap; overflow-wrap: anywhere; }
+    .case-detail-note { margin-top: 9px; color: var(--muted); font-size: 11px; }
+
     .footer { margin-top: 18px; color: var(--muted); font-size: 11px; }
     .network { width: 42px; height: 42px; flex: 0 0 42px; }
     .heading-row { display: flex; align-items: center; gap: 13px; }
@@ -116,6 +150,8 @@
       nav a::first-letter { font-size: 16px; }
       .building { display: none; }
       .content-grid { grid-template-columns: 1fr; }
+      .case-filters { grid-template-columns: 1fr 1fr; }
+      .case-filters input { grid-column: 1 / -1; }
     }
     @media (max-width: 620px) {
       .app { display: block; }
@@ -129,6 +165,11 @@
       .panel { padding: 13px; overflow-x: auto; }
       table { min-width: 570px; }
       .topline { align-items: start; }
+      .case-filters { grid-template-columns: 1fr; }
+      .case-filters input { grid-column: auto; }
+      .result-grid { grid-template-columns: 1fr; }
+      .case-detail-heading { display: block; }
+      .detail-candidate { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -140,7 +181,7 @@
     <nav aria-label="Main navigation">
       <a class="active" href="#overview">▦ <span class="nav-text">Overview</span></a>
       <a href="#runs">◷ <span class="nav-text">Runs</span></a>
-      <a href="#cases">▤ <span class="nav-text">Cases</span></a>
+      <a href="#caseReview">▤ <span class="nav-text">Cases</span></a>
     </nav>
 
     <div class="side-note">
@@ -207,6 +248,32 @@
       </section>
     </div>
 
+    <section class="panel case-panel" id="caseReview">
+      <div class="panel-heading">
+        <div><h2>Case review</h2><div class="panel-hint" id="caseCountHint">Inspect case questions and candidate results</div></div>
+        <span class="pill" id="caseSplitPill"></span>
+      </div>
+      <div class="case-filters" aria-label="Filter cases">
+        <input id="caseSearch" type="search" placeholder="Search questions, case IDs, or tags…" aria-label="Search cases">
+        <select id="caseTagFilter" aria-label="Filter by tag"><option value="">All tags</option></select>
+        <select id="caseResultFilter" aria-label="Filter by result">
+          <option value="all">All results</option>
+          <option value="failures">Has failures</option>
+          <option value="passed">All candidates pass</option>
+        </select>
+      </div>
+      <div class="case-table-scroll" role="region" aria-label="Scrollable benchmark cases" tabindex="0">
+        <table class="case-table">
+          <thead id="caseTableHead"></thead>
+          <tbody id="caseRows"></tbody>
+        </table>
+      </div>
+      <div class="panel-hint" id="caseScrollHint" style="margin-top:7px"></div>
+      <div class="case-detail" id="caseDetail" aria-live="polite">
+        <div class="case-detail-empty">Select a case above to inspect its question, expected result, and model SQL.</div>
+      </div>
+    </section>
+
     <p class="footer" id="cases">
       Benchmark: Singapore HDB resale transactions. Test results are a held-out check, not proof of general model quality.
       Dataset: <a href="https://data.gov.sg/datasets/d_8b84c4ee58e3cfc0ece0d773c8ca6abc/view">data.gov.sg / HDB</a>.
@@ -216,10 +283,122 @@
 
 <script>
   let experiments = {};
+  let selectedCaseId = null;
+  let selectedDetailCandidate = null;
 
   const money = value => value == null ? "n/a" : "$" + value.toFixed(5);
   const accuracy = c => (100 * c.passed / c.total);
+  const escapeHtml = value => String(value ?? "").replace(/[&<>"']/g, char => ({
+    "&": "&amp;", "<": "&lt;", ">": "&gt;", "\"": "&quot;", "'": "&#39;"
+  })[char]);
   let activeSplit = "dev";
+
+  function renderCases(run) {
+    const cases = run.caseResults || [];
+    const candidates = run.candidates.map(candidate => candidate.name);
+    document.querySelector("#caseSplitPill").textContent = `${run.split.toUpperCase()} · ${cases.length} cases`;
+    document.querySelector("#caseCountHint").textContent = `${cases.length} benchmark questions · categories are the case tags`;
+
+    document.querySelector("#caseTableHead").innerHTML = `<tr>
+      <th scope="col">Case</th><th scope="col">Category · tags</th>
+      ${candidates.map(name => `<th scope="col">${escapeHtml(name)}</th>`).join("")}
+    </tr>`;
+
+    const tagFilter = document.querySelector("#caseTagFilter");
+    const priorTag = tagFilter.value;
+    const tags = [...new Set(cases.flatMap(item => item.tags || []))].sort();
+    tagFilter.innerHTML = `<option value="">All tags</option>` + tags.map(tag =>
+      `<option value="${escapeHtml(tag)}">${escapeHtml(tag)}</option>`
+    ).join("");
+    tagFilter.value = tags.includes(priorTag) ? priorTag : "";
+
+    const query = document.querySelector("#caseSearch").value.trim().toLowerCase();
+    const resultFilter = document.querySelector("#caseResultFilter").value;
+    const visibleCases = cases.filter(item => {
+      const text = `${item.id} ${item.question} ${(item.tags || []).join(" ")}`.toLowerCase();
+      if (query && !text.includes(query)) return false;
+      if (tagFilter.value && !(item.tags || []).includes(tagFilter.value)) return false;
+      const allPass = item.candidates.length > 0 && item.candidates.every(score => score.passed);
+      if (resultFilter === "failures" && allPass) return false;
+      if (resultFilter === "passed" && !allPass) return false;
+      return true;
+    });
+
+    if (!visibleCases.some(item => item.id === selectedCaseId)) {
+      selectedCaseId = visibleCases[0]?.id ?? null;
+      selectedDetailCandidate = null;
+    }
+
+    document.querySelector("#caseRows").innerHTML = visibleCases.length
+      ? visibleCases.map(item => `<tr data-case-id="${escapeHtml(item.id)}" aria-selected="${item.id === selectedCaseId}">
+          <td><span class="case-name">${escapeHtml(item.question)}</span><span class="case-id">${escapeHtml(item.id)}</span></td>
+          <td><div class="tag-list">${(item.tags || []).length
+            ? item.tags.map(tag => `<span class="tag">${escapeHtml(tag)}</span>`).join("")
+            : `<span class="panel-hint">No tags</span>`}</div></td>
+          ${candidates.map(name => {
+            const score = item.candidates.find(result => result.name === name);
+            if (!score) return `<td><span class="case-outcome fail">— Missing</span></td>`;
+            const outcome = score.passed
+              ? `<span class="case-outcome pass">✓ Pass</span>`
+              : `<span class="case-outcome fail">✕ ${escapeHtml((score.failure || "failed").replaceAll("_", " "))}</span>`;
+            return `<td>${outcome}</td>`;
+          }).join("")}
+        </tr>`).join("")
+      : `<tr><td class="case-empty" colspan="${candidates.length + 2}">No cases match these filters.</td></tr>`;
+
+    document.querySelector("#caseScrollHint").textContent =
+      `${visibleCases.length} matching cases · scroll the list to browse (about 8–10 rows visible)`;
+
+    renderCaseDetail(cases.find(item => item.id === selectedCaseId), candidates);
+    document.querySelectorAll("#caseRows tr[data-case-id]").forEach(row => {
+      row.addEventListener("click", () => {
+        selectedCaseId = row.dataset.caseId;
+        selectedDetailCandidate = null;
+        renderCases(run);
+      });
+    });
+  }
+
+  function renderCaseDetail(item, candidateNames) {
+    const detail = document.querySelector("#caseDetail");
+    if (!item) {
+      detail.innerHTML = `<div class="case-detail-empty">No case selected. Adjust your search or filters.</div>`;
+      return;
+    }
+
+    const preferred = item.candidates.find(score => !score.passed)?.name || candidateNames[0];
+    if (!candidateNames.includes(selectedDetailCandidate)) selectedDetailCandidate = preferred;
+    const score = item.candidates.find(result => result.name === selectedDetailCandidate);
+    const status = score?.passed ? "PASS" : (score?.failure || "FAILED").replaceAll("_", " ").toUpperCase();
+    const expectedText = JSON.stringify(item.expected, null, 2);
+    const actualText = score?.actualPreview
+      ? JSON.stringify(JSON.parse(score.actualPreview), null, 2)
+      : (score?.detail || "No result was recorded.");
+
+    detail.innerHTML = `
+      <div class="case-detail-heading">
+        <div><h3>${escapeHtml(item.id)}</h3><div class="panel-hint">${(item.tags || []).map(escapeHtml).join(" · ") || "Untagged case"}</div></div>
+        <span class="pill ${score?.passed ? "pass" : ""}">${escapeHtml(status)}</span>
+      </div>
+      <p class="case-question">${escapeHtml(item.question)}</p>
+      <label class="detail-candidate">Candidate result
+        <select id="detailCandidateSelect" aria-label="Candidate result to inspect">
+          ${candidateNames.map(name => `<option value="${escapeHtml(name)}" ${name === selectedDetailCandidate ? "selected" : ""}>${escapeHtml(name)}</option>`).join("")}
+        </select>
+      </label>
+      <div class="result-grid">
+        <div class="result-box"><div class="result-label">Expected result</div><pre>${escapeHtml(expectedText)}</pre></div>
+        <div class="result-box"><div class="result-label">Actual result · ${escapeHtml(selectedDetailCandidate)}</div><pre>${escapeHtml(actualText)}</pre></div>
+        <div class="result-box"><div class="result-label">Generated SQL · ${escapeHtml(selectedDetailCandidate)}</div><pre>${escapeHtml(score?.modelSql || "No SQL was recorded.")}</pre></div>
+        <div class="result-box"><div class="result-label">Reference SQL</div><pre>${escapeHtml(item.referenceSql)}</pre></div>
+      </div>
+      ${score?.detail ? `<div class="case-detail-note">${escapeHtml(score.detail)}</div>` : ""}`;
+
+    document.querySelector("#detailCandidateSelect").addEventListener("change", event => {
+      selectedDetailCandidate = event.target.value;
+      renderCaseDetail(item, candidateNames);
+    });
+  }
 
   function render() {
     const run = experiments[activeSplit];
@@ -279,6 +458,7 @@
     document.querySelector("#splitNote").textContent = activeSplit === "test"
       ? `Held-out check: ${run.cases} cases. Treat these results as evidence from this sample, not a guarantee of general model quality.`
       : "Development results are used while iterating on prompts. Treat these scores as tuning results.";
+    renderCases(run);
   }
 
   function selectSplit(split) {
@@ -289,6 +469,9 @@
   }
   document.querySelector("#devTab").addEventListener("click", () => selectSplit("dev"));
   document.querySelector("#testTab").addEventListener("click", () => selectSplit("test"));
+  document.querySelector("#caseSearch").addEventListener("input", () => renderCases(experiments[activeSplit]));
+  document.querySelector("#caseTagFilter").addEventListener("change", () => renderCases(experiments[activeSplit]));
+  document.querySelector("#caseResultFilter").addEventListener("change", () => renderCases(experiments[activeSplit]));
   Promise.all([
   fetch("./data/dev.json").then((response) => {
     if (!response.ok) throw new Error("Could not load dev results");
