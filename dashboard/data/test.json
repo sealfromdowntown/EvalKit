@@ -1,51 +1,53 @@
 {
   "split": "test",
-  "cases": 12,
-  "runId": "2026-10-14T05-44-43-562Z-d94ed8",
-  "startedAt": "2026-10-14T05:44:43.562Z",
+  "cases": 100,
+  "runId": "2026-10-14T06-15-14-984Z-4906d4",
+  "startedAt": "2026-10-14T06:15:14.984Z",
   "candidates": [
     {
       "name": "main-v1",
       "model": "gpt-6-luna",
       "prompt": "examples/hdb/prompts/v1.txt",
-      "passed": 10,
-      "total": 12,
-      "latency": 2295,
-      "cost": 0.00042455,
+      "passed": 85,
+      "total": 100,
+      "latency": 2394,
+      "cost": 0.0034320000000000006,
       "failures": {
-        "wrong_result": 2
+        "wrong_result": 15
       }
     },
     {
       "name": "main-v2",
       "model": "gpt-6-luna",
       "prompt": "examples/hdb/prompts/v2.txt",
-      "passed": 12,
-      "total": 12,
-      "latency": 1998,
-      "cost": 0.0004124,
-      "failures": {}
+      "passed": 88,
+      "total": 100,
+      "latency": 2104,
+      "cost": 0.00315425,
+      "failures": {
+        "wrong_result": 12
+      }
     },
     {
       "name": "main-v3",
       "model": "gpt-6-luna",
       "prompt": "examples/hdb/prompts/v3.txt",
-      "passed": 12,
-      "total": 12,
-      "latency": 2017,
-      "cost": 0.00042550000000000004,
+      "passed": 100,
+      "total": 100,
+      "latency": 2097,
+      "cost": 0.003452,
       "failures": {}
     },
     {
       "name": "model-b-v3-prompt",
       "model": "gpt-4o-mini",
       "prompt": "examples/hdb/prompts/v3.txt",
-      "passed": 0,
-      "total": 12,
-      "latency": 1652,
-      "cost": 0.00069645,
+      "passed": 25,
+      "total": 100,
+      "latency": 1219,
+      "cost": 0.005453099999999999,
       "failures": {
-        "wrong_result": 11,
+        "wrong_result": 74,
         "shape_mismatch": 1
       }
     },
@@ -53,25 +55,27 @@
       "name": "model-c-v3-prompt",
       "model": "gpt-4.1-nano",
       "prompt": "examples/hdb/prompts/v3.txt",
-      "passed": 2,
-      "total": 12,
-      "latency": 914,
-      "cost": 0.0004303,
+      "passed": 33,
+      "total": 100,
+      "latency": 950,
+      "cost": 0.0034958,
       "failures": {
-        "wrong_result": 9,
-        "shape_mismatch": 1
+        "wrong_result": 64,
+        "shape_mismatch": 3
       }
     },
     {
       "name": "model-d-v3-prompt",
       "model": "gpt-5.4-nano",
       "prompt": "examples/hdb/prompts/v3.txt",
-      "passed": 9,
-      "total": 12,
-      "latency": 997,
-      "cost": 0.0011782000000000001,
+      "passed": 76,
+      "total": 100,
+      "latency": 1148,
+      "cost": 0.010136400000000002,
       "failures": {
-        "wrong_result": 3
+        "wrong_result": 21,
+        "shape_mismatch": 2,
+        "sql_error": 1
       }
     }
   ]
