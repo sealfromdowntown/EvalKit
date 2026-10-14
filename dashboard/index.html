@@ -103,11 +103,20 @@
     .note { margin-top: 15px; padding: 11px 12px; border-left: 3px solid #d9ae6f; background: #fbf5e9; color: #6d5b3e; font-size: 11px; }
 
     .case-panel { margin-top: 16px; }
-    .case-filters { display: grid; grid-template-columns: minmax(220px, 1fr) repeat(2, minmax(150px, 190px)); gap: 10px; margin-bottom: 10px; }
+    #caseMeta { margin-top: 0; justify-content: flex-end; }
+    .page-view { display: none; }
+    .page-view.active { display: block; }
+    .case-filters { display: grid; grid-template-columns: minmax(220px, 1fr) repeat(3, minmax(145px, 190px)); gap: 10px; margin: 18px 0 12px; }
     .case-filters input, .case-filters select, .detail-candidate select {
       width: 100%; border: 1px solid var(--line); border-radius: 8px; padding: 9px 11px;
       background: var(--surface); color: var(--ink); font: inherit; font-size: 12px;
     }
+    .case-summary { display: grid; grid-template-columns: .7fr .8fr 1.5fr; margin: 14px 0; border: 1px solid var(--line); border-radius: 9px; background: #fbfaf7; }
+    .case-summary-item { min-width: 0; padding: 11px 16px; border-right: 1px solid var(--line); }
+    .case-summary-item:last-child { border-right: 0; }
+    .case-summary-label { color: var(--muted); font-size: 10px; letter-spacing: .08em; text-transform: uppercase; }
+    .case-summary-value { margin-top: 3px; font: 700 20px/1.25 Georgia, "Times New Roman", serif; }
+    .case-summary-value.alert { color: var(--red); }
     .case-table-scroll { max-height: 470px; overflow: auto; border: 1px solid var(--line); border-radius: 8px; }
     .case-table { min-width: 680px; }
     .case-table thead { position: sticky; top: 0; z-index: 1; background: #f7f5f0; }
@@ -117,6 +126,7 @@
     .case-table tbody tr:hover { background: #faf7f2; }
     .case-table tbody tr[aria-selected="true"] { background: var(--red-soft); }
     .case-name { color: var(--ink); font-weight: 650; }
+    .case-question-preview { display: block; max-width: 390px; overflow: hidden; color: var(--muted); font-size: 10px; text-overflow: ellipsis; white-space: nowrap; }
     .case-id { display: block; max-width: 280px; overflow: hidden; color: var(--muted); font-size: 10px; text-overflow: ellipsis; white-space: nowrap; }
     .tag-list { display: flex; flex-wrap: wrap; gap: 4px; max-width: 210px; }
     .tag { border-radius: 12px; padding: 2px 7px; background: #f0eee8; color: #596575; font-size: 9px; white-space: nowrap; }
@@ -132,6 +142,8 @@
     .detail-candidate { display: grid; grid-template-columns: 140px minmax(160px, 230px); gap: 10px; align-items: center; margin: 12px 0; color: var(--muted); font-size: 11px; }
     .result-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
     .result-box { min-width: 0; border: 1px solid var(--line); border-radius: 7px; padding: 11px; }
+    .result-box.actual { background: #fcf0ee; }
+    .result-box.expected { background: #eff5f0; }
     .result-label { color: var(--muted); font-size: 10px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
     .result-box pre { max-height: 230px; margin: 7px 0 0; overflow: auto; color: var(--ink); font: 11px/1.5 ui-monospace, SFMono-Regular, Consolas, monospace; white-space: pre-wrap; overflow-wrap: anywhere; }
     .case-detail-note { margin-top: 9px; color: var(--muted); font-size: 11px; }
@@ -170,6 +182,9 @@
       .result-grid { grid-template-columns: 1fr; }
       .case-detail-heading { display: block; }
       .detail-candidate { grid-template-columns: 1fr; }
+      .case-summary { grid-template-columns: 1fr; }
+      .case-summary-item { border-right: 0; border-bottom: 1px solid var(--line); }
+      .case-summary-item:last-child { border-bottom: 0; }
     }
   </style>
 </head>
@@ -179,9 +194,9 @@
     <div class="brand"><span class="brand-mark">E</span><span class="brand-name">EvalKit</span></div>
     <div class="nav-label">WORKSPACE</div>
     <nav aria-label="Main navigation">
-      <a class="active" href="#overview">▦ <span class="nav-text">Overview</span></a>
-      <a href="#runs">◷ <span class="nav-text">Runs</span></a>
-      <a href="#caseReview">▤ <span class="nav-text">Cases</span></a>
+      <a class="active" href="#overviewView" data-view="overview">▦ <span class="nav-text">Overview</span></a>
+      <a href="#runs" data-view="runs">◷ <span class="nav-text">Runs</span></a>
+      <a href="#casesView" data-view="cases">▤ <span class="nav-text">Cases</span></a>
     </nav>
 
     <div class="side-note">
@@ -205,8 +220,8 @@
 
     <div class="heading-row">
       <div>
-        <h1>HDB Text-to-SQL Evaluation</h1>
-        <p class="subtitle">Comparing prompt and model performance on Singapore resale questions.</p>
+        <h1 id="pageTitle">HDB Text-to-SQL Evaluation</h1>
+        <p class="subtitle" id="pageSubtitle">Comparing prompt and model performance on Singapore resale questions.</p>
       </div>
       <svg class="network" viewBox="0 0 48 48" aria-label="Connected model nodes" role="img">
         <g fill="none" stroke="#c84345" stroke-width="1.5">
@@ -219,12 +234,12 @@
       </svg>
     </div>
 
-    <div class="run-meta" id="runMeta"></div>
+    <section class="page-view active" id="overviewView">
     <div class="tabs" role="tablist" aria-label="Evaluation split">
       <button class="tab" id="devTab" role="tab" aria-selected="true">DEV <small id="devCaseCount"></small></button>
       <button class="tab" id="testTab" role="tab" aria-selected="false">TEST <small id="testCaseCount"></small></button>
     </div>
-
+    <div class="run-meta" id="runMeta"></div>
     <section class="cards" id="summaryCards" aria-live="polite"></section>
 
     <div class="content-grid">
@@ -247,15 +262,20 @@
         <div class="note" id="splitNote"></div>
       </section>
     </div>
+    </section>
 
+    <section class="page-view" id="casesView">
     <section class="panel case-panel" id="caseReview">
       <div class="panel-heading">
-        <div><h2>Case review</h2><div class="panel-hint" id="caseCountHint">Inspect case questions and candidate results</div></div>
-        <span class="pill" id="caseSplitPill"></span>
+        <div><h2>Benchmark cases</h2><div class="panel-hint" id="caseCountHint">Inspect case questions and candidate results</div></div>
+        <div class="run-meta" id="caseMeta"></div>
       </div>
+      <div class="case-summary" id="caseSummary"></div>
       <div class="case-filters" aria-label="Filter cases">
         <input id="caseSearch" type="search" placeholder="Search questions, case IDs, or tags…" aria-label="Search cases">
+        <select id="caseSplitFilter" aria-label="Filter by split"><option value="dev">Split: Dev</option><option value="test">Split: Test</option></select>
         <select id="caseTagFilter" aria-label="Filter by tag"><option value="">All tags</option></select>
+        <select id="caseCandidateFilter" aria-label="Filter by candidate"><option value="">All candidates</option></select>
         <select id="caseResultFilter" aria-label="Filter by result">
           <option value="all">All results</option>
           <option value="failures">Has failures</option>
@@ -273,8 +293,9 @@
         <div class="case-detail-empty">Select a case above to inspect its question, expected result, and model SQL.</div>
       </div>
     </section>
+    </section>
 
-    <p class="footer" id="cases">
+    <p class="footer" id="attribution">
       Benchmark: Singapore HDB resale transactions. Test results are a held-out check, not proof of general model quality.
       Dataset: <a href="https://data.gov.sg/datasets/d_8b84c4ee58e3cfc0ece0d773c8ca6abc/view">data.gov.sg / HDB</a>.
     </p>
@@ -288,16 +309,32 @@
 
   const money = value => value == null ? "n/a" : "$" + value.toFixed(5);
   const accuracy = c => (100 * c.passed / c.total);
+  const caseTitle = id => id.replace(/^(gen|hard|test)-/, "").split("-")
+    .map(word => /^\d+$/.test(word) ? word : word.charAt(0).toUpperCase() + word.slice(1)).join(" ");
   const escapeHtml = value => String(value ?? "").replace(/[&<>"']/g, char => ({
     "&": "&amp;", "<": "&lt;", ">": "&gt;", "\"": "&quot;", "'": "&#39;"
   })[char]);
   let activeSplit = "dev";
 
   function renderCases(run) {
-    const cases = run.caseResults || [];
-    const candidates = run.candidates.map(candidate => candidate.name);
-    document.querySelector("#caseSplitPill").textContent = `${run.split.toUpperCase()} · ${cases.length} cases`;
-    document.querySelector("#caseCountHint").textContent = `${cases.length} benchmark questions · categories are the case tags`;
+    const hasCaseData = Array.isArray(run.caseResults);
+    const cases = hasCaseData ? run.caseResults : [];
+    const allCandidates = run.candidates.map(candidate => candidate.name);
+    const candidateFilter = document.querySelector("#caseCandidateFilter");
+    const priorCandidate = candidateFilter.value;
+    candidateFilter.innerHTML = `<option value="">All candidates</option>` + allCandidates.map(name =>
+      `<option value="${escapeHtml(name)}">${escapeHtml(name)}</option>`
+    ).join("");
+    candidateFilter.value = allCandidates.includes(priorCandidate) ? priorCandidate : "";
+    const selectedCandidate = candidateFilter.value;
+    const candidates = selectedCandidate ? [selectedCandidate] : allCandidates;
+    document.querySelector("#caseMeta").innerHTML = hasCaseData
+      ? `<span class="pill">${run.split.toUpperCase()} · ${run.cases} CASES</span><span class="pill">RUN ID · ${escapeHtml(run.runId)}</span>`
+      : `<span class="pill">${run.split.toUpperCase()} · CASE DETAILS UNAVAILABLE</span>`;
+    document.querySelector("#caseSplitFilter").value = activeSplit;
+    document.querySelector("#caseCountHint").textContent = hasCaseData
+      ? `${cases.length} benchmark questions · categories are the case tags`
+      : "Per-case results are missing from this dashboard data. Re-export the run and publish the updated JSON.";
 
     document.querySelector("#caseTableHead").innerHTML = `<tr>
       <th scope="col">Case</th><th scope="col">Category · tags</th>
@@ -318,8 +355,12 @@
       const text = `${item.id} ${item.question} ${(item.tags || []).join(" ")}`.toLowerCase();
       if (query && !text.includes(query)) return false;
       if (tagFilter.value && !(item.tags || []).includes(tagFilter.value)) return false;
-      const allPass = item.candidates.length > 0 && item.candidates.every(score => score.passed);
-      if (resultFilter === "failures" && allPass) return false;
+      const relevantScores = selectedCandidate
+        ? item.candidates.filter(score => score.name === selectedCandidate)
+        : item.candidates;
+      const allPass = relevantScores.length > 0 && relevantScores.every(score => score.passed);
+      const hasFailure = relevantScores.some(score => !score.passed);
+      if (resultFilter === "failures" && !hasFailure) return false;
       if (resultFilter === "passed" && !allPass) return false;
       return true;
     });
@@ -331,7 +372,7 @@
 
     document.querySelector("#caseRows").innerHTML = visibleCases.length
       ? visibleCases.map(item => `<tr data-case-id="${escapeHtml(item.id)}" aria-selected="${item.id === selectedCaseId}">
-          <td><span class="case-name">${escapeHtml(item.question)}</span><span class="case-id">${escapeHtml(item.id)}</span></td>
+          <td><span class="case-name">${escapeHtml(caseTitle(item.id))}</span><span class="case-question-preview">${escapeHtml(item.question)}</span></td>
           <td><div class="tag-list">${(item.tags || []).length
             ? item.tags.map(tag => `<span class="tag">${escapeHtml(tag)}</span>`).join("")
             : `<span class="panel-hint">No tags</span>`}</div></td>
@@ -344,10 +385,21 @@
             return `<td>${outcome}</td>`;
           }).join("")}
         </tr>`).join("")
-      : `<tr><td class="case-empty" colspan="${candidates.length + 2}">No cases match these filters.</td></tr>`;
+      : `<tr><td class="case-empty" colspan="${candidates.length + 2}">${hasCaseData ? "No cases match these filters." : "Case-level data is not included in this run export. Re-export the run with the updated CLI."}</td></tr>`;
 
     document.querySelector("#caseScrollHint").textContent =
-      `${visibleCases.length} matching cases · scroll the list to browse (about 8–10 rows visible)`;
+      hasCaseData ? `${visibleCases.length} matching cases · scroll the list to browse (about 8–10 rows visible)` : "No case rows are available in this published JSON.";
+
+    const failingCases = cases.filter(item => item.candidates.some(score => !score.passed));
+    const failureCounts = {};
+    cases.forEach(item => item.candidates.forEach(score => {
+      if (!score.passed && score.failure) failureCounts[score.failure] = (failureCounts[score.failure] || 0) + 1;
+    }));
+    const topFailure = Object.entries(failureCounts).sort((a, b) => b[1] - a[1])[0];
+    document.querySelector("#caseSummary").innerHTML = `
+      <div class="case-summary-item"><div class="case-summary-label">Total cases</div><div class="case-summary-value">${hasCaseData ? cases.length : "—"}</div></div>
+      <div class="case-summary-item"><div class="case-summary-label">Cases with failures</div><div class="case-summary-value alert">${hasCaseData ? `${failingCases.length} <span class="panel-hint">(${cases.length ? (100 * failingCases.length / cases.length).toFixed(1) : 0}%)</span>` : "—"}</div></div>
+      <div class="case-summary-item"><div class="case-summary-label">Most common failure</div><div class="case-summary-value">${topFailure ? `${escapeHtml(topFailure[0].replaceAll("_", " "))} <span class="panel-hint">(${topFailure[1]} candidate results)</span>` : "No failures"}</div></div>`;
 
     renderCaseDetail(cases.find(item => item.id === selectedCaseId), candidates);
     document.querySelectorAll("#caseRows tr[data-case-id]").forEach(row => {
@@ -377,7 +429,7 @@
 
     detail.innerHTML = `
       <div class="case-detail-heading">
-        <div><h3>${escapeHtml(item.id)}</h3><div class="panel-hint">${(item.tags || []).map(escapeHtml).join(" · ") || "Untagged case"}</div></div>
+        <div><h3>${escapeHtml(caseTitle(item.id))}</h3><div class="panel-hint">${(item.tags || []).map(escapeHtml).join(" · ") || "Untagged case"}</div></div>
         <span class="pill ${score?.passed ? "pass" : ""}">${escapeHtml(status)}</span>
       </div>
       <p class="case-question">${escapeHtml(item.question)}</p>
@@ -387,8 +439,8 @@
         </select>
       </label>
       <div class="result-grid">
-        <div class="result-box"><div class="result-label">Expected result</div><pre>${escapeHtml(expectedText)}</pre></div>
-        <div class="result-box"><div class="result-label">Actual result · ${escapeHtml(selectedDetailCandidate)}</div><pre>${escapeHtml(actualText)}</pre></div>
+        <div class="result-box actual"><div class="result-label">Actual result · ${escapeHtml(selectedDetailCandidate)}</div><pre>${escapeHtml(actualText)}</pre></div>
+        <div class="result-box expected"><div class="result-label">Expected result</div><pre>${escapeHtml(expectedText)}</pre></div>
         <div class="result-box"><div class="result-label">Generated SQL · ${escapeHtml(selectedDetailCandidate)}</div><pre>${escapeHtml(score?.modelSql || "No SQL was recorded.")}</pre></div>
         <div class="result-box"><div class="result-label">Reference SQL</div><pre>${escapeHtml(item.referenceSql)}</pre></div>
       </div>
@@ -467,17 +519,43 @@
     document.querySelector("#testTab").setAttribute("aria-selected", String(split === "test"));
     render();
   }
+  function selectView(view) {
+    const casesPage = view === "cases";
+    history.replaceState(null, "", casesPage ? "#casesView" : "#overviewView");
+    document.querySelector("#overviewView").classList.toggle("active", !casesPage);
+    document.querySelector("#casesView").classList.toggle("active", casesPage);
+    document.querySelectorAll("nav a[data-view]").forEach(link => {
+      link.classList.toggle("active", link.dataset.view === view || (!casesPage && view === "runs" && link.dataset.view === "overview"));
+    });
+    document.querySelector("#pageTitle").textContent = casesPage ? "Case review" : "HDB Text-to-SQL Evaluation";
+    document.querySelector("#pageSubtitle").textContent = casesPage
+      ? "Inspect where each model succeeds or fails on the benchmark."
+      : "Comparing prompt and model performance on Singapore resale questions.";
+    document.querySelector(".eyebrow").textContent = casesPage
+      ? "EvalKit / Case review / HDB resale"
+      : "EvalKit / Evaluation runs / HDB resale";
+    if (view === "runs") document.querySelector("#runs").scrollIntoView({ behavior: "smooth", block: "start" });
+    else window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+  document.querySelectorAll("nav a[data-view]").forEach(link => {
+    link.addEventListener("click", event => {
+      event.preventDefault();
+      selectView(link.dataset.view);
+    });
+  });
   document.querySelector("#devTab").addEventListener("click", () => selectSplit("dev"));
   document.querySelector("#testTab").addEventListener("click", () => selectSplit("test"));
-  document.querySelector("#caseSearch").addEventListener("input", () => renderCases(experiments[activeSplit]));
-  document.querySelector("#caseTagFilter").addEventListener("change", () => renderCases(experiments[activeSplit]));
-  document.querySelector("#caseResultFilter").addEventListener("change", () => renderCases(experiments[activeSplit]));
+  document.querySelector("#caseSplitFilter").addEventListener("change", event => selectSplit(event.target.value));
+  document.querySelector("#caseSearch").addEventListener("input", () => { if (experiments[activeSplit]) renderCases(experiments[activeSplit]); });
+  document.querySelector("#caseTagFilter").addEventListener("change", () => { if (experiments[activeSplit]) renderCases(experiments[activeSplit]); });
+  document.querySelector("#caseCandidateFilter").addEventListener("change", () => { if (experiments[activeSplit]) renderCases(experiments[activeSplit]); });
+  document.querySelector("#caseResultFilter").addEventListener("change", () => { if (experiments[activeSplit]) renderCases(experiments[activeSplit]); });
   Promise.all([
-  fetch("./data/dev.json").then((response) => {
+  fetch(`./data/dev.json?v=${Date.now()}`, { cache: "no-store" }).then((response) => {
     if (!response.ok) throw new Error("Could not load dev results");
     return response.json();
   }),
-  fetch("./data/test.json").then((response) => {
+  fetch(`./data/test.json?v=${Date.now()}`, { cache: "no-store" }).then((response) => {
     if (!response.ok) throw new Error("Could not load test results");
     return response.json();
   }),
@@ -487,6 +565,7 @@
     document.querySelector("#devCaseCount").textContent = `${dev.cases} cases`;
     document.querySelector("#testCaseCount").textContent = `${test.cases} cases`;
     render();
+    if (location.hash === "#casesView") selectView("cases");
   })
   .catch((error) => {
     document.querySelector("#summaryCards").textContent = error.message;
