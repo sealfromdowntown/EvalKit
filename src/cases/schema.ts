@@ -1,5 +1,19 @@
 import { z } from "zod";
 
+const IntentProbeRowSchema = z.strictObject({
+  month: z.string().optional(),
+  town: z.string().optional(),
+  flat_type: z.string().optional(),
+  block: z.string().optional(),
+  street_name: z.string().optional(),
+  storey_range: z.string().optional(),
+  floor_area_sqm: z.number().optional(),
+  flat_model: z.string().optional(),
+  lease_commence_date: z.number().int().optional(),
+  remaining_lease: z.string().nullable().optional(),
+  resale_price: z.number().optional(),
+});
+
 export const CaseSchema = z.strictObject({
   id: z
     .string()
@@ -14,6 +28,9 @@ export const CaseSchema = z.strictObject({
       ordered: z.boolean().optional(),
       tolerance: z.number().nonnegative().optional(),
     })
+    .optional(),
+  intent_probe: z
+    .strictObject({ rows: z.array(IntentProbeRowSchema).min(1) })
     .optional(),
 });
 

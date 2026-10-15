@@ -13,6 +13,7 @@ This repository demonstrates EvalKit on Singapore HDB resale data. A case contai
 - Cached model calls, with results and scores stored in SQLite.
 - A read-only SQL execution process with a timeout and row limit.
 - Execution-match scoring with per-case row-order and numeric-tolerance options.
+- Optional counterfactual intent probes for zero-answer cases, to catch filters that return zero for the wrong reason.
 - Candidate comparison using paired differences and a seeded bootstrap confidence interval.
 - Separate `dev` and `test` case splits.
 
@@ -84,5 +85,7 @@ In an earlier run of the separate 12-case test split, both v2 and v3 scored 12/1
 ## Scoring notes and limitations
 
 By default, row order is ignored, column names are ignored, `NULL` matches `NULL`, and numeric values are compared with an absolute tolerance of 0.5. Individual cases can set `compare.ordered` or `compare.tolerance` in YAML. These rules make execution matching practical for the demo, but a matching result does not prove that two SQL queries express the same logic in every possible situation.
+
+Cases with legitimate zero answers can define an `intent_probe` in their YAML. It supplies a small synthetic `resale` dataset; EvalKit runs both the reference SQL and the model SQL against it after the normal real-dataset result matches. The probe should include counterexamples that make common wrong filters produce a different answer. A probe mismatch is reported as `intent_probe_failed`. This strengthens checks for that case, but it is only as good as the probe rows and does not prove full SQL equivalence.
 
 The current benchmark is small and includes related generated questions. The development cases have been used to shape v3, and the existing test set is only 12 cases. More independently designed hard cases, broader task coverage, reproducible data acquisition, and further validation of the statistical reporting remain future work.

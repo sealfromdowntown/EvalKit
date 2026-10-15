@@ -7,6 +7,7 @@ import { executeSql } from "../executor/index";
 import { extractSql } from "../llm/extract";
 import type { ModelClient } from "../llm/types";
 import { scoreExecution, type Failure } from "../scorers/execution";
+import { scoreIntentProbe } from "../scorers/intent-probe";
 import { cachedComplete } from "./call";
 import { buildUserMessage, describeSchema } from "./prompt";
 
@@ -151,7 +152,13 @@ export async function runSuite(
     }
 
     const exec = await executeSql(sql, { dbPath: hdbDbPath });
-    const result = scoreExecution(exec, expected.cases[c.id], c.compare);
+    let result = scoreExecution(exec, expected.cases[c.id], c.compare);
+    if (result.pass && c.intent_probe) {
+      const intent = await scoreIntentProbe(sql, c.reference_sql, c.intent_probe.rows, c.compare);
+      if (!intent.pass) {
+        result = { pass: false, failure: "intent_probe_failed", detail: intent.detail };
+      }
+    }
     return {
       ...withCall,
       modelSql: sql,

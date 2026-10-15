@@ -20,6 +20,14 @@ export function isEmptyResult(e: ExpectedEntry): boolean {
   return e.rows.length === 0 || (e.rows.length === 1 && e.rows[0].every((v) => v === null));
 }
 
+export function isZeroScalarResult(e: ExpectedEntry): boolean {
+  return (
+    e.rows.length === 1 &&
+    e.rows[0].length === 1 &&
+    (e.rows[0][0] === 0 || e.rows[0][0] === "0")
+  );
+}
+
 export async function computeExpected(cases: Case[], dbPath: string): Promise<ExpectedFile> {
   const meta = await executeSql("SELECT COUNT(*), MIN(month), MAX(month) FROM resale", { dbPath });
   if (!meta.ok) throw new Error(`Cannot read dataset: ${meta.message}`);

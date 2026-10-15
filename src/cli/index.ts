@@ -6,10 +6,12 @@ import { registerRun } from "./run";
 import { registerExport } from "./export";
 import { registerRefreshDashboard } from "./refresh-dashboard";
 import { registerCompare } from "./compare";
+import { scoreIntentProbe } from "../scorers/intent-probe";
 import {
   computeExpected,
   hashSql,
   isEmptyResult,
+  isZeroScalarResult,
   type ExpectedFile,
 } from "../cases/expected";
 
@@ -42,7 +44,7 @@ program
   .description("Check case files and compare them against stored expected results")
   .option("--cases <dir>", "directory of case YAML files", DEFAULTS.cases)
   .option("--expected <path>", "expected results file", DEFAULTS.expected)
-  .action((opts: { cases: string; expected: string }) => {
+  .action(async (opts: { cases: string; expected: string }) => {
     const cases = loadCases(opts.cases);
     console.log(`OK: ${cases.length} cases are valid`);
     let problems = 0;
@@ -53,6 +55,15 @@ program
           `${duplicate.devCaseIds.join(", ")} and test case(s) ${duplicate.testCaseIds.join(", ")}`,
       );
       problems++;
+    }
+
+    for (const c of cases) {
+      if (!c.intent_probe) continue;
+      const probe = await scoreIntentProbe(c.reference_sql, c.reference_sql, c.intent_probe.rows, c.compare);
+      if (!probe.pass) {
+        console.log(`  INVALID intent probe: ${c.id} — ${probe.detail}`);
+        problems++;
+      }
     }
 
     if (!existsSync(opts.expected)) {
@@ -76,7 +87,13 @@ program
         continue;
       }
       const preview = JSON.stringify(e.rows.slice(0, 3));
-      const warn = isEmptyResult(e) ? "   WARNING: EMPTY RESULT" : "";
+      const warnings = [
+        isEmptyResult(e) && "EMPTY RESULT",
+        isZeroScalarResult(e) && (c.intent_probe
+          ? "ZERO SCALAR ANSWER — counterfactual intent probe attached"
+          : "ZERO SCALAR ANSWER — review for false passes from wrong filters"),
+      ].filter(Boolean);
+      const warn = warnings.length ? `   WARNING: ${warnings.join("; ")}` : "";
       console.log(`  ${c.id} [${c.split}] -> ${preview}${warn}`);
     }
 

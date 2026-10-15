@@ -642,7 +642,7 @@
         <td class="cost">${money(c.cost)}</td>
       </tr>`).join("");
 
-    const categories = ["wrong_result", "shape_mismatch", "sql_error"];
+    const categories = ["wrong_result", "shape_mismatch", "sql_error", "intent_probe_failed"];
     const counts = Object.fromEntries(categories.map(k => [
       k, run.candidates.reduce((sum, c) => sum + (c.failures[k] || 0), 0)
     ]));

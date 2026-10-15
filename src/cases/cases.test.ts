@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { CaseSchema } from "./schema";
-import { hashSql } from "./expected";
+import { hashSql, isZeroScalarResult } from "./expected";
 
 const valid = {
   id: "count-tampines-2024",
@@ -35,5 +35,16 @@ describe("hashSql", () => {
 
   it("changes when the query changes", () => {
     expect(hashSql("SELECT 1")).not.toBe(hashSql("SELECT 2"));
+  });
+});
+
+describe("isZeroScalarResult", () => {
+  it("flags a scalar zero answer for manual review", () => {
+    expect(isZeroScalarResult({ sqlHash: "x", columns: ["COUNT(*)"], rows: [[0]] })).toBe(true);
+  });
+
+  it("does not flag nonzero or multi-cell results", () => {
+    expect(isZeroScalarResult({ sqlHash: "x", columns: ["COUNT(*)"], rows: [[18]] })).toBe(false);
+    expect(isZeroScalarResult({ sqlHash: "x", columns: ["a", "b"], rows: [[0, 1]] })).toBe(false);
   });
 });

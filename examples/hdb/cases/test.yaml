@@ -19,6 +19,13 @@
   reference_sql: SELECT COUNT(*) FROM resale WHERE town = 'GEYLANG' AND flat_type = '1 ROOM' AND month LIKE '2018-%'
   tags: [count, town, flat-type, value-format]
   split: test
+  intent_probe:
+    rows:
+      - { month: '2018-01', town: 'GEYLANG', flat_type: '1 ROOM' }
+      - { month: '2018-01', town: 'TAMPINES', flat_type: '1 ROOM' }
+      - { month: '2018-01', town: 'TAMPINES', flat_type: '1 ROOM' }
+      - { month: '2018-01', town: 'GEYLANG', flat_type: '2 ROOM' }
+      - { month: '2019-01', town: 'GEYLANG', flat_type: '1 ROOM' }
 - id: test-count-jurong-east-3-room-2022
   question: How many resale transactions for 3-room flats were recorded in Jurong East in 2022?
   reference_sql: SELECT COUNT(*) FROM resale WHERE town = 'JURONG EAST' AND flat_type = '3 ROOM' AND month LIKE '2022-%'

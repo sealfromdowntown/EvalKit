@@ -7,7 +7,8 @@ export type Failure =
   | "timeout"
   | "sql_error"
   | "shape_mismatch"
-  | "wrong_result";
+  | "wrong_result"
+  | "intent_probe_failed";
 
 export interface Score {
   pass: boolean;
