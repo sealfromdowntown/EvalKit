@@ -227,7 +227,6 @@
     <div class="nav-label">WORKSPACE</div>
     <nav aria-label="Main navigation">
       <a class="active" href="#overviewView" data-view="overview">▦ <span class="nav-text">Overview</span></a>
-      <a href="#runs" data-view="runs">◷ <span class="nav-text">Runs</span></a>
       <a href="#casesView" data-view="cases">▤ <span class="nav-text">Cases</span></a>
       <a href="#tagsView" data-view="tags">▧ <span class="nav-text">Tag performance</span></a>
     </nav>
@@ -676,7 +675,7 @@
     document.querySelector("#casesView").classList.toggle("active", casesPage);
     document.querySelector("#tagsView").classList.toggle("active", tagsPage);
     document.querySelectorAll("nav a[data-view]").forEach(link => {
-      link.classList.toggle("active", link.dataset.view === view || (!casesPage && !tagsPage && view === "runs" && link.dataset.view === "overview"));
+      link.classList.toggle("active", link.dataset.view === view);
     });
     document.querySelector("#pageTitle").textContent = casesPage ? "Case review" : tagsPage ? "Tag performance" : "HDB Text-to-SQL Evaluation";
     document.querySelector("#pageSubtitle").textContent = casesPage
@@ -687,8 +686,7 @@
       ? "EvalKit / Case review / HDB resale"
       : tagsPage ? "EvalKit / Tag performance / HDB resale"
       : "EvalKit / Evaluation runs / HDB resale";
-    if (view === "runs") document.querySelector("#runs").scrollIntoView({ behavior: "smooth", block: "start" });
-    else window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }
   document.querySelectorAll("nav a[data-view]").forEach(link => {
     link.addEventListener("click", event => {
