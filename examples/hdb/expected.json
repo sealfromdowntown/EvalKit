@@ -1670,14 +1670,14 @@
         ]
       ]
     },
-    "test-count-multi-generation-flat-type": {
-      "sqlHash": "56a05d4a21a331ec",
+    "test-top-flat-type-resale-value-2024": {
+      "sqlHash": "3f916725b435c5d6",
       "columns": [
-        "COUNT(*)"
+        "flat_type"
       ],
       "rows": [
         [
-          91
+          "4 ROOM"
         ]
       ]
     },

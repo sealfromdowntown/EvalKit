@@ -1,6 +1,7 @@
 import { Command } from "commander";
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { loadCases } from "../cases/load";
+import { findCrossSplitSqlDuplicates } from "../cases/split-integrity";
 import { registerRun } from "./run";
 import { registerExport } from "./export";
 import { registerRefreshDashboard } from "./refresh-dashboard";
@@ -44,14 +45,23 @@ program
   .action((opts: { cases: string; expected: string }) => {
     const cases = loadCases(opts.cases);
     console.log(`OK: ${cases.length} cases are valid`);
+    let problems = 0;
+
+    for (const duplicate of findCrossSplitSqlDuplicates(cases)) {
+      console.log(
+        `  SPLIT LEAK: reference SQL ${duplicate.sqlHash} is shared by dev case(s) ` +
+          `${duplicate.devCaseIds.join(", ")} and test case(s) ${duplicate.testCaseIds.join(", ")}`,
+      );
+      problems++;
+    }
 
     if (!existsSync(opts.expected)) {
       console.log("No expected results yet. Run: compute-expected");
+      if (problems > 0) process.exitCode = 1;
       return;
     }
 
     const exp = JSON.parse(readFileSync(opts.expected, "utf8")) as ExpectedFile;
-    let problems = 0;
 
     for (const c of cases) {
       const e = exp.cases[c.id];

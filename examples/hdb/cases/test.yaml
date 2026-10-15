@@ -229,10 +229,10 @@
   reference_sql: SELECT COUNT(*) FROM resale WHERE flat_type = '5 ROOM'
   tags: [count, flat-type, exact-match]
   split: test
-- id: test-count-multi-generation-flat-type
-  question: How many transactions have the flat type MULTI-GENERATION?
-  reference_sql: SELECT COUNT(*) FROM resale WHERE flat_type = 'MULTI-GENERATION'
-  tags: [count, flat-type, exact-value, punctuation]
+- id: test-top-flat-type-resale-value-2024
+  question: Which flat type accounted for the largest total resale value in 2024? Return the flat type.
+  reference_sql: SELECT flat_type FROM resale WHERE month LIKE '2024-%' GROUP BY flat_type ORDER BY SUM(resale_price) DESC, flat_type ASC LIMIT 1
+  tags: [group-by, ranking, flat-type, resale-value]
   split: test
 - id: test-average-price-per-sqm-pasir-ris-4-room-2022
   question: Across individual transactions, what was the average resale price per square metre for 4-room flats in Pasir Ris in 2022?
