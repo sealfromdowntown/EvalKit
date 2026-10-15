@@ -1,8 +1,8 @@
 {
   "split": "test",
   "cases": 100,
-  "runId": "2026-10-14T06-15-14-984Z-4906d4",
-  "startedAt": "2026-10-14T06:15:14.984Z",
+  "runId": "2026-10-15T07-14-30-267Z-611f92",
+  "startedAt": "2026-10-15T07:14:30.267Z",
   "candidates": [
     {
       "name": "main-v1",
@@ -10,8 +10,8 @@
       "prompt": "examples/hdb/prompts/v1.txt",
       "passed": 85,
       "total": 100,
-      "latency": 2394,
-      "cost": 0.0034320000000000006,
+      "latency": 2439,
+      "cost": 0.0034423500000000003,
       "failures": {
         "wrong_result": 15
       }
@@ -22,8 +22,8 @@
       "prompt": "examples/hdb/prompts/v2.txt",
       "passed": 88,
       "total": 100,
-      "latency": 2104,
-      "cost": 0.00315425,
+      "latency": 2123,
+      "cost": 0.00316835,
       "failures": {
         "wrong_result": 12
       }
@@ -34,20 +34,20 @@
       "prompt": "examples/hdb/prompts/v3.txt",
       "passed": 100,
       "total": 100,
-      "latency": 2097,
-      "cost": 0.003452,
+      "latency": 2110,
+      "cost": 0.00346435,
       "failures": {}
     },
     {
       "name": "model-b-v3-prompt",
       "model": "gpt-4o-mini",
       "prompt": "examples/hdb/prompts/v3.txt",
-      "passed": 25,
+      "passed": 24,
       "total": 100,
-      "latency": 1219,
-      "cost": 0.005453099999999999,
+      "latency": 1227,
+      "cost": 0.005469749999999999,
       "failures": {
-        "wrong_result": 74,
+        "wrong_result": 75,
         "shape_mismatch": 1
       }
     },
@@ -55,12 +55,12 @@
       "name": "model-c-v3-prompt",
       "model": "gpt-4.1-nano",
       "prompt": "examples/hdb/prompts/v3.txt",
-      "passed": 33,
+      "passed": 32,
       "total": 100,
-      "latency": 950,
-      "cost": 0.0034958,
+      "latency": 951,
+      "cost": 0.0035053,
       "failures": {
-        "wrong_result": 64,
+        "wrong_result": 65,
         "shape_mismatch": 3
       }
     },
@@ -70,8 +70,8 @@
       "prompt": "examples/hdb/prompts/v3.txt",
       "passed": 76,
       "total": 100,
-      "latency": 1148,
-      "cost": 0.010136400000000002,
+      "latency": 1152,
+      "cost": 0.010152200000000002,
       "failures": {
         "wrong_result": 21,
         "shape_mismatch": 2,
@@ -4171,22 +4171,22 @@
       ]
     },
     {
-      "id": "test-count-multi-generation-flat-type",
-      "question": "How many transactions have the flat type MULTI-GENERATION?",
+      "id": "test-top-flat-type-resale-value-2024",
+      "question": "Which flat type accounted for the largest total resale value in 2024? Return the flat type.",
       "tags": [
-        "count",
+        "group-by",
+        "ranking",
         "flat-type",
-        "exact-value",
-        "punctuation"
+        "resale-value"
       ],
-      "referenceSql": "SELECT COUNT(*) FROM resale WHERE flat_type = 'MULTI-GENERATION'",
+      "referenceSql": "SELECT flat_type FROM resale WHERE month LIKE '2024-%' GROUP BY flat_type ORDER BY SUM(resale_price) DESC, flat_type ASC LIMIT 1",
       "expected": {
         "columns": [
-          "COUNT(*)"
+          "flat_type"
         ],
         "rows": [
           [
-            91
+            "4 ROOM"
           ]
         ]
       },
@@ -4196,48 +4196,48 @@
           "passed": true,
           "failure": null,
           "detail": "match",
-          "modelSql": "SELECT COUNT(*) FROM resale WHERE flat_type = 'MULTI-GENERATION';",
-          "actualPreview": "[[91]]"
+          "modelSql": "SELECT flat_type\nFROM resale\nWHERE substr(month, 1, 4) = '2024'\nGROUP BY flat_type\nORDER BY SUM(resale_price) DESC\nLIMIT 1;",
+          "actualPreview": "[[\"4 ROOM\"]]"
         },
         {
           "name": "main-v2",
           "passed": true,
           "failure": null,
           "detail": "match",
-          "modelSql": "SELECT COUNT(*) FROM resale WHERE flat_type = 'MULTI-GENERATION';",
-          "actualPreview": "[[91]]"
+          "modelSql": "SELECT flat_type\nFROM resale\nWHERE substr(month, 1, 4) = '2024'\nGROUP BY flat_type\nORDER BY SUM(resale_price) DESC\nLIMIT 1;",
+          "actualPreview": "[[\"4 ROOM\"]]"
         },
         {
           "name": "main-v3",
           "passed": true,
           "failure": null,
           "detail": "match",
-          "modelSql": "SELECT COUNT(*) FROM resale WHERE flat_type = 'MULTI-GENERATION';",
-          "actualPreview": "[[91]]"
+          "modelSql": "SELECT flat_type\nFROM resale\nWHERE month LIKE '2024-%'\nGROUP BY flat_type\nORDER BY SUM(resale_price) DESC\nLIMIT 1;",
+          "actualPreview": "[[\"4 ROOM\"]]"
         },
         {
           "name": "model-b-v3-prompt",
-          "passed": true,
-          "failure": null,
-          "detail": "match",
-          "modelSql": "SELECT COUNT(*) FROM resale WHERE flat_type = 'MULTI-GENERATION';",
-          "actualPreview": "[[91]]"
+          "passed": false,
+          "failure": "wrong_result",
+          "detail": "Expected 1 row(s), got 0: []",
+          "modelSql": "SELECT flat_type\nFROM resale\nWHERE strftime('%Y', month) = '2024'\nGROUP BY flat_type\nORDER BY SUM(resale_price) DESC\nLIMIT 1;",
+          "actualPreview": "[]"
         },
         {
           "name": "model-c-v3-prompt",
-          "passed": true,
-          "failure": null,
-          "detail": "match",
-          "modelSql": "SELECT COUNT(*) FROM resale WHERE flat_type = 'MULTI-GENERATION';",
-          "actualPreview": "[[91]]"
+          "passed": false,
+          "failure": "wrong_result",
+          "detail": "Expected 1 row(s), got 0: []",
+          "modelSql": "SELECT flat_type\nFROM resale\nWHERE strftime('%Y', month) = '2024'\nGROUP BY flat_type\nORDER BY SUM(resale_price) DESC\nLIMIT 1;",
+          "actualPreview": "[]"
         },
         {
           "name": "model-d-v3-prompt",
           "passed": true,
           "failure": null,
           "detail": "match",
-          "modelSql": "SELECT COUNT(*) AS transaction_count\nFROM resale\nWHERE flat_type = 'MULTI-GENERATION';",
-          "actualPreview": "[[91]]"
+          "modelSql": "SELECT flat_type\nFROM resale\nWHERE month LIKE '2024-%'\nGROUP BY flat_type\nORDER BY SUM(resale_price) DESC\nLIMIT 1;",
+          "actualPreview": "[[\"4 ROOM\"]]"
         }
       ]
     },
