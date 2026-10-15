@@ -153,6 +153,29 @@
     .sql-operator { color: #a04b16; font-weight: 650; }
     .case-detail-note { margin-top: 11px; color: var(--muted); font-size: 13px; }
 
+    .tag-filters { display: grid; grid-template-columns: minmax(220px, 1fr) repeat(2, minmax(150px, 210px)); gap: 10px; margin: 18px 0 14px; }
+    .tag-filters input, .tag-filters select { width: 100%; border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; background: var(--surface); color: var(--ink); font: inherit; font-size: 15px; }
+    .tag-table-wrap { overflow: auto; border: 1px solid var(--line); border-radius: 9px; }
+    .tag-table { min-width: 760px; }
+    .tag-table th { background: #f7f5f0; position: sticky; top: 0; z-index: 1; }
+    .tag-table td { min-width: 135px; }
+    .tag-label { font-weight: 700; color: var(--ink); }
+    .tag-case-count { display: block; color: var(--muted); font-size: 13px; font-weight: 400; }
+    .tag-score { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 8px; min-width: 120px; }
+    .tag-score .bar-track { height: 7px; }
+    .tag-score-value { color: var(--ink); font-size: 13px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+    .tag-table tbody tr { cursor: pointer; }
+    .tag-table tbody tr:hover { background: #faf7f2; }
+    .tag-table tbody tr[aria-selected="true"] { background: var(--red-soft); }
+    .tag-detail { margin-top: 14px; padding: 16px; border: 1px solid var(--line); border-radius: 9px; background: #fffefa; }
+    .tag-detail h2 { margin-bottom: 4px; }
+    .tag-detail-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 10px; margin-top: 13px; }
+    .tag-candidate-card { border: 1px solid var(--line); border-radius: 8px; padding: 12px; }
+    .tag-candidate-top { display: flex; justify-content: space-between; gap: 8px; align-items: baseline; font-weight: 700; }
+    .tag-candidate-card .bar-track { margin: 9px 0 6px; }
+    .tag-examples { display: grid; gap: 6px; margin-top: 14px; }
+    .tag-example { padding: 9px 11px; background: #f7f5f0; border-radius: 7px; color: #394656; font-size: 14px; }
+
     .footer { margin-top: 18px; color: var(--muted); font-size: 13px; }
     .network { width: 42px; height: 42px; flex: 0 0 42px; }
     .heading-row { display: flex; align-items: center; gap: 13px; }
@@ -169,6 +192,8 @@
       .content-grid { grid-template-columns: 1fr; }
       .case-filters { grid-template-columns: 1fr 1fr; }
       .case-filters input { grid-column: 1 / -1; }
+      .tag-filters { grid-template-columns: 1fr 1fr; }
+      .tag-filters input { grid-column: 1 / -1; }
     }
     @media (max-width: 620px) {
       .app { display: block; }
@@ -184,6 +209,8 @@
       .topline { align-items: start; }
       .case-filters { grid-template-columns: 1fr; }
       .case-filters input { grid-column: auto; }
+      .tag-filters { grid-template-columns: 1fr; }
+      .tag-filters input { grid-column: auto; }
       .result-grid { grid-template-columns: 1fr; }
       .case-detail-heading { display: block; }
       .detail-candidate { grid-template-columns: 1fr; }
@@ -202,6 +229,7 @@
       <a class="active" href="#overviewView" data-view="overview">▦ <span class="nav-text">Overview</span></a>
       <a href="#runs" data-view="runs">◷ <span class="nav-text">Runs</span></a>
       <a href="#casesView" data-view="cases">▤ <span class="nav-text">Cases</span></a>
+      <a href="#tagsView" data-view="tags">▧ <span class="nav-text">Tag performance</span></a>
     </nav>
 
     <div class="side-note">
@@ -300,6 +328,30 @@
     </section>
     </section>
 
+    <section class="page-view" id="tagsView">
+      <section class="panel case-panel">
+        <div class="panel-heading">
+          <div><h2>Performance by case tag</h2><div class="panel-hint" id="tagCountHint">Compare candidate accuracy across benchmark skills</div></div>
+          <div class="run-meta" id="tagMeta"></div>
+        </div>
+        <div class="case-summary" id="tagSummary"></div>
+        <div class="tag-filters" aria-label="Filter tag performance">
+          <input id="tagSearch" type="search" placeholder="Search tags…" aria-label="Search tags">
+          <select id="tagSplitFilter" aria-label="Choose evaluation split"><option value="dev">Split: Dev</option><option value="test">Split: Test</option></select>
+          <select id="tagCandidateFilter" aria-label="Choose candidate"><option value="">All candidates</option></select>
+        </div>
+        <div class="tag-table-wrap" role="region" aria-label="Scrollable candidate performance by tag" tabindex="0">
+          <table class="tag-table">
+            <thead id="tagTableHead"></thead>
+            <tbody id="tagRows"></tbody>
+          </table>
+        </div>
+        <div class="panel-hint" id="tagScrollHint" style="margin-top:7px"></div>
+        <section class="tag-detail" id="tagDetail" aria-live="polite"></section>
+        <div class="note">Tags overlap: a case can contribute to several rows. Each score is the candidate’s pass rate among cases carrying that tag.</div>
+      </section>
+    </section>
+
     <p class="footer" id="attribution">
       Benchmark: Singapore HDB resale transactions. Test results are a held-out check, not proof of general model quality.
       Dataset: <a href="https://data.gov.sg/datasets/d_8b84c4ee58e3cfc0ece0d773c8ca6abc/view">data.gov.sg / HDB</a>.
@@ -311,6 +363,7 @@
   let experiments = {};
   let selectedCaseId = null;
   let selectedDetailCandidate = null;
+  let selectedTag = null;
 
   const money = value => value == null ? "n/a" : "$" + value.toFixed(5);
   const accuracy = c => (100 * c.passed / c.total);
@@ -483,6 +536,70 @@
     });
   }
 
+  function getTagStats(run) {
+    const stats = new Map();
+    for (const item of run.caseResults || []) {
+      for (const tag of item.tags?.length ? item.tags : ["untagged"]) {
+        if (!stats.has(tag)) stats.set(tag, []);
+        stats.get(tag).push(item);
+      }
+    }
+    return [...stats.entries()].map(([tag, cases]) => ({ tag, cases }));
+  }
+
+  function renderTags(run) {
+    const stats = getTagStats(run);
+    const names = run.candidates.map(candidate => candidate.name);
+    const candidateFilter = document.querySelector("#tagCandidateFilter");
+    const priorCandidate = candidateFilter.value;
+    candidateFilter.innerHTML = `<option value="">All candidates</option>` + names.map(name => `<option value="${escapeHtml(name)}">${escapeHtml(name)}</option>`).join("");
+    candidateFilter.value = names.includes(priorCandidate) ? priorCandidate : "";
+    const selectedNames = candidateFilter.value ? [candidateFilter.value] : names;
+    const query = document.querySelector("#tagSearch").value.trim().toLowerCase();
+    const visibleStats = stats.filter(({ tag }) => tag.toLowerCase().includes(query));
+    document.querySelector("#tagSplitFilter").value = activeSplit;
+    document.querySelector("#tagMeta").innerHTML = `<span class="pill">${run.split.toUpperCase()} · ${run.cases} CASES</span><span class="pill">RUN ID · ${escapeHtml(run.runId)}</span>`;
+    document.querySelector("#tagCountHint").textContent = `${stats.length} tags · score shows cases passed for each candidate`;
+    document.querySelector("#tagTableHead").innerHTML = `<tr><th scope="col">Case tag</th>${selectedNames.map(name => `<th scope="col">${escapeHtml(name)}</th>`).join("")}</tr>`;
+
+    const ratesFor = ({ cases }) => selectedNames.map(name => {
+      const scores = cases.map(item => item.candidates.find(result => result.name === name)).filter(Boolean);
+      const passed = scores.filter(score => score.passed).length;
+      return { name, passed, total: scores.length, rate: scores.length ? passed / scores.length * 100 : 0 };
+    });
+    const ordered = [...visibleStats].sort((a, b) => {
+      const ar = ratesFor(a), br = ratesFor(b);
+      return Math.min(...ar.map(value => value.rate)) - Math.min(...br.map(value => value.rate)) || a.tag.localeCompare(b.tag);
+    });
+    if (!ordered.some(item => item.tag === selectedTag)) selectedTag = ordered[0]?.tag ?? null;
+    document.querySelector("#tagRows").innerHTML = ordered.length ? ordered.map(item => `<tr data-tag="${escapeHtml(item.tag)}" aria-selected="${item.tag === selectedTag}">
+      <td><span class="tag-label">${escapeHtml(item.tag)}</span><span class="tag-case-count">${item.cases.length} ${item.cases.length === 1 ? "case" : "cases"}</span></td>
+      ${ratesFor(item).map(value => `<td><div class="tag-score"><div class="bar-track" aria-label="${value.rate.toFixed(1)}% pass rate"><div class="bar" style="width:${value.rate}%"></div></div><span class="tag-score-value">${value.passed}/${value.total} · ${value.rate.toFixed(0)}%</span></div></td>`).join("")}
+    </tr>`).join("") : `<tr><td class="case-empty" colspan="${selectedNames.length + 1}">No tags match this search.</td></tr>`;
+    document.querySelector("#tagScrollHint").textContent = `${visibleStats.length} matching tags · select a tag to inspect its candidate scores and example questions`;
+
+    const totalTaggedCases = new Set(stats.flatMap(item => item.cases.map(testCase => testCase.id))).size;
+    const weakest = ordered.length ? ordered.reduce((weak, item) => {
+      const rate = Math.min(...ratesFor(item).map(value => value.rate));
+      return !weak || rate < weak.rate ? { tag: item.tag, rate } : weak;
+    }, null) : null;
+    document.querySelector("#tagSummary").innerHTML = `
+      <div class="case-summary-item"><div class="case-summary-label">Tags</div><div class="case-summary-value">${stats.length}</div></div>
+      <div class="case-summary-item"><div class="case-summary-label">Tagged cases</div><div class="case-summary-value">${totalTaggedCases}</div></div>
+      <div class="case-summary-item"><div class="case-summary-label">Weakest tag · lowest candidate rate</div><div class="case-summary-value alert">${weakest ? `${escapeHtml(weakest.tag)} <span class="panel-hint">(${weakest.rate.toFixed(1)}%)</span>` : "—"}</div></div>`;
+
+    const selected = stats.find(item => item.tag === selectedTag);
+    const detail = document.querySelector("#tagDetail");
+    if (!selected) {
+      detail.innerHTML = `<div class="case-detail-empty">No tag selected. Adjust your search.</div>`;
+    } else {
+      detail.innerHTML = `<h2>${escapeHtml(selected.tag)}</h2><div class="panel-hint">${selected.cases.length} benchmark ${selected.cases.length === 1 ? "case" : "cases"} with this tag</div>
+        <div class="tag-detail-grid">${ratesFor(selected).map(value => `<article class="tag-candidate-card"><div class="tag-candidate-top"><span>${escapeHtml(value.name)}</span><span class="${value.rate === 100 ? "pass" : ""}">${value.passed}/${value.total} passed</span></div><div class="bar-track"><div class="bar" style="width:${value.rate}%"></div></div><div class="panel-hint">${value.rate.toFixed(1)}% pass rate</div></article>`).join("")}</div>
+        <div class="tag-examples"><strong>Questions in this tag</strong>${selected.cases.slice(0, 8).map(item => `<div class="tag-example">${escapeHtml(item.question)}</div>`).join("")}${selected.cases.length > 8 ? `<div class="panel-hint">And ${selected.cases.length - 8} more cases.</div>` : ""}</div>`;
+    }
+    document.querySelectorAll("#tagRows tr[data-tag]").forEach(row => row.addEventListener("click", () => { selectedTag = row.dataset.tag; renderTags(run); }));
+  }
+
   function render() {
     const run = experiments[activeSplit];
     const best = Math.max(...run.candidates.map(accuracy));
@@ -542,6 +659,7 @@
       ? `Held-out check: ${run.cases} cases. Treat these results as evidence from this sample, not a guarantee of general model quality.`
       : "Development results are used while iterating on prompts. Treat these scores as tuning results.";
     renderCases(run);
+    renderTags(run);
   }
 
   function selectSplit(split) {
@@ -552,18 +670,22 @@
   }
   function selectView(view) {
     const casesPage = view === "cases";
-    history.replaceState(null, "", casesPage ? "#casesView" : "#overviewView");
-    document.querySelector("#overviewView").classList.toggle("active", !casesPage);
+    const tagsPage = view === "tags";
+    history.replaceState(null, "", casesPage ? "#casesView" : tagsPage ? "#tagsView" : "#overviewView");
+    document.querySelector("#overviewView").classList.toggle("active", !casesPage && !tagsPage);
     document.querySelector("#casesView").classList.toggle("active", casesPage);
+    document.querySelector("#tagsView").classList.toggle("active", tagsPage);
     document.querySelectorAll("nav a[data-view]").forEach(link => {
-      link.classList.toggle("active", link.dataset.view === view || (!casesPage && view === "runs" && link.dataset.view === "overview"));
+      link.classList.toggle("active", link.dataset.view === view || (!casesPage && !tagsPage && view === "runs" && link.dataset.view === "overview"));
     });
-    document.querySelector("#pageTitle").textContent = casesPage ? "Case review" : "HDB Text-to-SQL Evaluation";
+    document.querySelector("#pageTitle").textContent = casesPage ? "Case review" : tagsPage ? "Tag performance" : "HDB Text-to-SQL Evaluation";
     document.querySelector("#pageSubtitle").textContent = casesPage
       ? "Inspect where each model succeeds or fails on the benchmark."
+      : tagsPage ? "See which benchmark skills each model handles well, and where it struggles."
       : "Comparing prompt and model performance on Singapore resale questions.";
     document.querySelector(".eyebrow").textContent = casesPage
       ? "EvalKit / Case review / HDB resale"
+      : tagsPage ? "EvalKit / Tag performance / HDB resale"
       : "EvalKit / Evaluation runs / HDB resale";
     if (view === "runs") document.querySelector("#runs").scrollIntoView({ behavior: "smooth", block: "start" });
     else window.scrollTo({ top: 0, behavior: "smooth" });
@@ -581,6 +703,9 @@
   document.querySelector("#caseTagFilter").addEventListener("change", () => { if (experiments[activeSplit]) renderCases(experiments[activeSplit]); });
   document.querySelector("#caseCandidateFilter").addEventListener("change", () => { if (experiments[activeSplit]) renderCases(experiments[activeSplit]); });
   document.querySelector("#caseResultFilter").addEventListener("change", () => { if (experiments[activeSplit]) renderCases(experiments[activeSplit]); });
+  document.querySelector("#tagSplitFilter").addEventListener("change", event => selectSplit(event.target.value));
+  document.querySelector("#tagCandidateFilter").addEventListener("change", () => { if (experiments[activeSplit]) renderTags(experiments[activeSplit]); });
+  document.querySelector("#tagSearch").addEventListener("input", () => { if (experiments[activeSplit]) renderTags(experiments[activeSplit]); });
   Promise.all([
   fetch(`./data/dev.json?v=${Date.now()}`, { cache: "no-store" }).then((response) => {
     if (!response.ok) throw new Error("Could not load dev results");
@@ -597,6 +722,7 @@
     document.querySelector("#testCaseCount").textContent = `${test.cases} cases`;
     render();
     if (location.hash === "#casesView") selectView("cases");
+    else if (location.hash === "#tagsView") selectView("tags");
   })
   .catch((error) => {
     document.querySelector("#summaryCards").textContent = error.message;
