@@ -1,8 +1,8 @@
 {
   "split": "test",
   "cases": 100,
-  "runId": "2026-10-15T07-14-30-267Z-611f92",
-  "startedAt": "2026-10-15T07:14:30.267Z",
+  "runId": "2026-10-15T08-03-07-666Z-9658a5",
+  "startedAt": "2026-10-15T08:03:07.666Z",
   "candidates": [
     {
       "name": "main-v1",
@@ -42,26 +42,28 @@
       "name": "model-b-v3-prompt",
       "model": "gpt-4o-mini",
       "prompt": "examples/hdb/prompts/v3.txt",
-      "passed": 24,
+      "passed": 23,
       "total": 100,
       "latency": 1227,
       "cost": 0.005469749999999999,
       "failures": {
         "wrong_result": 75,
-        "shape_mismatch": 1
+        "shape_mismatch": 1,
+        "intent_probe_failed": 1
       }
     },
     {
       "name": "model-c-v3-prompt",
       "model": "gpt-4.1-nano",
       "prompt": "examples/hdb/prompts/v3.txt",
-      "passed": 32,
+      "passed": 31,
       "total": 100,
       "latency": 951,
       "cost": 0.0035053,
       "failures": {
         "wrong_result": 65,
-        "shape_mismatch": 3
+        "shape_mismatch": 3,
+        "intent_probe_failed": 1
       }
     },
     {
@@ -1182,17 +1184,17 @@
         },
         {
           "name": "model-b-v3-prompt",
-          "passed": true,
-          "failure": null,
-          "detail": "match",
+          "passed": false,
+          "failure": "intent_probe_failed",
+          "detail": "Intent probe failed: Expected [[1]], got [[0]]; probe expected [[1]]",
           "modelSql": "SELECT COUNT(*) FROM resale WHERE flat_type = '1 ROOM' AND town = 'GEYLANG' AND strftime('%Y', month) = '2018';",
           "actualPreview": "[[0]]"
         },
         {
           "name": "model-c-v3-prompt",
-          "passed": true,
-          "failure": null,
-          "detail": "match",
+          "passed": false,
+          "failure": "intent_probe_failed",
+          "detail": "Intent probe failed: Expected [[1]], got [[0]]; probe expected [[1]]",
           "modelSql": "SELECT COUNT(*) FROM resale WHERE town = 'GEYLING' AND flat_type = '1 ROOM' AND strftime('%Y', month) = '2018';",
           "actualPreview": "[[0]]"
         },
